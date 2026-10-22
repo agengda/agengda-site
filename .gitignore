@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.workbuddy/
+*.log
+*.genie
+.DS_Store
+data/leads.jsonl
+.env
