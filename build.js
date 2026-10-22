@@ -157,7 +157,7 @@ const ROOT = __dirname;
 const DIST = path.join(ROOT, "dist");
 const IMG_SRC = path.join(ROOT, "assets", "img");
 const IMG_DIST = path.join(DIST, "assets", "img");
-const hasImg = (name) => fs.existsSync(path.join(IMG_SRC, name));
+const hasImg = (name) => name && (fs.existsSync(path.join(IMG_SRC, name)) || fs.existsSync(path.join(IMG_DIST, name)));
 
 const waLink = (msg) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 const abs = (code, file) => `${SITE_URL}/${code}/${file}`;
