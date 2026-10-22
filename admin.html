@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>参数管理 · 产品规格表</title>
+<style>
+  :root{
+    --ink:#161b22; --ink2:#4a5464; --ink3:#78828f; --line:#e2e6ec; --line2:#c9d0da;
+    --bg:#f4f6f9; --card:#fff; --blue:#1a5fb4; --blue-d:#143f7a; --warn:#b45309; --warnbg:#fff7e6;
+    --ok:#1a7f4b; --okbg:#e9f7ef;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 "PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;}
+  .bar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);
+    box-shadow:0 1px 3px rgba(16,24,40,.05)}
+  .bar-in{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .bar h1{font-size:17px;margin:0;letter-spacing:.3px}
+  .bar h1 span{color:var(--ink3);font-weight:400;font-size:13px;margin-left:8px;letter-spacing:0}
+  .bar .sp{flex:1}
+  .status{font-size:13px;color:var(--ink3);min-width:120px;text-align:right}
+  .status.err{color:#b42318}
+  button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line2);
+    background:#fff;color:var(--ink);padding:8px 16px;transition:.15s}
+  button:hover{border-color:var(--blue);color:var(--blue)}
+  button.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+  button.primary:hover{background:var(--blue-d);border-color:var(--blue-d);color:#fff}
+  button:disabled{opacity:.55;cursor:not-allowed}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 90px}
+  .tip{background:var(--warnbg);border:1px solid #f4d9a5;border-left:3px solid var(--warn);
+    border-radius:8px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;color:#5c4416}
+  .tip strong{color:#8a4b05}
+  .tip ol{margin:6px 0 0;padding-left:20px}
+  .tip li{margin:3px 0}
+  .offline{background:#fdecec;border:1px solid #f3b7b7;border-left:3px solid #c0392b;
+    border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13.5px;color:#7d2320}
+  .offline strong{display:inline-block;background:#c0392b;color:#fff;padding:1px 8px;
+    border-radius:4px;font-size:12px;margin-right:8px;font-weight:600}
+  .offline code{background:#fff;padding:2px 6px;border-radius:4px;color:#7d2320}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .sec-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .sec-head h2{font-size:16px;margin:0}
+  .sec-head code{font-size:12px;color:var(--ink3);background:#f2f4f7;padding:2px 7px;border-radius:5px}
+  .sec-sub{font-size:13px;color:var(--ink3);margin:0 0 14px}
+  .models{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .models label{font-size:13px;color:var(--ink2);font-weight:600}
+  .models input{flex:1;min-width:260px;font:inherit;padding:7px 10px;border:1px solid var(--line2);
+    border-radius:7px;background:#fff}
+  .models input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,180,.12)}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:9px}
+  table{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;font-size:13.5px}
+  th,td{padding:0;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:left}
+  tr:last-child th,tr:last-child td{border-bottom:0}
+  th:last-child,td:last-child{border-right:0}
+  thead th{background:#f8fafc;font-weight:600;font-size:13px;padding:9px 12px;color:var(--ink2)}
+  tbody th{background:#fbfcfd;padding:9px 12px;font-weight:500;color:var(--ink2);white-space:nowrap;width:1%}
+  tbody th .u{color:var(--ink3);font-size:11.5px;margin-left:4px}
+  td input{width:100%;border:0;background:transparent;font:inherit;padding:9px 12px;color:var(--ink)}
+  td input:focus{outline:none;background:#eef5ff}
+  td input::placeholder{color:#b9c0ca}
+  .calc td input.rule{max-width:120px}
+  .footbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
+    padding:12px 20px;display:flex;align-items:center;gap:12px;justify-content:flex-end;
+    box-shadow:0 -1px 4px rgba(16,24,40,.06);z-index:20}
+  .footbar .hint{flex:1;font-size:12.5px;color:var(--ink3)}
+  .toast{position:fixed;right:20px;bottom:76px;background:#12351f;color:#e9f7ef;padding:11px 16px;
+    border-radius:9px;font-size:13.5px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:40}
+  .toast.on{opacity:1;transform:none}
+  .toast.bad{background:#4a1414;color:#ffe4e4}
+  @media(max-width:720px){
+    .bar h1 span{display:none}
+    .wrap{padding:16px 12px 90px}
+    .sec{padding:14px}
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="bar-in">
+    <h1>参数管理<span id="verTag">v3 · 保存一步到位</span></h1>
+    <div class="sp"></div>
+    <div class="status" id="status">读取中…</div>
+    <button id="btnLogin" type="button" style="display:none">使用 WorkBuddy 登录</button>
+    <button id="btnExport" type="button">导出参数文件</button>
+    <button id="btnRebuild" type="button">仅重新生成</button>
+    <button id="btnSave" class="primary" type="button">保存并发布</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="offline" id="offline" style="display:none">
+    <strong>只读预览</strong><span id="offlineMsg"></span>
+    请用浏览器打开 <code>http://localhost:8080/admin</code> 才能保存。
+  </div>
+  <div class="tip">
+    <strong>填之前先看这三条</strong>
+    <ol>
+      <li>这里填的是要发给海外客户看的真实参数，客户和工程师会逐项核对，<strong>不要填估算值或向上取整的数字</strong>。</li>
+      <li>单位已经写在左侧字段名后面，输入框里<strong>只填数字或简短文字</strong>（例：制冷量填 <code>32.5</code>，电源填 <code>380V/50Hz/3P</code>）。</li>
+      <li>留空的格子会在页面上显示「待确认」并挂黄条提示。<strong>全部填满后黄条自动消失</strong>，全站 12 种语言同时更新。</li>
+      <li>填了「制冷量 kW」，「制冷量（大卡）」会<strong>自动按 1 kW ≈ 860 kcal/h 换算</strong>好（可手动改成你们画册上的值，改过就不再自动覆盖）。</li>
+    </ol>
+  </div>
+  <div id="sections"></div>
+  <div id="factoryHost"></div>
+  <div id="casesHost"></div>
+  <div id="leadsHost"></div>
+</div>
+
+<div class="footbar">
+  <div class="hint" id="hint">改动只存在浏览器里，点「保存并发布」才会写入并重新生成页面。</div>
+  <button id="btnSave2" class="primary" type="button">保存并发布</button>
+</div>
+<div class="toast" id="toast"></div>
+<script src="/assets/js/cloud-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
+<script src="/assets/js/cloud-client.js"></script>
+<script>
+(function () {
+  var S = null;
+  var el = function (t, c, h) { var e = document.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
+  var statusEl = document.getElementById("status");
+  var toastEl = document.getElementById("toast");
+  var dirty = false;
+  var signedIn = false;
+  var factorySavedToCloud = false;
+
+  function setStatus(txt, bad) {
+    statusEl.textContent = txt;
+    statusEl.className = "status" + (bad ? " err" : "");
+  }
+  function toast(msg, bad) {
+    toastEl.textContent = msg;
+    toastEl.className = "toast on" + (bad ? " bad" : "");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { toastEl.className = "toast"; }, 3200);
+  }
+  // Local draft: keeps whatever was typed even if the page is closed before
+  // pressing 保存并发布, so an hour of datasheet typing is never lost.
+  var DRAFT_KEY = "catalog-draft-v1";
+  function saveDraft() {
+    clearTimeout(saveDraft._t);
+    saveDraft._t = setTimeout(function () {
+      try { localStorage.setItem(DRAFT_KEY, JSON.stringify(collect())); } catch (e) { /* quota / disabled */ }
+    }, 400);
+  }
+  function readDraft() {
+    try { var raw = localStorage.getItem(DRAFT_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+  }
+  function clearDraft() {
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) { /* ignore */ }
+  }
+  function applyDraft(d) {
+    if (!d || !d.series) return 0;
+    var n = 0;
+    Object.keys(d.series).forEach(function (k) {
+      var sp = ((d.series[k] || {}).spec) || {};
+      Object.keys(sp).forEach(function (m) {
+        Object.keys(sp[m] || {}).forEach(function (f) {
+          var v = sp[m][f];
+          if (v === undefined || v === null || v === "") return;
+          var inp = document.querySelector('#sections input[data-series="' + k + '"][data-model="' + m + '"][data-field="' + f + '"]');
+          if (inp && inp.value !== v) { inp.value = v; n++; }
+        });
+      });
+    });
+    return n;
+  }
+
+  function markDirty() {
+    dirty = true;
+    document.getElementById("hint").textContent = "有未保存的改动 — 点「保存并发布」写入并重新生成页面。";
+    saveDraft();
+    if (typeof CASE_STATE !== "undefined" && CASE_STATE.cases) saveCasesDraft();
+    if (typeof FACTORY_STATE !== "undefined" && FACTORY_STATE.textKeys) saveFactoryDraft();
+  }
+
+  // Built-in copy of the field list. Used when /api/catalog is unreachable
+  // (e.g. the page is opened as a plain file or through a static preview),
+  // so the table always renders instead of showing an empty screen.
+  var FALLBACK = {
+    fields: [
+      { key: "capacity", unit: "kW", label: "制冷量" },
+      { key: "kcal", unit: "", label: "制冷量（大卡）" },
+      { key: "compressor", unit: "kW", label: "压缩机输入功率" },
+      { key: "pump", unit: "kW", label: "水泵输入功率" },
+      { key: "power", unit: "kW", label: "总功率" },
+      { key: "flow", unit: "m³/h", label: "冷冻水流量" },
+      { key: "voltage", unit: "", label: "电源" },
+      { key: "refrigerant", unit: "", label: "冷媒" },
+      { key: "dim", unit: "mm", label: "外形尺寸" },
+      { key: "weight", unit: "kg", label: "整机重量" }
+    ],
+    series: [
+      { key: "air", slug: "air-cooled-chiller", name: "风冷式冷水机", models: ["AC-03", "AC-05", "AC-08", "AC-10", "AC-15", "AC-20"], spec: {} },
+      { key: "water", slug: "water-cooled-chiller", name: "水冷式冷水机", models: ["WC-10", "WC-20", "WC-30", "WC-50", "WC-80", "WC-100"], spec: {} },
+      { key: "low", slug: "low-temp-chiller", name: "低温冷水机", models: ["LT-03", "LT-05", "LT-08", "LT-10", "LT-15", "LT-20"], spec: {} },
+      { key: "screw", slug: "screw-chiller", name: "螺杆式冷水机", models: ["SC-30", "SC-60", "SC-100", "SC-150", "SC-200", "SC-300"], spec: {} }
+    ],
+    rules: [
+      { key: "inj", label: "注塑机（每吨锁模力）", k: [0.055, 0.075] },
+      { key: "blow", label: "吹塑机（每 kg/h 产量）", k: [0.22, 0.3] },
+      { key: "extr", label: "挤出机（螺杆直径）", k: [0.25, 0.4] },
+      { key: "rub", label: "橡胶挤出（每 kg/h 胶料）", k: [0.3, 0.45] },
+      { key: "laser", label: "激光（每 kW 功率）", k: [2.6, 3.2] }
+    ],
+    corrections: [
+      { key: "ambient", label: "环境温度偏高", factor: 1.15 },
+      { key: "altitude", label: "高海拔", factor: 1.08 },
+      { key: "intermittent", label: "间歇运行", factor: 0.85 }
+    ]
+  };
+
+  function offline(msg) {
+    var box = document.getElementById("offline");
+    box.style.display = "block";
+    if (msg) document.getElementById("offlineMsg").textContent = msg;
+    setStatus("只读预览模式（产品参数表）", true);
+    // On the published site the local /api/* is unavailable, so the datasheet
+    // editor is read-only — but the cloud-backed factory profile stays editable
+    // and the leads table stays viewable, so keep 保存并发布 enabled for that.
+    var disableIds = (window.CloudApp && !window.CloudApp.isLocal())
+      ? ["btnRebuild"]
+      : ["btnSave", "btnSave2", "btnRebuild"];
+    disableIds.forEach(function (id) {
+      var b = document.getElementById(id); if (b) b.disabled = true;
+    });
+    document.getElementById("hint").textContent = (window.CloudApp && !window.CloudApp.isLocal())
+      ? "产品参数表为只读预览；工厂资料（云端）登录后仍可保存，询盘可登录查看。"
+      : "当前只是预览，改动无法保存。请用浏览器打开 http://localhost:8080/admin 填写并发布。";
+  }
+
+  // ---------- Customer cases editor ----------
+  var CASE_STATE = { cases: [], industries: [], countries: [] };
+  var CASES_DRAFT_KEY = "cases-draft-v1";
+  var CASES_MAX = 5;
+
+  // ---------- Factory profile editor ----------
+  var EV_FALLBACK = [
+    { key: "workshop", img: "workshop.jpg", zh: "", en: "", defZh: "车间与产线", defEn: "Workshop & production lines", has: false },
+    { key: "test", img: "test.jpg", zh: "", en: "", defZh: "整机试机", defEn: "Full-unit testing", has: false },
+    { key: "cert", img: "cert.jpg", zh: "", en: "", defZh: "认证证书", defEn: "Certificates", has: false },
+    { key: "shipping", img: "shipping.jpg", zh: "", en: "", defZh: "装柜与出口", defEn: "Loading & export", has: false }
+  ];
+  var FACTORY_STATE = { textKeys: [], facts: [], i18n: { zh: {}, en: {} }, defaults: { zh: {}, en: {} }, evidence: EV_FALLBACK };
+  var FACTORY_DRAFT_KEY = "factory-draft-v1";
+  var FACT_TIP = {
+    intro: "工厂介绍（首屏一句话，如：自有产线的源头制造商，欢迎验厂）",
+    a1_t: "卡片1 标题", a1_d: "卡片1 描述",
+    a2_t: "卡片2 标题", a2_d: "卡片2 描述",
+    a3_t: "卡片3 标题", a3_d: "卡片3 描述",
+    a4_t: "卡片4 标题", a4_d: "卡片4 描述",
+    cta: "页面底部行动号召",
+  };
+
+  var FACT_KEYS = ["founded", "area", "staff", "capacity", "markets"];
+  var FACT_LABEL = { founded: "成立年份", area: "厂房面积", staff: "员工人数", capacity: "月产能（台）", markets: "出口国家" };
+  var FACTORY_TEXT_KEYS_ADM = ["intro", "a1_t", "a1_d", "a2_t", "a2_d", "a3_t", "a3_d", "a4_t", "a4_d", "cta"];
+  var FDEF = {
+    workshop: { zh: "车间与产线", en: "Workshop & production lines" },
+    test: { zh: "整机试机", en: "Full-unit testing" },
+    cert: { zh: "认证证书", en: "Certificates" },
+    shipping: { zh: "装柜与出口", en: "Loading & export" }
+  };
+  function normalizeFactory(j) {
+    j = j || {};
+    var factsObj = (j.facts && !Array.isArray(j.facts)) ? j.facts : {};
+    var factsArr = Array.isArray(j.facts)
+      ? j.facts
+      : FACT_KEYS.map(function (k) { return { key: k, label: FACT_LABEL[k] || k, value: String(factsObj[k] || "") }; });
+    var ev = (j.evidence && j.evidence.length) ? j.evidence : EV_FALLBACK;
+    var evidence = ev.map(function (e) {
+      var key = e.key || "";
+      return {
+        key: key, img: e.img || "", zh: e.zh || "", en: e.en || "",
+        defZh: (FDEF[key] && FDEF[key].zh) || "", defEn: (FDEF[key] && FDEF[key].en) || "", has: !!e.img
+      };
+    });
+    return { textKeys: FACTORY_TEXT_KEYS_ADM, facts: factsArr, i18n: j.i18n || { zh: {}, en: {} }, defaults: {}, evidence: evidence };
+  }
+
+  function loadFactory() {
+    var src = (window.CloudApp)
+      ? window.CloudApp.loadFactory()
+      : fetch("/api/factory", { cache: "no-store" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
+    Promise.resolve(src)
+      .then(function (j) {
+        var draft = null;
+        try { var raw = localStorage.getItem(FACTORY_DRAFT_KEY); if (raw) draft = JSON.parse(raw); } catch (e) { /* ignore */ }
+        FACTORY_STATE = normalizeFactory(j);
+        if (draft && draft.i18n) { FACTORY_STATE.i18n = draft.i18n; }
+        if (draft && draft.evidence && FACTORY_STATE.evidence) {
+          draft.evidence.forEach(function (de, i) {
+            var cur = FACTORY_STATE.evidence[i];
+            if (!cur) return;
+            cur.img = de.img || ""; cur.zh = de.zh || ""; cur.en = de.en || "";
+            cur.has = !!de.img;
+          });
+        }
+        renderFactory();
+      })
+      .catch(function () { renderFactory(); });
+  }
+
+  function collectFactoryState() {
+    var facts = {};
+    FACTORY_STATE.facts.forEach(function (f) { if (f.value) facts[f.key] = f.value; });
+    var evidence = (FACTORY_STATE.evidence || []).map(function (e) {
+      return { key: e.key || "", img: e.img || "", zh: e.zh || "", en: e.en || "" };
+    });
+    return { i18n: FACTORY_STATE.i18n, facts: facts, evidence: evidence };
+  }
+
+  function saveFactoryDraft() {
+    clearTimeout(saveFactoryDraft._t);
+    saveFactoryDraft._t = setTimeout(function () {
+      try { localStorage.setItem(FACTORY_DRAFT_KEY, JSON.stringify(collectFactoryState())); } catch (e) { /* ignore */ }
+    }, 400);
+  }
+
+  function renderFactory() {
+    var host = document.getElementById("factoryHost");
+    if (!host) return;
+    host.innerHTML = "";
+    var sec = el("div", "sec");
+    var head = el("div", "sec-head");
+    head.appendChild(el("h2", null, "工厂信息"));
+    head.appendChild(el("code", null, "factory.html"));
+    sec.appendChild(head);
+    sec.appendChild(el("p", "sec-sub",
+      "这里填的是工厂实力页的文案和关键数据。留空 = 沿用现在的默认文案。关键数据只填真实值，没填的格子页面上不会显示，不会凭空出现数字。"));
+
+    // key figures
+    var fw = el("div");
+    fw.style.cssText = "border:1px solid var(--line);border-radius:9px;padding:14px;margin-bottom:14px;background:#fbfcfd";
+    fw.appendChild(el("div", null, "<strong style='font-size:13.5px'>工厂关键数据</strong><span style='color:#78828f;font-size:12.5px;margin-left:8px'>显示在工厂页顶部（有值才显示）</span>"));
+    var fg = el("div");
+    fg.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px";
+    FACTORY_STATE.facts.forEach(function (f) {
+      var box = el("div");
+      var lb = el("label", null, f.label);
+      lb.style.cssText = "display:block;font-size:12.5px;color:var(--ink2);margin-bottom:4px;font-weight:600";
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.placeholder = "如 " + (f.key === "founded" ? "2008" : f.key === "area" ? "8,000 m²" : f.key === "staff" ? "120" : f.key === "capacity" ? "300" : "30+");
+      inp.value = f.value || "";
+      inp.style.cssText = "width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line2);border-radius:7px;box-sizing:border-box";
+      inp.addEventListener("input", function () { f.value = inp.value.trim(); markDirty(); saveFactoryDraft(); });
+      box.appendChild(lb); box.appendChild(inp);
+      fg.appendChild(box);
+    });
+    fw.appendChild(fg);
+    sec.appendChild(fw);
+
+    // texts: zh / en tabs
+    var lang = FACTORY_STATE._lang || "zh";
+    var tabs = el("div", "models");
+    tabs.style.marginBottom = "8px";
+    [["zh", "中文"], ["en", "English"]].forEach(function (p) {
+      var b = el("button", null, p[1] + (lang === p[0] ? " ✓" : ""));
+      b.type = "button";
+      b.style.fontWeight = lang === p[0] ? "700" : "400";
+      b.addEventListener("click", function () { FACTORY_STATE._lang = p[0]; renderFactory(); });
+      tabs.appendChild(b);
+    });
+    sec.appendChild(tabs);
+
+    FACTORY_STATE.textKeys.forEach(function (k) {
+      var lb = el("label", null, FACT_TIP[k] || k);
+      lb.style.cssText = "display:block;font-size:12.5px;color:var(--ink2);margin:8px 0 3px;font-weight:600";
+      var ta = document.createElement(k === "intro" || k === "cta" ? "input" : "textarea");
+      if (ta.tagName === "TEXTAREA") ta.rows = 2;
+      ta.style.cssText = "width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line2);border-radius:7px;resize:vertical;box-sizing:border-box";
+      var cur = (FACTORY_STATE.i18n[lang] || {})[k] || "";
+      ta.value = cur;
+      ta.placeholder = (FACTORY_STATE.defaults[lang] || {})[k] || "";
+      ta.addEventListener("input", function () {
+        if (!FACTORY_STATE.i18n[lang]) FACTORY_STATE.i18n[lang] = {};
+        FACTORY_STATE.i18n[lang][k] = ta.value;
+        markDirty(); saveFactoryDraft();
+      });
+      sec.appendChild(lb); sec.appendChild(ta);
+    });
+
+    // ---- factory evidence tiles (4 photos + editable labels) ----
+    var evHead = el("div", null, "<strong style='font-size:13.5px'>工厂证据（4 张）</strong><span style='color:#78828f;font-size:12.5px;margin-left:8px'>对应工厂页「可直接核验的工厂证据」，可改标题、上传实拍图（png/jpg/webp，≤8MB）</span>");
+    evHead.style.marginTop = "18px";
+    sec.appendChild(evHead);
+    var evWrap = el("div");
+    evWrap.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:10px";
+    (FACTORY_STATE.evidence || []).forEach(function (e) {
+      var card = el("div");
+      card.style.cssText = "border:1px solid var(--line);border-radius:10px;padding:10px;background:#fbfcfd";
+      var thumb = el("div");
+      thumb.style.cssText = "height:104px;border-radius:8px;border:1px solid var(--line);overflow:hidden;display:grid;place-items:center;background:#fff;margin-bottom:8px;color:#9aa7b6;font-size:12.5px";
+      function paintThumb() {
+        thumb.innerHTML = "";
+        var src = e._preview || (e.has && e.img ? "/assets/img/" + e.img : "");
+        if (src) {
+          var im = document.createElement("img");
+          im.src = src; im.style.cssText = "width:100%;height:100%;object-fit:cover";
+          im.onerror = function () { thumb.innerHTML = ""; thumb.appendChild(el("span", null, "（未上传图片）")); };
+          thumb.appendChild(im);
+        } else {
+          thumb.appendChild(el("span", null, "（未上传图片）"));
+        }
+      }
+      paintThumb();
+      card.appendChild(thumb);
+      var lb = el("label", null, "标题（" + (lang === "zh" ? "中文" : "English") + "）");
+      lb.style.cssText = "display:block;font-size:12px;color:var(--ink2);margin-bottom:3px;font-weight:600";
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.style.cssText = "width:100%;font:inherit;padding:7px 9px;border:1px solid var(--line2);border-radius:7px;box-sizing:border-box";
+      inp.value = (lang === "zh" ? e.zh : e.en) || "";
+      inp.placeholder = (lang === "zh" ? e.defZh : e.defEn) || "";
+      inp.addEventListener("input", function () {
+        if (lang === "zh") e.zh = inp.value; else e.en = inp.value;
+        markDirty(); saveFactoryDraft();
+      });
+      card.appendChild(lb); card.appendChild(inp);
+      var file = document.createElement("input");
+      file.type = "file"; file.accept = "image/*"; file.style.display = "none";
+      file.addEventListener("change", function () {
+        var f = file.files && file.files[0];
+        if (!f) return;
+        if (f.size > 8 * 1024 * 1024) { toast("图片超过 8MB，请先压缩", true); file.value = ""; return; }
+        var rd = new FileReader();
+        rd.onload = function () {
+          var dataUrl = rd.result;
+          toast("上传中…");
+          fetch("/api/upload", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ dataUrl: dataUrl, base: e.key || "evidence" }) })
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+              if (!j.ok) throw new Error(j.error || "上传失败");
+              e.img = j.img; e.has = true; e._preview = dataUrl;
+              paintThumb(); markDirty(); saveFactoryDraft();
+              toast("图片已上传，记得点「保存并发布」");
+            })
+            .catch(function (err) { toast("上传失败：" + err.message, true); });
+        };
+        rd.readAsDataURL(f);
+      });
+      card.appendChild(file);
+      var row = el("div");
+      row.style.cssText = "display:flex;gap:8px;margin-top:8px;flex-wrap:wrap";
+      var upBtn = el("button", null, "上传图片"); upBtn.type = "button";
+      upBtn.style.cssText = "font-size:12.5px;padding:6px 12px";
+      upBtn.addEventListener("click", function () { file.click(); });
+      row.appendChild(upBtn);
+      var clr = el("button", null, "清除"); clr.type = "button";
+      clr.style.cssText = "font-size:12.5px;padding:6px 12px;color:#b42318";
+      clr.addEventListener("click", function () {
+        e.img = ""; e.has = false; e._preview = "";
+        paintThumb(); markDirty(); saveFactoryDraft();
+      });
+      row.appendChild(clr);
+      card.appendChild(row);
+      evWrap.appendChild(card);
+    });
+    sec.appendChild(evWrap);
+
+    host.appendChild(sec);
+  }
+
+  function loadCases() {
+    fetch("/api/cases", { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (j) {
+        CASE_STATE.industries = j.industries || [];
+        CASE_STATE.countries = j.countries || [];
+        var draft = null;
+        try { var raw = localStorage.getItem(CASES_DRAFT_KEY); if (raw) draft = JSON.parse(raw).cases; } catch (e) { /* ignore */ }
+        CASE_STATE.cases = (draft && draft.length ? draft : j.cases) || [];
+        renderCases();
+      })
+      .catch(function (e) {
+        // Offline preview: still show the editor with empty state.
+        CASE_STATE.cases = [];
+        renderCases();
+        setStatus("案例列表读取失败：" + e.message, true);
+      });
+  }
+
+  function saveCasesDraft() {
+    clearTimeout(saveCasesDraft._t);
+    saveCasesDraft._t = setTimeout(function () {
+      try { localStorage.setItem(CASES_DRAFT_KEY, JSON.stringify(collectCasesState())); } catch (e) { /* ignore */ }
+    }, 400);
+  }
+
+  function clearCasesDraft() {
+    try { localStorage.removeItem(CASES_DRAFT_KEY); } catch (e) { /* ignore */ }
+  }
+
+  function collectCasesState() {
+    return {
+      cases: CASE_STATE.cases.map(function (c) {
+        return {
+          country: c.country, industry: c.industry, model: c.model, qty: c.qty,
+          i18n: {
+            zh: { problem: (c.i18n.zh || {}).problem || "", solution: (c.i18n.zh || {}).solution || "", result: (c.i18n.zh || {}).result || "" },
+            en: { problem: (c.i18n.en || {}).problem || "", solution: (c.i18n.en || {}).solution || "", result: (c.i18n.en || {}).result || "" }
+          }
+        };
+      })
+    };
+  }
+
+  function esc(s) {
+    return String(s === undefined || s === null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function renderCases() {
+    var host = document.getElementById("casesHost");
+    if (!host) return;
+    host.innerHTML = "";
+
+    var sec = el("div", "sec");
+    var head = el("div", "sec-head");
+    head.appendChild(el("h2", null, "客户案例"));
+    head.appendChild(el("code", null, "cases.html"));
+    sec.appendChild(head);
+    sec.appendChild(el("p", "sec-sub",
+      "建议放 2–4 个真实案例（客户同意公开才能放，客户名可以脱敏）。先填中文和英文两栏，保存发布后其余 10 种语言先显示英文，可以再让 AI 助手补翻译。标题会自动拼成「国旗 · 行业 · 机型 · 数量」，不用手写。"));
+
+    CASE_STATE.cases.forEach(function (c, i) {
+      var lang = c._lang || "zh";
+      var card = el("div", "case-edit");
+      card.style.cssText = "border:1px solid var(--line);border-radius:9px;padding:14px;margin-bottom:12px;background:#fbfcfd";
+
+      var row = el("div", "models");
+      row.style.gap = "8px";
+      function sel(id, list, val, changeFn) {
+        var s = document.createElement("select");
+        s.style.cssText = "font:inherit;padding:7px 8px;border:1px solid var(--line2);border-radius:7px;background:#fff";
+        list.forEach(function (o) {
+          var op = document.createElement("option");
+          op.value = o.key; op.textContent = o.label;
+          if (o.key === val) op.selected = true;
+          s.appendChild(op);
+        });
+        s.addEventListener("change", function () { changeFn(s.value); markDirty(); });
+        return s;
+      }
+      row.appendChild(sel("ind", CASE_STATE.industries, c.industry, function (v) { c.industry = v; }));
+      row.appendChild(sel("cty", CASE_STATE.countries, c.country, function (v) { c.country = v; }));
+      [["_model", "机型如 AC-15", "model"], ["_qty", "数量", "qty"]].forEach(function (p) {
+        var inp = document.createElement("input");
+        inp.type = "text"; inp.placeholder = p[1]; inp.value = c[p[2]] || "";
+        inp.style.cssText = "flex:1;min-width:90px;font:inherit;padding:7px 10px;border:1px solid var(--line2);border-radius:7px";
+        inp.addEventListener("input", function () { c[p[2]] = inp.value.trim(); markDirty(); });
+        row.appendChild(inp);
+      });
+      var del = el("button", null, "删除");
+      del.type = "button";
+      del.addEventListener("click", function () {
+        CASE_STATE.cases.splice(i, 1);
+        markDirty(); renderCases();
+      });
+      row.appendChild(del);
+      card.appendChild(row);
+
+      // language tabs
+      var tabs = el("div", "models");
+      tabs.style.marginBottom = "8px";
+      [["zh", "中文"], ["en", "English"]].forEach(function (p) {
+        var b = el("button", null, p[1] + (lang === p[0] ? " ✓" : ""));
+        b.type = "button";
+        b.style.fontWeight = lang === p[0] ? "700" : "400";
+        b.addEventListener("click", function () { c._lang = p[0]; renderCases(); });
+        tabs.appendChild(b);
+      });
+      card.appendChild(tabs);
+
+      var t = c.i18n[lang] || (c.i18n[lang] = {});
+      [["problem", "客户遇到的问题"], ["solution", "我们给的方案"], ["result", "带来的结果（尽量带数字）"]].forEach(function (p) {
+        var lb = el("label", null, p[1]);
+        lb.style.cssText = "display:block;font-size:12.5px;color:var(--ink2);margin:8px 0 3px;font-weight:600";
+        var ta = document.createElement("textarea");
+        ta.rows = 2;
+        ta.style.cssText = "width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line2);border-radius:7px;resize:vertical;box-sizing:border-box";
+        ta.value = t[p[0]] || "";
+        ta.addEventListener("input", function () { t[p[0]] = ta.value; markDirty(); saveCasesDraft(); });
+        card.appendChild(lb); card.appendChild(ta);
+      });
+
+      sec.appendChild(card);
+    });
+
+    if (CASE_STATE.cases.length < CASES_MAX) {
+      var add = el("button", null, "+ 添加案例");
+      add.type = "button";
+      add.addEventListener("click", function () {
+        CASE_STATE.cases.push({
+          country: "MX", industry: (CASE_STATE.industries[0] || {}).key || "",
+          model: "", qty: "",
+          i18n: { zh: { problem: "", solution: "", result: "" }, en: { problem: "", solution: "", result: "" } },
+          _lang: "zh"
+        });
+        markDirty(); renderCases();
+      });
+      sec.appendChild(add);
+    } else {
+      sec.appendChild(el("p", "sec-sub", "最多 " + CASES_MAX + " 个案例。"));
+    }
+
+    host.appendChild(sec);
+  }
+
+  function load() {
+    // Render immediately from the built-in list, then replace with live values.
+    S = FALLBACK;
+    render();
+    setStatus("正在连接服务…");
+    // The factory profile is cloud-backed: render it whether or not the local
+    // /api/catalog is reachable, so the published (static) site can still edit
+    // and hydrate factory data from the cloud.
+    loadFactory();
+    fetch("/api/catalog", { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (j) {
+        if (!j || !j.fields || !j.fields.length) throw new Error("返回数据为空");
+        S = j; render();
+        var n = applyDraft(readDraft());
+        setStatus("已连接 · " + j.series.length + " 个系列 · " + j.fields.length + " 项参数");
+        if (n) {
+          dirty = true;
+          document.getElementById("hint").textContent = "已恢复上次未发布的 " + n + " 个输入 — 确认无误后点「保存并发布」。";
+          toast("已恢复上次未发布的 " + n + " 个输入");
+        }
+      })
+      .then(function () { loadCases(); })
+      .catch(function (e) {
+        // On the published static site there is no local /api, so the datasheet
+        // editor is read-only — but factory (cloud) + leads stay usable.
+        offline("没有连上本机参数服务（" + e.message + "）。产品参数表为只读预览；工厂资料与询盘走云端，登录后仍可编辑/查看。");
+      });
+  }
+
+  function render() {
+    var host = document.getElementById("sections");
+    host.innerHTML = "";
+
+    S.series.forEach(function (s) {
+      var sec = el("div", "sec");
+      var head = el("div", "sec-head");
+      head.appendChild(el("h2", null, s.name));
+      head.appendChild(el("code", null, s.slug + ".html"));
+      sec.appendChild(head);
+      sec.appendChild(el("p", "sec-sub", "型号代码用逗号分隔，改了型号后表格会跟着变。型号是客户询价时最常引用的字段，建议和你们画册、报价单完全一致。"));
+
+      var mid = el("div", "models");
+      var lb = el("label", null, "型号");
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.value = s.models.join(", ");
+      inp.spellcheck = false;
+      inp.dataset.key = s.key;
+      inp.addEventListener("input", function () { markDirty(); });
+      inp.addEventListener("blur", function () {
+        var arr = inp.value.split(/[,，;；\s]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+        if (!arr.length) { inp.value = s.models.join(", "); return; }
+        s.models = arr.filter(function (v, i, a) { return a.indexOf(v) === i; });
+        inp.value = s.models.join(", ");
+        rebuildTable(sec, s);
+      });
+      mid.appendChild(lb); mid.appendChild(inp);
+      sec.appendChild(mid);
+
+      rebuildTable(sec, s);
+      host.appendChild(sec);
+    });
+
+    // calculator coefficients
+    var cs = el("div", "sec");
+    var ch = el("div", "sec-head");
+    ch.appendChild(el("h2", null, "选型计算器系数"));
+    cs.appendChild(ch);
+    cs.appendChild(el("p", "sec-sub", "这组系数决定页面上估算出的制冷量区间。默认值是行业经验区间，除非你们工程师给过明确数值，否则不要动。"));
+    var ct = el("table", "calc");
+    var thead = el("thead");
+    thead.innerHTML = "<tr><th>行业</th><th>系数下限</th><th>系数上限</th></tr>";
+    ct.appendChild(thead);
+    var tb = el("tbody");
+    (S.rules || []).forEach(function (r, i) {
+      var tr = el("tr");
+      tr.innerHTML = "<th>" + r.label + "</th>";
+      [0, 1].forEach(function (idx) {
+        var td = el("td");
+        var input = document.createElement("input");
+        input.className = "rule";
+        input.type = "number";
+        input.step = "any";
+        input.value = r.k[idx];
+        input.dataset.rule = r.key;
+        input.dataset.idx = idx;
+        input.addEventListener("input", function () { markDirty(); });
+        td.appendChild(input);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    ct.appendChild(tb);
+    var cw = el("div", "scroll"); cw.appendChild(ct); cs.appendChild(cw);
+
+    if (S.corrections && S.corrections.length) {
+      var ct2 = el("table");
+      var th2 = el("thead");
+      th2.innerHTML = "<tr><th>工况修正</th><th>倍数</th></tr>";
+      ct2.appendChild(th2);
+      var tb2 = el("tbody");
+      S.corrections.forEach(function (c) {
+        var tr = el("tr");
+        tr.innerHTML = "<th>" + c.label + "</th>";
+        var td = el("td");
+        var input = document.createElement("input");
+        input.type = "number"; input.step = "any"; input.value = c.factor;
+        input.dataset.corr = c.key;
+        input.addEventListener("input", function () { markDirty(); });
+        td.appendChild(input);
+        tr.appendChild(td);
+        tb2.appendChild(tr);
+      });
+      ct2.appendChild(tb2);
+      var cw2 = el("div", "scroll"); cw2.style.marginTop = "12px"; cw2.appendChild(ct2); cs.appendChild(cw2);
+    }
+    host.appendChild(cs);
+  }
+
+  // 1 kW = 859.845 kcal/h — fill the kcal cell from kW so nobody has to convert.
+  var KCAL_PER_KW = 859.845;
+  function autoKcal(sec, s, model, raw) {
+    var kc = sec.querySelector('input[data-series="' + s.key + '"][data-model="' + model + '"][data-field="kcal"]');
+    if (!kc) return;
+    var kw = parseFloat(String(raw).replace(",", "."));
+    if (!isFinite(kw) || kw <= 0) {
+      if (kc.dataset.auto === "1") { kc.value = ""; delete kc.dataset.auto; }
+      return;
+    }
+    if (kc.value.trim() === "" || kc.dataset.auto === "1") {
+      kc.value = String(Math.round(kw * KCAL_PER_KW));
+      kc.dataset.auto = "1";
+    }
+  }
+
+  function rebuildTable(sec, s) {
+    var old = sec.querySelector(".scroll");
+    if (old) old.remove();
+
+    var wrap = el("div", "scroll");
+    var t = el("table");
+    var thead = el("thead");
+    var hr = el("tr");
+    hr.appendChild(el("th", null, "参数 / 型号"));
+    s.models.forEach(function (m) { hr.appendChild(el("th", null, m)); });
+    thead.appendChild(hr);
+    t.appendChild(thead);
+
+    var tb = el("tbody");
+    S.fields.forEach(function (f) {
+      var tr = el("tr");
+      tr.innerHTML = "<th>" + f.label + (f.unit ? '<span class="u">' + f.unit + "</span>" : "") + "</th>";
+      s.models.forEach(function (m) {
+        var td = el("td");
+        var inp = document.createElement("input");
+        inp.type = "text";
+        inp.spellcheck = false;
+        inp.placeholder = "待填";
+        var cur = (s.spec[m] || {})[f.key];
+        inp.value = cur === undefined || cur === null ? "" : cur;
+        inp.dataset.series = s.key;
+        inp.dataset.model = m;
+        inp.dataset.field = f.key;
+        inp.addEventListener("input", function () {
+          markDirty();
+          if (f.key === "kcal") { delete inp.dataset.auto; return; }
+          if (f.key === "capacity") autoKcal(sec, s, m, inp.value);
+        });
+        td.appendChild(inp);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+    wrap.appendChild(t);
+    sec.appendChild(wrap);
+    s._wrap = wrap;
+  }
+
+  function collect() {
+    var out = { series: {}, rules: {}, corrections: [] };
+    S.series.forEach(function (s) {
+      var spec = {};
+      s.models.forEach(function (m) { spec[m] = {}; });
+      document.querySelectorAll('#sections input[data-series="' + s.key + '"]').forEach(function (inp) {
+        var m = inp.dataset.model, f = inp.dataset.field;
+        if (!spec[m]) spec[m] = {};
+        var v = inp.value.trim();
+        if (v) spec[m][f] = v;
+      });
+      out.series[s.key] = { models: s.models, spec: spec };
+    });
+    document.querySelectorAll("input[data-rule]").forEach(function (inp) {
+      var k = inp.dataset.rule, i = Number(inp.dataset.idx);
+      if (!out.rules[k]) out.rules[k] = { k: [null, null] };
+      out.rules[k].k[i] = inp.value === "" ? null : Number(inp.value);
+    });
+    document.querySelectorAll("input[data-corr]").forEach(function (inp) {
+      out.corrections.push({ key: inp.dataset.corr, factor: inp.value === "" ? null : Number(inp.value) });
+    });
+    return out;
+  }
+
+  function busy(on, txt) {
+    ["btnSave", "btnSave2", "btnRebuild"].forEach(function (id) {
+      var b = document.getElementById(id); if (b) b.disabled = on;
+    });
+    if (txt) setStatus(txt);
+  }
+
+  function post(url, body, msg) {
+    busy(true, url === "/api/catalog" ? "保存中…" : "重新生成中…");
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body || {})
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.j.ok) throw new Error(res.j.error || "失败");
+        dirty = false;
+        clearDraft();
+        document.getElementById("hint").textContent = "已发布。改动已写入 data/catalog.json 并重新生成全部页面。";
+        setStatus(res.j.msg || msg);
+        toast(res.j.msg || msg);
+      })
+      .catch(function (e) {
+        var m = String(e.message || e);
+        if (/Failed to fetch|NetworkError|Load failed/i.test(m)) {
+          m = "连不上本机服务 — 请在浏览器地址栏输入 localhost:8080/admin 打开本页";
+        }
+        document.getElementById("hint").textContent = "保存失败：" + m;
+        setStatus("保存失败", true);
+        toast(m, true);
+      })
+      .then(function () { busy(false); });
+  }
+
+  // One click saves BOTH the datasheet and the cases, rebuilding once.
+  // Order matters: catalog first (norebuild), cases second (triggers rebuild).
+  function save() {
+    var payload = collect();
+    var empty = 0;
+    S.series.forEach(function (s) {
+      s.models.forEach(function (m) {
+        S.fields.forEach(function (f) {
+          if (!(payload.series[s.key].spec[m] || {})[f.key]) empty++;
+        });
+      });
+    });
+    var catBody = JSON.stringify(payload);
+    var caseBody = JSON.stringify(collectCasesState());
+    var factBody = JSON.stringify(collectFactoryState());
+    busy(true, "保存中…");
+    fetch("/api/catalog?norebuild=1", { method: "POST", headers: { "Content-Type": "application/json" }, body: catBody })
+      .then(function (r) { if (!r.ok) throw new Error("参数保存失败 HTTP " + r.status); return r.json(); })
+      .then(function (j) { if (!j.ok) throw new Error(j.error || "参数保存失败"); })
+      .then(function () {
+        return fetch("/api/cases?norebuild=1", { method: "POST", headers: { "Content-Type": "application/json" }, body: caseBody });
+      })
+      .then(function (r) { if (!r.ok) throw new Error("案例保存失败 HTTP " + r.status); return r.json(); })
+      .then(function (j) { if (!j.ok) throw new Error(j.error || "案例保存失败"); })
+      .then(function () {
+        // factory goes last. On the published site, save to the cloud when signed
+        // in (no rebuild needed — public pages hydrate live); otherwise fall back to
+        // the local server API which also triggers a rebuild.
+        if (window.CloudApp && !window.CloudApp.isLocal()) {
+          return window.CloudApp.saveFactory(collectFactoryState()).then(function (ok) {
+            if (ok) { factorySavedToCloud = true; return { ok: true, j: { ok: true, msg: "已保存到云服务" } }; }
+            return fetch("/api/factory", { method: "POST", headers: { "Content-Type": "application/json" }, body: factBody })
+              .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); });
+          });
+        }
+        return fetch("/api/factory", { method: "POST", headers: { "Content-Type": "application/json" }, body: factBody })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); });
+      })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.j.ok) throw new Error(res.j.error || "案例保存失败");
+        dirty = false;
+        clearDraft(); clearCasesDraft();
+        var cloudNote = factorySavedToCloud ? "工厂资料已同步云服务，全站实时更新。" : "";
+        document.getElementById("hint").textContent = "已发布。参数与案例已写入并重新生成全部页面。" + (cloudNote ? " " + cloudNote : "");
+        var note = empty > 0 ? "（" + empty + " 格参数未填，先发布也不影响）" : "";
+        setStatus((res.j.msg || "已保存") + note);
+        toast("已发布" + note);
+        factorySavedToCloud = false;
+        if (signedIn) loadLeadsView();
+      })
+      .catch(function (e) {
+        var m = String(e.message || e);
+        if (/Failed to fetch|NetworkError|Load failed/i.test(m)) {
+          m = "连不上本机服务 — 请在浏览器地址栏输入 localhost:8080/admin 打开本页";
+        }
+        document.getElementById("hint").textContent = "保存失败：" + m;
+        setStatus("保存失败", true);
+        toast(m, true);
+      })
+      .then(function () { busy(false); });
+  }
+
+  // Works even in read-only preview: saves what you typed to a file you can hand over.
+  function exportFile() {
+    try {
+      var payload = { catalog: collect(), cases: collectCasesState().cases };
+      var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "catalog.json";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); if (a.parentNode) a.parentNode.removeChild(a); }, 1500);
+      toast("已导出 catalog.json");
+    } catch (e) {
+      toast("导出失败：" + e.message, true);
+    }
+  }
+
+  document.getElementById("btnSave").addEventListener("click", save);
+  document.getElementById("btnSave2").addEventListener("click", save);
+  document.getElementById("btnExport").addEventListener("click", exportFile);
+  document.getElementById("btnRebuild").addEventListener("click", function () { post("/api/rebuild", {}, "已重新生成"); });
+  window.addEventListener("beforeunload", function (e) { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+  // ---------- Cloud auth bar + leads viewer ----------
+  var btnLogin = document.getElementById("btnLogin");
+  function esc(s) { s = s == null ? "" : String(s); return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  function renderLeadsEmpty(msg) {
+    var host = document.getElementById("leadsHost");
+    if (!host) return;
+    host.innerHTML = '<div class="sec" style="margin-top:22px"><div class="sec-h" style="font-weight:700;margin-bottom:10px">客户询盘（云端）</div>'
+      + '<div style="color:var(--ink3);font-size:13.5px">' + (msg || "暂无询盘") + '</div></div>';
+  }
+
+  async function loadLeadsView() {
+    var host = document.getElementById("leadsHost");
+    if (!host) return;
+    if (!window.CloudApp || window.CloudApp.isLocal()) { renderLeadsEmpty("本地模式不读取云询盘，请部署后登录查看"); return; }
+    var rows = await window.CloudApp.loadLeads();
+    if (!rows) { renderLeadsEmpty("读取询盘失败，请稍后重试"); return; }
+    if (!rows.length) { renderLeadsEmpty("还没有客户询盘。访客在任意页面提交表单后会实时写入云端。"); return; }
+    var th = '<tr style="background:#f7f9fc">'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">时间</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">姓名</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">公司</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">电话</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">国家</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">机型</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">数量</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left;white-space:nowrap">来源</th>'
+      + '<th style="border:1px solid var(--line);padding:7px 9px;text-align:left">留言</th></tr>';
+    var body = rows.map(function (r) {
+      var t = (r.created_at || r.ts || "").toString().replace("T", " ").slice(0, 19);
+      var src = esc((r.source || "") + (r.medium ? "/" + r.medium : ""));
+      return '<tr>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px;white-space:nowrap">' + esc(t) + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + esc(r.name) + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + esc(r.company) + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + esc(r.phone) + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + esc(r.country) + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + esc(r.model) + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + esc(r.qty) + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + src + '</td>'
+        + '<td style="border:1px solid var(--line);padding:6px 9px">' + esc(r.msg) + '</td></tr>';
+    }).join("");
+    host.innerHTML = '<div class="sec" style="margin-top:22px"><div class="sec-h" style="font-weight:700;margin-bottom:10px">客户询盘（云端 · 共 ' + rows.length + ' 条）</div>'
+      + '<div style="overflow:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">' + th + body + '</table></div></div>';
+  }
+
+  function refreshAuthUI(session) {
+    signedIn = !!session;
+    if (!btnLogin) return;
+    if (window.CloudApp && !window.CloudApp.isLocal()) {
+      btnLogin.style.display = "";
+      if (session) {
+        var name = (session.user && (session.user.name || session.user.email)) || "已登录";
+        btnLogin.textContent = "退出（" + name + "）";
+        btnLogin.onclick = function () { if (window.CloudApp) window.CloudApp.signOut(); };
+        loadLeadsView();
+      } else {
+        btnLogin.textContent = "使用 WorkBuddy 登录";
+        btnLogin.onclick = function () { if (window.CloudApp) window.CloudApp.signIn("workbuddy"); };
+        renderLeadsEmpty("登录 WorkBuddy 后可查看云端询盘、并把工厂资料实时同步到官网");
+      }
+    } else {
+      btnLogin.style.display = "none";
+    }
+  }
+
+  if (window.CloudApp && window.CloudApp.onAuth) {
+    window.CloudApp.onAuth(function (s) { refreshAuthUI(s); });
+  }
+  if (window.CloudApp) {
+    window.CloudApp.getSession().then(function (s) { refreshAuthUI(s); });
+  } else {
+    renderLeadsEmpty("未加载云服务客户端");
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
