@@ -1,0 +1,59 @@
+{
+  "cases": [
+    {
+      "country": "ME",
+      "industry": "inj",
+      "model": "AGD-15IA",
+      "qty": "3",
+      "i18n": {
+        "zh": {
+          "problem": "12台注塑机，夏季油温高频繁停机。",
+          "solution": "配3台AGD-15IA风冷机，水路独立循环。",
+          "result": "停机减少90%，不良品降了三成。"
+        },
+        "en": {
+          "problem": "12 injection machines frequently stopped in summer due to high oil temperature.",
+          "solution": "3 units of AC-15 air-cooled chillers with independent oil circuits.",
+          "result": "Stoppages down 90%, defect rate cut by 30%."
+        }
+      }
+    },
+    {
+      "country": "MX",
+      "industry": "blow",
+      "model": "AGD-15IW",
+      "qty": "3",
+      "i18n": {
+        "zh": {
+          "problem": "车间里10台吹塑机连着开，一到夏天液压油温就冲到65℃以上，型坯温度飘、瓶身壁厚不均，废品一堆，还动不动过热停机。",
+          "solution": "配2台AGD-15IW水冷式冷水机，液压油路和模具水路分开控温，冷冻水恒温供给，油温稳住、型坯温度不再随室温波动。",
+          "result": "油温稳定在50℃以内，型坯壁厚回到公差范围，夏天再也没有因为高温停过机，废品率降了一大截。"
+        },
+        "en": {
+          "problem": "10 blow molding machines running in the same workshop: in summer the hydraulic oil exceeded 65 °C, parison temperature drifted and bottle wall thickness went out of tolerance, with frequent overheat shutdowns.",
+          "solution": "2 units of AGD-15IW water-cooled chillers, with separate temperature control loops for hydraulic oil and molds, supplying chilled water at a constant setpoint to keep oil temperature and parison temperature stable.",
+          "result": "Oil temperature held below 50 °C, wall thickness back within tolerance, zero summer shutdowns due to heat, and a sharp drop in scrap rate."
+        }
+      }
+    },
+    {
+      "country": "ID",
+      "industry": "extr",
+      "model": "AGD-30IW",
+      "qty": "2",
+      "i18n": {
+        "zh": {
+          "problem": "PVC 型材定型水温波动、尺寸超差、焦料",
+          "solution": "AGD-30IW",
+          "result": "产品问题安全解决，老板非常满意"
+        },
+        "en": {
+          "problem": "Fluctuations in cooling water temperature, dimensional deviations, and material scorching during PVC profile shaping",
+          "solution": "AGD-30IW",
+          "result": "The product issues have been completely resolved, and the boss is very satisfied."
+        }
+      }
+    }
+  ],
+  "savedAt": "2026-10-21T06:58:47.516Z"
+}
