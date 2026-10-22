@@ -436,9 +436,11 @@
             .then(function (r) { return r.json(); })
             .then(function (j) {
               if (!j.ok) throw new Error(j.error || "上传失败");
+              var oldImg = e.img;
               e.img = j.img; e.has = true; e._preview = dataUrl;
               paintThumb(); markDirty(); saveFactoryDraft();
               toast("图片已上传，记得点「保存并发布」");
+              if (oldImg && oldImg !== j.img) fetch("/api/upload/delete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: oldImg }) });
             })
             .catch(function (err) { toast("上传失败：" + err.message, true); });
         };
@@ -451,11 +453,14 @@
       upBtn.style.cssText = "font-size:12.5px;padding:6px 12px";
       upBtn.addEventListener("click", function () { file.click(); });
       row.appendChild(upBtn);
-      var clr = el("button", null, "清除"); clr.type = "button";
+      var clr = el("button", null, "删除图片"); clr.type = "button";
       clr.style.cssText = "font-size:12.5px;padding:6px 12px;color:#b42318";
       clr.addEventListener("click", function () {
+        var oldImg = e.img;
         e.img = ""; e.has = false; e._preview = "";
         paintThumb(); markDirty(); saveFactoryDraft();
+        if (oldImg) fetch("/api/upload/delete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: oldImg }) });
+        toast("图片已删除，保存并发布后前台撤下");
       });
       row.appendChild(clr);
       card.appendChild(row);
@@ -464,16 +469,19 @@
     sec.appendChild(evWrap);
 
     // ---- factory video (1 slot, shown on factory + landing pages) ----
-    var vidHead = el("div", null, "<strong style='font-size:13.5px'>工厂视频（1 条）</strong><span style='color:#78828f;font-size:12.5px;margin-left:8px'>显示在工厂页与落地页的视频区块；支持 mp4 / webm / mov，≤60MB，建议 15~40 秒</span>");
+    var vidHead = el("div", null, "<strong style='font-size:13.5px'>工厂视频（1 条）</strong><span style='color:#78828f;font-size:12.5px;margin-left:8px'>显示在工厂页与落地页的视频区块；支持 mp4 / webm / mov，≤60MB，建议 15~40 秒。可直接重新上传更换，也可删除撤下</span>");
     vidHead.style.marginTop = "18px";
     sec.appendChild(vidHead);
     var vidCard = el("div");
     vidCard.style.cssText = "border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfcfd;margin-top:10px";
     var vidHint = el("div", null, "（未上传视频）");
     vidHint.style.cssText = "color:#9aa7b6;font-size:12.5px";
-    fetch("/assets/img/factory-video.mp4", { method: "HEAD" })
-      .then(function (r) { if (r.ok) { vidHint.textContent = "✅ 已有视频：factory-video.mp4（重新上传可直接覆盖）"; vidHint.style.color = "#1a7f37"; } })
-      .catch(function () {});
+    var vidName = "";
+    ["factory-video.mp4", "factory-video.webm", "factory-video.mov"].forEach(function (n) {
+      fetch("/assets/img/" + n, { method: "HEAD" })
+        .then(function (r) { if (r.ok && !vidName) { vidName = n; vidHint.textContent = "✅ 已有视频：" + n + "（重新上传可直接更换）"; vidHint.style.color = "#1a7f37"; } })
+        .catch(function () {});
+    });
     vidCard.appendChild(vidHint);
     var vidFile = document.createElement("input");
     vidFile.type = "file"; vidFile.accept = "video/mp4,video/webm,video/quicktime"; vidFile.style.display = "none";
@@ -488,9 +496,12 @@
           .then(function (r) { return r.json(); })
           .then(function (j) {
             if (!j.ok) throw new Error(j.error || "上传失败");
-            vidHint.textContent = "✅ 视频已上传：" + j.video + "（前台已可见）";
+            var oldName = vidName;
+            vidName = j.video || "factory-video.mp4";
+            vidHint.textContent = "✅ 视频已上传：" + vidName + "（前台已可见）";
             vidHint.style.color = "#1a7f37";
             toast("视频上传成功，前台即刻可见");
+            if (oldName && oldName !== vidName) fetch("/api/upload/delete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: oldName }) });
           })
           .catch(function (err) { toast("上传失败：" + err.message, true); });
       };
@@ -501,6 +512,21 @@
     vidBtn.style.cssText = "font-size:12.5px;padding:6px 12px;margin-top:8px";
     vidBtn.addEventListener("click", function () { vidFile.click(); });
     vidCard.appendChild(vidBtn);
+    var vidDel = el("button", null, "删除视频"); vidDel.type = "button";
+    vidDel.style.cssText = "font-size:12.5px;padding:6px 12px;margin-top:8px;color:#b42318";
+    vidDel.addEventListener("click", function () {
+      if (!vidName) { toast("当前没有视频"); return; }
+      if (!confirm("确定删除这条视频吗？删除后前台立即不再显示。")) return;
+      fetch("/api/upload/delete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: vidName }) })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j.ok) throw new Error(j.error || "删除失败");
+          vidName = ""; vidHint.textContent = "（未上传视频）"; vidHint.style.color = "#9aa7b6";
+          toast("视频已删除，前台已撤下");
+        })
+        .catch(function (err) { toast("删除失败：" + err.message, true); });
+    });
+    vidCard.appendChild(vidDel);
     sec.appendChild(vidCard);
 
 
