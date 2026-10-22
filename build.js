@@ -392,11 +392,24 @@ function evidence(d, lang) {
   const cells = tiles.map((x) => hasImg(x.img)
     ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" /><figcaption>${x.label}</figcaption></figure>`
     : `<figure class="ev-tile ev-icon" data-ev-key="${x.key}"><div class="ev-ic">${x.icon}</div><figcaption>${x.label}</figcaption></figure>`).join("\n    ");
+  // Factory video (uploaded via /admin as factory-video.mp4 / .webm).
+  // Rendered unconditionally; a tiny script hides the whole block when the
+  // file isn't there (404), so nothing shows until media exists.
+  const videoBlock = `
+  <div class="factory-video-wrap" data-factory-video style="margin-top:26px">
+    <div class="section-head"><h2>${d.ui.ev_title || "Factory"} · Video</h2></div>
+    <video controls preload="none" playsinline style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
+      onerror="var w=this.closest('[data-factory-video]');if(w)w.style.display='none'">
+      <source src="../assets/img/factory-video.mp4" type="video/mp4" />
+      <source src="../assets/img/factory-video.webm" type="video/webm" />
+    </video>
+  </div>`;
   return `<section class="bg-soft"><div class="container">
   <div class="section-head"><h2>${d.ui.ev_title}</h2></div>
   <div class="ev-grid">
     ${cells}
   </div>
+  ${videoBlock}
 </div></section>`;
 }
 
