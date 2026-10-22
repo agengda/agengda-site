@@ -594,8 +594,8 @@ const server = http.createServer(async (req, res) => {
       let ext = m[2] || m[3];
       ext = String(ext).toLowerCase().replace("jpeg", "jpg").replace("quicktime", "mov");
       const buf = Buffer.from(m[4], "base64");
-      const maxBytes = kind === "image" ? 8 * 1024 * 1024 : 60 * 1024 * 1024;
-      if (buf.length > maxBytes) throw new Error(kind === "image" ? "图片超过 8MB，请先压缩" : "视频超过 60MB，请先压缩或剪短");
+      const maxBytes = kind === "image" ? 20 * 1024 * 1024 : 60 * 1024 * 1024;
+      if (buf.length > maxBytes) throw new Error(kind === "image" ? `图片 ${(buf.length / 1048576).toFixed(1)}MB 超过 20MB 上限，请压缩后再传` : `视频 ${(buf.length / 1048576).toFixed(1)}MB 超过 60MB 上限，请压缩或剪短后再传`);
       const base = String(body.base || (kind === "video" ? "factory-video" : "evidence")).replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40) || "evidence";
       // Fixed name for videos so the site always points at one file; images keep
       // the timestamped name to avoid stale browser cache.
