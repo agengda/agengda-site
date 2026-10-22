@@ -1,0 +1,94 @@
+{
+  "cases": [
+    {
+      "country": "MX",
+      "industry": "inj",
+      "model": "AGD-15IA",
+      "qty": "3",
+      "i18n": {
+        "zh": {
+          "problem": "12台注塑机，夏季油温高频繁停机。",
+          "solution": "配3台AGD-15IA风冷机，水路独立循环。",
+          "result": "停机减少90%，不良品降了三成。"
+        },
+        "en": {
+          "problem": "12 injection machines frequently stopped in summer due to high oil temperature.",
+          "solution": "3 units of AC-15 air-cooled chillers with independent oil circuits.",
+          "result": "Stoppages down 90%, defect rate cut by 30%."
+        }
+      }
+    },
+    {
+      "country": "BR",
+      "industry": "blow",
+      "model": "AGD-15IW",
+      "qty": "2",
+      "i18n": {
+        "zh": {
+          "problem": "车间里10台吹塑机连着开，一到夏天液压油温就冲到65℃以上，型坯温度飘、瓶身壁厚不均，废品一堆，还动不动过热停机。",
+          "solution": "配2台AGD-15IW水冷式冷水机，液压油路和模具水路分开控温，冷冻水恒温供给，油温稳住、型坯温度不再随室温波动。",
+          "result": "油温稳定在50℃以内，型坯壁厚回到公差范围，夏天再也没有因为高温停过机，废品率降了一大截。"
+        },
+        "en": {
+          "problem": "10 blow molding machines running in the same workshop: in summer the hydraulic oil exceeded 65 °C, parison temperature drifted and bottle wall thickness went out of tolerance, with frequent overheat shutdowns.",
+          "solution": "2 units of AGD-15IW water-cooled chillers, with separate temperature control loops for hydraulic oil and molds, supplying chilled water at a constant setpoint to keep oil temperature and parison temperature stable.",
+          "result": "Oil temperature held below 50 °C, wall thickness back within tolerance, zero summer shutdowns due to heat, and a sharp drop in scrap rate."
+        }
+      }
+    },
+    {
+      "country": "VN",
+      "industry": "extr",
+      "model": "AGD-30IW",
+      "qty": "2",
+      "i18n": {
+        "zh": {
+          "problem": "两条PVC型材挤出线，定型台水温忽高忽低，型材尺寸来回超差，一个班下来废料堆成山；夏天料筒温度也压不住，偶尔焦料停线清机筒。",
+          "solution": "配2台AGD-30IW水冷式冷水机，定型台和料筒冷却分成两路独立供水，水温恒定在设定值，不再受车间温度波动影响。",
+          "result": "定型水温稳定，型材尺寸回到公差内，废料率明显下降，焦料停线的情况基本没再出现。"
+        },
+        "en": {
+          "problem": "Two PVC profile extrusion lines: the calibration table water temperature kept swinging, profile dimensions drifted out of tolerance and scrap piled up every shift. In summer the barrel temperature could not be held and occasional burnt material forced a line stop to clean the barrel.",
+          "solution": "2 units of AGD-30IW water-cooled chillers, supplying the calibration table and barrel cooling through two independent circuits at a constant water temperature, unaffected by workshop temperature swings.",
+          "result": "Stable calibration water temperature, profile dimensions back within tolerance, clearly lower scrap rate, and burnt-material stoppages essentially eliminated."
+        }
+      }
+    },
+    {
+      "country": "TH",
+      "industry": "laser",
+      "model": "AGD-5IA",
+      "qty": "2",
+      "i18n": {
+        "zh": {
+          "problem": "3台光纤激光切割机，夏天水温一波动，切缝就不均匀，厚板切不透还得回去二次加工；激光器还偶尔报过温自动降功率。",
+          "solution": "配2台AGD-5IA精密恒温冷水机，激光器和切割头分开供水，出水温度稳定，不受车间高温影响。",
+          "result": "切缝均匀，厚板一次切透，激光器再没报过温，返工和停机时间都省下来了。"
+        },
+        "en": {
+          "problem": "3 fiber laser cutting machines: in summer any drift in water temperature made the kerf uneven, thick plate was not fully cut and needed a second pass, and the laser source occasionally derated on an over-temperature alarm.",
+          "solution": "2 units of AGD-5IA precision chillers with separate water supply for the laser source and the cutting head, holding a stable outlet temperature regardless of workshop heat.",
+          "result": "Even kerf, thick plate cut in one pass, no further over-temperature alarms on the laser source, and less rework and downtime."
+        }
+      }
+    },
+    {
+      "country": "ME",
+      "industry": "inj",
+      "model": "AGD-20IW",
+      "qty": "2",
+      "i18n": {
+        "zh": {
+          "problem": "车间夏天环境温度到45℃，原来两台风冷机越热越不给力，注塑机高压报警、油温降不下来，只能降速生产。",
+          "solution": "换成2台AGD-20IW水冷式冷水机，水冷冷凝不受环境高温影响，油温和模温同时稳住。",
+          "result": "油温回到正常区间，高压报警消失，满负荷也能正常生产，不用再靠降速凑产量。"
+        },
+        "en": {
+          "problem": "Workshop ambient reaches 45 °C in summer. The two existing air-cooled chillers lost capacity exactly when it was needed most: injection machines alarmed on high pressure and oil temperature would not come down, so production had to run at reduced speed.",
+          "solution": "Replaced with 2 units of AGD-20IW water-cooled chillers. Water-cooled condensation is not affected by high ambient temperature, keeping both oil and mold temperature stable.",
+          "result": "Oil temperature back in the normal range, high-pressure alarms gone, full-load production without throttling output."
+        }
+      }
+    }
+  ]
+}
