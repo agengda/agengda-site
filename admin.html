@@ -463,6 +463,47 @@
     });
     sec.appendChild(evWrap);
 
+    // ---- factory video (1 slot, shown on factory + landing pages) ----
+    var vidHead = el("div", null, "<strong style='font-size:13.5px'>工厂视频（1 条）</strong><span style='color:#78828f;font-size:12.5px;margin-left:8px'>显示在工厂页与落地页的视频区块；支持 mp4 / webm / mov，≤60MB，建议 15~40 秒</span>");
+    vidHead.style.marginTop = "18px";
+    sec.appendChild(vidHead);
+    var vidCard = el("div");
+    vidCard.style.cssText = "border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfcfd;margin-top:10px";
+    var vidHint = el("div", null, "（未上传视频）");
+    vidHint.style.cssText = "color:#9aa7b6;font-size:12.5px";
+    fetch("/assets/img/factory-video.mp4", { method: "HEAD" })
+      .then(function (r) { if (r.ok) { vidHint.textContent = "✅ 已有视频：factory-video.mp4（重新上传可直接覆盖）"; vidHint.style.color = "#1a7f37"; } })
+      .catch(function () {});
+    vidCard.appendChild(vidHint);
+    var vidFile = document.createElement("input");
+    vidFile.type = "file"; vidFile.accept = "video/mp4,video/webm,video/quicktime"; vidFile.style.display = "none";
+    vidFile.addEventListener("change", function () {
+      var f = vidFile.files && vidFile.files[0];
+      if (!f) return;
+      if (f.size > 60 * 1024 * 1024) { toast("视频超过 60MB，请先压缩或剪短", true); vidFile.value = ""; return; }
+      toast("视频上传中，可能需要 1~2 分钟…");
+      var rd = new FileReader();
+      rd.onload = function () {
+        fetch("/api/upload", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ dataUrl: rd.result, base: "factory-video" }) })
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            if (!j.ok) throw new Error(j.error || "上传失败");
+            vidHint.textContent = "✅ 视频已上传：" + j.video + "（前台已可见）";
+            vidHint.style.color = "#1a7f37";
+            toast("视频上传成功，前台即刻可见");
+          })
+          .catch(function (err) { toast("上传失败：" + err.message, true); });
+      };
+      rd.readAsDataURL(f);
+    });
+    vidCard.appendChild(vidFile);
+    var vidBtn = el("button", null, "上传 / 更换视频"); vidBtn.type = "button";
+    vidBtn.style.cssText = "font-size:12.5px;padding:6px 12px;margin-top:8px";
+    vidBtn.addEventListener("click", function () { vidFile.click(); });
+    vidCard.appendChild(vidBtn);
+    sec.appendChild(vidCard);
+
+
     host.appendChild(sec);
   }
 
