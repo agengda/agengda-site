@@ -148,6 +148,7 @@ function factoryFacts(lang) {
 const BRAND = process.env.SITE_BRAND || "Agengda";                    // replace with your real brand name
 const WHATSAPP = process.env.WHATSAPP || "8615888503789";            // wa.me number, no "+" (e.g. 8615888503789)
 const GA_ID = process.env.GA_ID || "YOUR-GA-ID";                  // GA4 measurement id (G-XXXXXXX). Events fire once set.
+const FB_PIXEL = process.env.FB_PIXEL || "1705274534492715";      // Meta Pixel ID (Events Manager). Leave "" to disable.
 const SITE_URL = process.env.SITE_URL || "https://agengda-industrial-chiller.com";  // canonical + sitemap base
 const LEAD_API = "/api/lead";                // lead endpoint served by server.js
 // --------------------------------------------
@@ -237,9 +238,21 @@ function waFloat(t) {
 
 function analytics() {
   const on = GA_ID && GA_ID.indexOf("YOUR") !== 0;
-  return `<script>
+  const px = FB_PIXEL && /^\d{6,20}$/.test(FB_PIXEL);
+  return `${px ? `<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','${FB_PIXEL}');fbq('track','PageView');
+</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${FB_PIXEL}&ev=PageView&noscript=1" /></noscript>` : ""}<script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-function track(ev,params){try{var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}}
+function track(ev,params){var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});
+try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
+try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact'};
+if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
+fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
 ${on ? `gtag('js',new Date());gtag('config','${GA_ID}');` : "/* set GA_ID in build.js to enable GA4 */"}
 </script>${on ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>` : ""}`;
 }
@@ -265,6 +278,8 @@ function attribScript() {
     if(has){ if(!store.first||!store.first.source) store.first=cur; store.last=cur; try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){} }
     window.__attrib=(store.first||cur||{});
     window.__attribLast=(store.last||window.__attrib||{});
+    // Meta ads: remember which creative brought the visit so Lead events can be segmented.
+    if(cnt){ try{ if(!store.fbContent) store.fbContent=cnt; localStorage.setItem('attrib_content',cnt); localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){} }
     window.getAttrib=function(w){return (w==='last'?window.__attribLast:window.__attrib)||{};};
   }catch(e){window.__attrib={};window.__attribLast={};}
 })();
@@ -416,15 +431,21 @@ fm.addEventListener('submit',function(e){
   o.source=a.source||''; o.medium=a.medium||''; o.campaign=a.campaign||''; o.term=a.term||''; o.content=a.content||'';
   o.gclid=a.gclid||''; o.fbclid=a.fbclid||''; o.ttclid=a.ttclid||'';
   o.page=location.pathname; o.lang=document.documentElement.lang; o.ts=new Date().toISOString();
-  track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',page:o.page,model:o.model||'',qty:o.qty||''});
   var text=(o.msg||'')+'\\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
   note.textContent=${JSON.stringify(f.f_sent)};
+  var done=false;
+  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); }
+  function errLead(){ note.textContent=${JSON.stringify(f.f_err)}; }
   (function(){
     var payload=o;
     if(window.CloudApp&&window.CloudApp.submitLead){
-      window.CloudApp.submitLead(payload).then(function(ok){if(!ok)note.textContent=${JSON.stringify(f.f_err)};}).catch(function(){note.textContent=${JSON.stringify(f.f_err)};});
+      window.CloudApp.submitLead(payload).then(function(r){ if(r===false){errLead();} else {okLead();} }).catch(function(){errLead();});
     }else{
-      try{ fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(function(){note.textContent=${JSON.stringify(f.f_err)};}); }catch(err){}
+      try{
+        fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+          .then(function(r){ if(r&&r.ok){okLead();} else {errLead();} })
+          .catch(function(){errLead();});
+      }catch(err){errLead();}
     }
   })();
   window.open(WA+'?text='+encodeURIComponent(text),'_blank');
@@ -897,6 +918,7 @@ function build() {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${BRAND} — Choose your language</title>
 <link rel="stylesheet" href="./assets/css/style.css?v=${ASSET_V}" />
+${analytics()}
 </head>
 <body>
 <div class="lang-chooser"><div class="box">
@@ -919,6 +941,7 @@ function build() {
 ${LANGS.map((l) => `<link rel="alternate" hreflang="${l.hreflang || l.code}" href="${abs(l.code, "index.html")}" />`).join("\n")}
 <meta http-equiv="refresh" content="0; url=./en/index.html" />
 <script>location.replace("./en/index.html");</script>
+${analytics()}
 </head>
 <body>
 <div class="lang-chooser"><div class="box">
