@@ -50,7 +50,7 @@ function ensureDist() {
     building = false;
     buildErr = err ? String(stderr || err.message).slice(0, 400) : null;
     if (err) console.error("auto-build failed:", buildErr);
-    else console.log("auto-build done:", countPages(), "pages");
+    else { console.log("auto-build done:", countPages(), "pages"); syncUploads(); }
   });
 }
 const WAIT_HTML =
@@ -128,6 +128,25 @@ const EV_KEYS = [
   { key: "shipping", img: "shipping.jpg", zh: "装柜与出口", en: "Loading & export" },
 ];
 const IMG_DIR = path.join(DIST, "assets", "img");
+// Uploaded photos/videos live in DATA_DIR (persisted when a disk is mounted at
+// /app/data) and are copied into dist/assets/img after every (re)build, so
+// redeploys never wipe the boss's media.
+const UPLOAD_DIR = path.join(DATA_DIR, "uploads");
+
+function syncUploads() {
+  try {
+    if (!fs.existsSync(UPLOAD_DIR)) return 0;
+    fs.mkdirSync(IMG_DIR, { recursive: true });
+    let n = 0;
+    for (const f of fs.readdirSync(UPLOAD_DIR)) {
+      const src = path.join(UPLOAD_DIR, f);
+      const dst = path.join(IMG_DIR, f);
+      try { fs.copyFileSync(src, dst); n++; } catch (e) { /* skip unreadable file */ }
+    }
+    if (n) console.log(`uploads   restored ${n} media file(s) into dist`);
+    return n;
+  } catch (e) { return 0; }
+}
 
 function readFactory() {
   try {
@@ -408,6 +427,7 @@ function rebuild() {
   return new Promise((resolve) => {
     execFile(process.execPath, [path.join(ROOT, "build.js")], { cwd: ROOT, timeout: 180000 }, (err, stdout, stderr) => {
       if (err) return resolve({ ok: false, error: "构建失败：" + String(stderr || err.message).slice(0, 400) });
+      syncUploads();
       resolve({ ok: true, msg: "已发布，重新生成 " + countPages() + " 个页面" });
     });
   });
@@ -532,23 +552,30 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Upload a factory-evidence photo (base64 data URL) into assets/img/.
+  // Upload a factory-evidence photo or factory video (base64 data URL).
   if (pathname === "/api/upload" && req.method === "POST") {
     try {
-      const raw = await readBody(req, 12 * 1024 * 1024);
+      const raw = await readBody(req, 80 * 1024 * 1024);
       const body = JSON.parse(raw || "{}");
       const dataUrl = String(body.dataUrl || "");
-      const m = dataUrl.match(/^data:image\/(png|jpe?g|webp|gif);base64,(.+)$/i);
-      if (!m) throw new Error("只支持 png / jpg / webp / gif 图片");
-      const ext = m[1].toLowerCase().replace("jpeg", "jpg");
-      const buf = Buffer.from(m[2], "base64");
-      if (buf.length > 8 * 1024 * 1024) throw new Error("图片超过 8MB，请先压缩");
+      const m = dataUrl.match(/^data:(image\/(png|jpe?g|webp|gif)|video\/(mp4|webm|quicktime));base64,(.+)$/i);
+      if (!m) throw new Error("只支持 png / jpg / webp 图片或 mp4 / webm / mov 视频");
+      const kind = m[1].toLowerCase().startsWith("image/") ? "image" : "video";
+      let ext = m[2] || m[3];
+      ext = String(ext).toLowerCase().replace("jpeg", "jpg").replace("quicktime", "mov");
+      const buf = Buffer.from(m[4], "base64");
+      const maxBytes = kind === "image" ? 8 * 1024 * 1024 : 60 * 1024 * 1024;
+      if (buf.length > maxBytes) throw new Error(kind === "image" ? "图片超过 8MB，请先压缩" : "视频超过 60MB，请先压缩或剪短");
+      const base = String(body.base || (kind === "video" ? "factory-video" : "evidence")).replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40) || "evidence";
+      // Fixed name for videos so the site always points at one file; images keep
+      // the timestamped name to avoid stale browser cache.
+      const name = kind === "video" ? `${base}.${ext}` : `${base}-${Date.now().toString(36)}.${ext}`;
+      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+      fs.writeFileSync(path.join(UPLOAD_DIR, name), buf);           // persistent copy (disk)
       fs.mkdirSync(IMG_DIR, { recursive: true });
-      const base = String(body.base || "evidence").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 40) || "evidence";
-      const name = base + "-" + Date.now().toString(36) + "." + ext;
-      fs.writeFileSync(path.join(IMG_DIR, name), buf);
-      console.log("upload   " + name + "  " + buf.length + "B");
-      return send(res, 200, JSON.stringify({ ok: true, img: name }));
+      fs.writeFileSync(path.join(IMG_DIR, name), buf);              // live copy for current dist
+      console.log(`upload   ${name}  ${buf.length}B`);
+      return send(res, 200, JSON.stringify({ ok: true, img: name, video: kind === "video" ? name : undefined }));
     } catch (e) {
       return send(res, 400, JSON.stringify({ ok: false, error: String(e.message || e) }));
     }
