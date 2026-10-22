@@ -956,9 +956,13 @@
         return fetch("/api/factory", { method: "POST", headers: { "Content-Type": "application/json" }, body: factBody })
           .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); });
       })
-      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (r) {
+        // r may be a plain object when factory was saved via CloudApp (no fetch Response)
+        if (r && typeof r.json === "function") return r.json().then(function (j) { return { ok: r.ok, j: j }; });
+        return r;
+      })
       .then(function (res) {
-        if (!res.ok || !res.j.ok) throw new Error(res.j.error || "案例保存失败");
+        if (!res.ok || !res.j.ok) throw new Error((res.j && res.j.error) || "保存失败");
         dirty = false;
         clearDraft(); clearCasesDraft();
         var cloudNote = factorySavedToCloud ? "工厂资料已同步云服务，全站实时更新。" : "";
