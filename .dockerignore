@@ -1,0 +1,8 @@
+node_modules
+dist
+.git
+.workbuddy
+*.log
+*.genie
+.DS_Store
+data/leads.jsonl
