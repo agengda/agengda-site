@@ -1,0 +1,306 @@
+{
+  "series": {
+    "air": {
+      "models": [
+        "AGD-5IA",
+        "AGD-10IA",
+        "AGD-15IA",
+        "AGD-20IA",
+        "AGD-25IA",
+        "AGD-30IA"
+      ],
+      "spec": {
+        "AGD-5IA": {
+          "capacity": "12",
+          "kcal": "10318",
+          "compressor": "3.75",
+          "pump": "0.55",
+          "power": "4.5",
+          "flow": "14",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "135*61*120",
+          "weight": "150"
+        },
+        "AGD-10IA": {
+          "capacity": "24",
+          "kcal": "20636",
+          "compressor": "7.5",
+          "pump": "1.1",
+          "power": "9.1",
+          "flow": "23",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "150*80*145",
+          "weight": "320"
+        },
+        "AGD-15IA": {
+          "capacity": "36",
+          "kcal": "30954",
+          "compressor": "11.25",
+          "pump": "1.5",
+          "power": "13.75",
+          "flow": "19.8",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "180*100*175",
+          "weight": "450"
+        },
+        "AGD-20IA": {
+          "capacity": "48",
+          "kcal": "41273",
+          "compressor": "15",
+          "pump": "2.2",
+          "power": "18.5",
+          "flow": "17.5",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "200*105*195",
+          "weight": "620"
+        },
+        "AGD-25IA": {
+          "capacity": "60",
+          "kcal": "51591",
+          "compressor": "18.75",
+          "pump": "3",
+          "power": "24",
+          "flow": "30",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "220*135*195",
+          "weight": "800"
+        },
+        "AGD-30IA": {
+          "capacity": "72",
+          "kcal": "61909",
+          "compressor": "22.5",
+          "pump": "4",
+          "power": "30",
+          "flow": "40",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "220*135*195",
+          "weight": "1000"
+        }
+      }
+    },
+    "water": {
+      "models": [
+        "AGD-5IW",
+        "AGD-10IW",
+        "AGD-15IW",
+        "AGD-20IW",
+        "AGD-25IW",
+        "AGD-30IW"
+      ],
+      "spec": {
+        "AGD-5IW": {
+          "capacity": "15",
+          "kcal": "12898",
+          "compressor": "3.75",
+          "pump": "0.55",
+          "power": "4.3",
+          "flow": "14",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "135*61*120",
+          "weight": "150"
+        },
+        "AGD-10IW": {
+          "capacity": "30",
+          "kcal": "25795",
+          "compressor": "7.5",
+          "pump": "1.1",
+          "power": "8.6",
+          "flow": "23",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "150*80*145",
+          "weight": "320"
+        },
+        "AGD-15IW": {
+          "capacity": "45",
+          "kcal": "38693",
+          "compressor": "11.25",
+          "pump": "1.5",
+          "power": "12.75",
+          "flow": "19.8",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "180*100*175",
+          "weight": "450"
+        },
+        "AGD-20IW": {
+          "capacity": "60",
+          "kcal": "51591",
+          "compressor": "15",
+          "pump": "2.2",
+          "power": "17.2",
+          "flow": "17.5",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "200*105*195",
+          "weight": "620"
+        },
+        "AGD-25IW": {
+          "capacity": "75",
+          "kcal": "64488",
+          "compressor": "18.75",
+          "pump": "3",
+          "power": "21.75",
+          "flow": "30",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "220*135*195",
+          "weight": "800"
+        },
+        "AGD-30IW": {
+          "capacity": "90",
+          "kcal": "77386",
+          "compressor": "22.5",
+          "pump": "4",
+          "power": "26.5",
+          "flow": "40",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "dim": "220*135*195",
+          "weight": "1000"
+        }
+      }
+    },
+    "low": {
+      "models": [
+        "LT-03",
+        "LT-05",
+        "LT-08",
+        "LT-10",
+        "LT-15",
+        "LT-20"
+      ],
+      "spec": {}
+    },
+    "screw": {
+      "models": [
+        "AGD-40SW",
+        "AGD-50SW",
+        "AGD-60SW",
+        "AGD-80SW",
+        "AGD-90SW",
+        "AGD-100SW"
+      ],
+      "spec": {
+        "AGD-40SW": {
+          "capacity": "160",
+          "kcal": "137575",
+          "compressor": "30",
+          "pump": "4*2",
+          "flow": "20",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "weight": "650"
+        },
+        "AGD-50SW": {
+          "capacity": "190",
+          "kcal": "163371",
+          "compressor": "37.5",
+          "pump": "5.5*2",
+          "flow": "25",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "weight": "800"
+        },
+        "AGD-60SW": {
+          "capacity": "230",
+          "kcal": "197764",
+          "compressor": "45",
+          "pump": "5.5*2",
+          "flow": "30",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "weight": "1000"
+        },
+        "AGD-80SW": {
+          "capacity": "290",
+          "kcal": "249355",
+          "compressor": "60",
+          "pump": "7.5*2",
+          "flow": "40",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "weight": "1200"
+        },
+        "AGD-90SW": {
+          "capacity": "320",
+          "kcal": "275150",
+          "compressor": "67.5",
+          "pump": "7.5*2",
+          "flow": "45",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "weight": "1300"
+        },
+        "AGD-100SW": {
+          "capacity": "365",
+          "kcal": "313843",
+          "compressor": "75",
+          "pump": "7.5*2",
+          "flow": "50",
+          "voltage": "380V/50HZ/3P",
+          "refrigerant": "R22",
+          "weight": "1500"
+        }
+      }
+    }
+  },
+  "rules": {
+    "inj": {
+      "k": [
+        0.055,
+        0.075
+      ]
+    },
+    "blow": {
+      "k": [
+        0.22,
+        0.3
+      ]
+    },
+    "extr": {
+      "k": [
+        0.25,
+        0.4
+      ]
+    },
+    "rub": {
+      "k": [
+        0.3,
+        0.45
+      ]
+    },
+    "laser": {
+      "k": [
+        2.6,
+        3.2
+      ]
+    }
+  },
+  "corrections": [
+    {
+      "key": "ambient",
+      "factor": 1.15
+    },
+    {
+      "key": "altitude",
+      "factor": 1.08
+    },
+    {
+      "key": "intermittent",
+      "factor": 0.85
+    },
+    {
+      "key": "fullload",
+      "factor": 1.1
+    }
+  ],
+  "savedAt": "2026-10-21T06:58:47.496Z"
+}
