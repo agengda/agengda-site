@@ -1,0 +1,18 @@
+// Extra BANT-style form fields. Kept separate from deep.js so the labels are easy to tweak.
+
+const FORM_L = {
+  es: { f_model: "Modelo de máquina", f_qty: "Cantidad", f_temp: "Temperatura requerida", f_delivery: "Fecha de entrega", f_phone: "Número de WhatsApp", f_sent: "Datos recibidos. Te contactamos hoy.", f_send_wa: "Enviar también por WhatsApp", f_err: "No se pudo enviar. Escríbenos por WhatsApp." },
+  pt: { f_model: "Modelo da máquina", f_qty: "Quantidade", f_temp: "Temperatura necessária", f_delivery: "Prazo desejado", f_phone: "Número de WhatsApp", f_sent: "Dados recebidos. Entramos em contato hoje.", f_send_wa: "Enviar também pelo WhatsApp", f_err: "Não foi possível enviar. Fale conosco no WhatsApp." },
+  en: { f_model: "Machine model", f_qty: "Quantity", f_temp: "Required temperature", f_delivery: "Target delivery", f_phone: "WhatsApp number", f_sent: "Details received. We will reply today.", f_send_wa: "Also send on WhatsApp", f_err: "Could not send. Please reach us on WhatsApp." },
+  zh: { f_model: "设备型号", f_qty: "数量", f_temp: "目标温度", f_delivery: "期望交期", f_phone: "WhatsApp 号码", f_sent: "已收到，我们会当天联系你。", f_send_wa: "同时发到 WhatsApp", f_err: "提交失败，请直接加 WhatsApp。" },
+  de: { f_model: "Maschinenmodell", f_qty: "Menge", f_temp: "Benötigte Temperatur", f_delivery: "Wunschtermin", f_phone: "WhatsApp-Nummer", f_sent: "Daten erhalten. Wir melden uns heute.", f_send_wa: "Auch per WhatsApp senden", f_err: "Senden fehlgeschlagen. Schreiben Sie uns per WhatsApp." },
+  fr: { f_model: "Modèle de machine", f_qty: "Quantité", f_temp: "Température requise", f_delivery: "Délai souhaité", f_phone: "Numéro WhatsApp", f_sent: "Données reçues. Nous répondons aujourd'hui.", f_send_wa: "Envoyer aussi par WhatsApp", f_err: "Envoi impossible. Écrivez-nous sur WhatsApp." },
+  tr: { f_model: "Makine modeli", f_qty: "Adet", f_temp: "Gerekli sıcaklık", f_delivery: "İstenen teslim", f_phone: "WhatsApp numarası", f_sent: "Bilgiler alındı. Bugün dönüş yapacağız.", f_send_wa: "WhatsApp'tan da gönder", f_err: "Gönderilemedi. WhatsApp'tan yazın." },
+  ru: { f_model: "Модель станка", f_qty: "Количество", f_temp: "Требуемая температура", f_delivery: "Желаемый срок", f_phone: "Номер WhatsApp", f_sent: "Данные получены. Ответим сегодня.", f_send_wa: "Отправить также в WhatsApp", f_err: "Не удалось отправить. Напишите в WhatsApp." },
+  ar: { f_model: "موديل الماكينة", f_qty: "الكمية", f_temp: "درجة الحرارة المطلوبة", f_delivery: "موعد التسليم", f_phone: "رقم واتساب", f_sent: "تم استلام البيانات وسنتواصل اليوم.", f_send_wa: "أرسل أيضاً عبر واتساب", f_err: "تعذر الإرسال. راسلنا على واتساب." },
+  id: { f_model: "Model mesin", f_qty: "Jumlah", f_temp: "Suhu yang dibutuhkan", f_delivery: "Target pengiriman", f_phone: "Nomor WhatsApp", f_sent: "Data diterima. Kami hubungi hari ini.", f_send_wa: "Kirim juga lewat WhatsApp", f_err: "Gagal mengirim. Hubungi kami di WhatsApp." },
+  vi: { f_model: "Model máy", f_qty: "Số lượng", f_temp: "Nhiệt độ yêu cầu", f_delivery: "Thời gian mong muốn", f_phone: "Số WhatsApp", f_sent: "Đã nhận thông tin. Chúng tôi liên hệ trong hôm nay.", f_send_wa: "Gửi cả qua WhatsApp", f_err: "Không gửi được. Vui lòng nhắn WhatsApp." },
+  th: { f_model: "รุ่นเครื่อง", f_qty: "จำนวน", f_temp: "อุณหภูมิที่ต้องการ", f_delivery: "กำหนดส่งที่ต้องการ", f_phone: "เบอร์ WhatsApp", f_sent: "ได้รับข้อมูลแล้ว เราจะติดต่อกลับวันนี้", f_send_wa: "ส่งทาง WhatsApp ด้วย", f_err: "ส่งไม่สำเร็จ กรุณาติดต่อทาง WhatsApp" },
+};
+
+module.exports = { FORM_L };
