@@ -319,6 +319,22 @@ function readLeads() {
   }).filter(Boolean);
 }
 
+// Delete an uploaded media file from both the persistent dir and live dist.
+// Only accepts names produced by /api/upload, so repo defaults can't be wiped.
+function deleteMedia(name) {
+  const safe = String(name || "").replace(/[^A-Za-z0-9._-]/g, "");
+  if (!safe) return false;
+  const uploadedName = /^([a-z0-9_-]+-[a-z0-9]{6,12}|factory-video)\.(jpg|png|webp|gif|mp4|webm|mov)$/i.test(safe);
+  if (!uploadedName) return false;
+  let ok = false;
+  for (const dir of [UPLOAD_DIR, IMG_DIR]) {
+    const f = path.join(dir, safe);
+    if (!f.startsWith(dir)) continue;
+    try { if (fs.existsSync(f)) { fs.unlinkSync(f); ok = true; } } catch (e) { /* ignore */ }
+  }
+  return ok;
+}
+
 function send(res, code, body, type) {
   res.writeHead(code, { "Content-Type": type || "application/json; charset=utf-8", "Cache-Control": "no-store" });
   res.end(body);
@@ -500,7 +516,7 @@ const server = http.createServer(async (req, res) => {
   // Editors change live site content, so every one of them sits behind LEAD_TOKEN.
   // /api/catalog and /api/factory are also read by the public JS bundle, so only
   // their write verbs are gated; reading the datasheet stays open.
-  const ADMIN_WRITE = ["/api/catalog", "/api/factory", "/api/cases", "/api/upload", "/api/rebuild"];
+  const ADMIN_WRITE = ["/api/catalog", "/api/factory", "/api/cases", "/api/upload", "/api/upload/delete", "/api/rebuild"];
   const wantsAdminPage = pathname === "/admin" || pathname === "/admin.html";
   const wantsAdminWrite = ADMIN_WRITE.indexOf(pathname) !== -1 && req.method === "POST";
   if (wantsAdminPage || wantsAdminWrite) {
@@ -547,6 +563,20 @@ const server = http.createServer(async (req, res) => {
       console.log("factory  saved");
       const r = await rebuild();
       return send(res, r.ok ? 200 : 500, JSON.stringify(r));
+    } catch (e) {
+      return send(res, 400, JSON.stringify({ ok: false, error: String(e.message || e) }));
+    }
+  }
+
+  // Remove an uploaded photo/video (boss can take media down from /admin).
+  if (pathname === "/api/upload/delete" && req.method === "POST") {
+    try {
+      const raw = await readBody(req, 8 * 1024);
+      const body = JSON.parse(raw || "{}");
+      const gone = deleteMedia(body.name);
+      if (!gone) return send(res, 404, JSON.stringify({ ok: false, error: "文件不存在或不可删除" }));
+      console.log(`upload   deleted ${body.name}`);
+      return send(res, 200, JSON.stringify({ ok: true }));
     } catch (e) {
       return send(res, 400, JSON.stringify({ ok: false, error: String(e.message || e) }));
     }
