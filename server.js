@@ -66,7 +66,36 @@ const WAIT_HTML =
   "<i></i><p>服务已启动，正在生成页面…</p><p><small>约 2-5 秒后自动刷新</small></p>" +
   "</div></body></html>";
 const PORT = Number(process.env.PORT || 8080);
-const TOKEN = process.env.LEAD_TOKEN || "change-me";
+// No silent default: if LEAD_TOKEN is unset the lead export and the /admin editor
+// stay disabled, so a fresh deploy can never expose customer data by accident.
+const TOKEN = process.env.LEAD_TOKEN || "";
+const AUTH_ON = TOKEN.length >= 8;
+
+// Constant-time-ish compare for the token query param / cookie.
+function tokenOk(given) {
+  if (!AUTH_ON || !given) return false;
+  const a = Buffer.from(String(given));
+  const b = Buffer.from(TOKEN);
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
+  return diff === 0;
+}
+function cookieToken(req) {
+  const raw = String(req.headers.cookie || "");
+  const hit = raw.split(/;\s*/).find((c) => c.indexOf("lead_token=") === 0);
+  return hit ? decodeURIComponent(hit.slice("lead_token=".length)) : "";
+}
+function authed(req, q) {
+  return tokenOk(q.get("token")) || tokenOk(cookieToken(req));
+}
+const NO_AUTH_HTML =
+  '<!doctype html><meta charset="utf-8"><title>后台未启用</title>' +
+  '<body style="font-family:system-ui;padding:40px;max-width:640px;line-height:1.7">' +
+  "<h2>后台未启用</h2><p>服务器没有配置 <code>LEAD_TOKEN</code> 环境变量，为保护客户询盘数据，" +
+  "<code>/admin</code> 与询盘导出已自动关闭。</p>" +
+  "<p>在主机（Render → Environment）设置一个至少 8 位的 <code>LEAD_TOKEN</code> 后重启即可启用。" +
+  "访问方式：<code>/admin?token=你的口令</code></p></body>";
 
 // Chinese labels for the editor (internal tool — staff facing).
 const SPEC_LABEL = {
@@ -446,6 +475,34 @@ const server = http.createServer(async (req, res) => {
   if (url === "/api/health") return send(res, 200, JSON.stringify({ ok: true, leads: readLeads().length }));
 
   const pathname = url.split("?")[0];
+  const Q = new URLSearchParams(url.split("?")[1] || "");
+
+  // Editors change live site content, so every one of them sits behind LEAD_TOKEN.
+  // /api/catalog and /api/factory are also read by the public JS bundle, so only
+  // their write verbs are gated; reading the datasheet stays open.
+  const ADMIN_WRITE = ["/api/catalog", "/api/factory", "/api/cases", "/api/upload", "/api/rebuild"];
+  const wantsAdminPage = pathname === "/admin" || pathname === "/admin.html";
+  const wantsAdminWrite = ADMIN_WRITE.indexOf(pathname) !== -1 && req.method === "POST";
+  if (wantsAdminPage || wantsAdminWrite) {
+    if (!AUTH_ON) {
+      if (wantsAdminPage) return send(res, 200, NO_AUTH_HTML, "text/html; charset=utf-8");
+      return send(res, 503, JSON.stringify({ ok: false, error: "编辑器未启用：服务器未配置 LEAD_TOKEN" }));
+    }
+    if (!authed(req, Q)) {
+      if (wantsAdminPage) {
+        return send(res, 401,
+          '<!doctype html><meta charset="utf-8"><title>需要口令</title>' +
+          '<body style="font-family:system-ui;padding:40px;max-width:640px;line-height:1.7"><h2>需要口令</h2>' +
+          '<p>请在网址后加 <code>?token=你的口令</code>，例如 <code>/admin?token=口令</code>。' +
+          "验证一次后浏览器会记住 7 天。</p></body>",
+          "text/html; charset=utf-8");
+      }
+      return send(res, 401, JSON.stringify({ ok: false, error: "unauthorized" }));
+    }
+    // Remember a good token so the editor's in-page fetches keep working.
+    if (Q.get("token")) res.setHeader("Set-Cookie", `lead_token=${encodeURIComponent(TOKEN)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`);
+  }
+
   if (pathname === "/admin" || pathname === "/admin.html") {
     return fs.readFile(ADMIN_HTML, "utf8", (err, html) => {
       if (err) return send(res, 404, "admin.html not found", "text/plain; charset=utf-8");
@@ -557,9 +614,9 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (url.startsWith("/api/leads.csv")) {
-    const q = url.split("?")[1] || "";
-    const token = new URLSearchParams(q).get("token");
-    if (token !== TOKEN) return send(res, 401, "Unauthorized", "text/plain; charset=utf-8");
+    if (!AUTH_ON) return send(res, 503, "导出未启用：服务器未配置 LEAD_TOKEN", "text/plain; charset=utf-8");
+    const q = new URLSearchParams(url.split("?")[1] || "");
+    if (!authed(req, q)) return send(res, 401, "Unauthorized", "text/plain; charset=utf-8");
     return send(res, 200, toCsv(readLeads()), "text/csv; charset=utf-8");
   }
 
