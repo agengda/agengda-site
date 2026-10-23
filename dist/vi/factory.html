@@ -28,12 +28,12 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1705274534492715');fbq('track','PageView');
-</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1705274534492715&ev=PageView&noscript=1" /></noscript><script>
+fbq('init','693778412985325');fbq('track','PageView');
+</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=693778412985325&ev=PageView&noscript=1" /></noscript><script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 function track(ev,params){var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});
 try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
-try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact'};
+try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
 /* set GA_ID in build.js to enable GA4 */
@@ -117,7 +117,7 @@ fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{s
     <div class="copy">© 2026 Agengda. Bảo lưu mọi quyền.</div>
     <div class="tag">Giải pháp làm mát công nghiệp trực tiếp từ nhà máy.</div>
   </div>
-  <div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)"><a href="https://wa.me/8615888503789" target="_blank" rel="noopener" style="text-decoration:none">💬 WhatsApp</a><a href="https://www.facebook.com/profile.php?id=100086934803896" target="_blank" rel="noopener" style="text-decoration:none">📘 Facebook</a><a href="https://m.me/100086934803896" target="_blank" rel="noopener" style="text-decoration:none">📨 Messenger</a></div>
+  <div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)"><a href="https://wa.me/8615888503789" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'whatsapp'})">💬 WhatsApp</a><a href="https://www.facebook.com/profile.php?id=100086934803896" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'facebook'})">📘 Facebook</a><a href="https://m.me/100086934803896" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'messenger'})">📨 Messenger</a></div>
 </footer>
 <a class="wa-float" href="https://wa.me/8615888503789?text=Xin%20ch%C3%A0o%2C%20t%C3%B4i%20quan%20t%C3%A2m%20%C4%91%E1%BA%BFn%20m%C3%A1y%20l%C3%A0m%20l%E1%BA%A1nh%20c%C3%B4ng%20nghi%E1%BB%87p%20c%E1%BB%A7a%20b%E1%BA%A1n.%20Vui%20l%C3%B2ng%20g%E1%BB%ADi%20b%C3%A1o%20gi%C3%A1." target="_blank" rel="noopener" title="Chat trên WhatsApp" onclick="track('wa_click',{placement:'float'})">💬</a>
 <a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本页内容</a>
