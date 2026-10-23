@@ -28,12 +28,12 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1705274534492715');fbq('track','PageView');
-</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1705274534492715&ev=PageView&noscript=1" /></noscript><script>
+fbq('init','693778412985325');fbq('track','PageView');
+</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=693778412985325&ev=PageView&noscript=1" /></noscript><script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 function track(ev,params){var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});
 try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
-try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact'};
+try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
 /* set GA_ID in build.js to enable GA4 */
@@ -132,7 +132,7 @@ fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{s
     <div class="copy">© 2026 Agengda. สงวนลิขสิทธิ์</div>
     <div class="tag">โซลูชันทำความเย็นอุตสาหกรรมจากโรงงานโดยตรง</div>
   </div>
-  <div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)"><a href="https://wa.me/8615888503789" target="_blank" rel="noopener" style="text-decoration:none">💬 WhatsApp</a><a href="https://www.facebook.com/profile.php?id=100086934803896" target="_blank" rel="noopener" style="text-decoration:none">📘 Facebook</a><a href="https://m.me/100086934803896" target="_blank" rel="noopener" style="text-decoration:none">📨 Messenger</a></div>
+  <div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)"><a href="https://wa.me/8615888503789" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'whatsapp'})">💬 WhatsApp</a><a href="https://www.facebook.com/profile.php?id=100086934803896" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'facebook'})">📘 Facebook</a><a href="https://m.me/100086934803896" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'messenger'})">📨 Messenger</a></div>
 </footer>
 <a class="wa-float" href="https://wa.me/8615888503789?text=%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5%20%E0%B8%89%E0%B8%B1%E0%B8%99%E0%B8%AA%E0%B8%99%E0%B9%83%E0%B8%88%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%AD%E0%B8%B8%E0%B8%95%E0%B8%AA%E0%B8%B2%E0%B8%AB%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B8%E0%B8%93%20%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%93%E0%B8%B2%E0%B8%AA%E0%B9%88%E0%B8%87%E0%B9%83%E0%B8%9A%E0%B9%80%E0%B8%AA%E0%B8%99%E0%B8%AD%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2" target="_blank" rel="noopener" title="แชทผ่าน WhatsApp" onclick="track('wa_click',{placement:'float'})">💬</a>
 <a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本页内容</a>
