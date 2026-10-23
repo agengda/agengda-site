@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://agengda-industrial-chiller.com/sitemap.xml
