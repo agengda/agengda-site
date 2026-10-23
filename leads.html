@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>客户询盘 · agengda 冷水机</title>
+<style>
+  :root{
+    --ink:#161b22; --ink2:#4a5464; --ink3:#78828f; --line:#e2e6ec; --line2:#c9d0da;
+    --bg:#f4f6f9; --card:#fff; --blue:#1a5fb4; --blue-d:#143f7a; --ok:#1a7f4b; --okbg:#e9f7ef;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.6 "PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;}
+  .bar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+  .bar-in{max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .bar h1{font-size:17px;margin:0}
+  .bar h1 span{color:var(--ink3);font-weight:400;font-size:13px;margin-left:8px}
+  .bar .sp{flex:1}
+  button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line2);
+    background:#fff;color:var(--ink);padding:8px 16px;transition:.15s}
+  button:hover{border-color:var(--blue);color:var(--blue)}
+  button.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+  button.primary:hover{background:var(--blue-d);border-color:var(--blue-d);color:#fff}
+  .wrap{max-width:1200px;margin:22px auto;padding:0 20px}
+  .sec-h{font-weight:700;margin-bottom:10px;font-size:15px}
+  .note{color:var(--ink3);font-size:13.5px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+  th{background:#f7f9fc;white-space:nowrap}
+  .empty{color:var(--ink3)}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="bar-in">
+    <h1>客户询盘 <span>agengda 工业冷水机 · 云端</span></h1>
+    <div class="sp"></div>
+    <button id="btnLogin" class="primary">使用 WorkBuddy 登录</button>
+  </div>
+</div>
+<div class="wrap">
+  <div id="leadsHost">
+    <div class="note">正在初始化…</div>
+  </div>
+</div>
+
+<script src="./assets/js/cloud-config.js"></script>
+<script src="./assets/js/cloud-client.js"></script>
+<script>
+function esc(s){ s = s==null?"":String(s); return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+
+function renderEmpty(msg){
+  document.getElementById("leadsHost").innerHTML =
+    '<div class="sec-h">客户询盘（云端）</div><div class="note">' + (msg||"暂无询盘") + '</div>';
+}
+
+function renderLeads(rows){
+  if(!rows || !rows.length){ renderEmpty("还没有客户询盘。访客在任意页面提交表单后会实时写入云端。"); return; }
+  var th = '<tr style="background:#f7f9fc">'
+    + '<th>时间</th><th>姓名</th><th>公司</th><th>电话</th><th>国家</th>'
+    + '<th>机型</th><th>数量</th><th>来源</th><th>留言</th></tr>';
+  var body = rows.map(function(r){
+    var t = (r.created_at||r.ts||"").toString().replace("T"," ").slice(0,19);
+    var src = esc((r.source||"") + (r.medium?"/"+r.medium:""));
+    return '<tr>'
+      + '<td style="white-space:nowrap">'+esc(t)+'</td>'
+      + '<td>'+esc(r.name)+'</td>'
+      + '<td>'+esc(r.company)+'</td>'
+      + '<td>'+esc(r.phone)+'</td>'
+      + '<td>'+esc(r.country)+'</td>'
+      + '<td>'+esc(r.model)+'</td>'
+      + '<td>'+esc(r.qty)+'</td>'
+      + '<td>'+esc(src)+'</td>'
+      + '<td>'+esc(r.msg)+'</td></tr>';
+  }).join("");
+  document.getElementById("leadsHost").innerHTML =
+    '<div class="sec-h">客户询盘（云端 · 共 '+rows.length+' 条）</div>'
+    + '<div style="overflow:auto"><table>'+th+body+'</table></div>';
+}
+
+async function loadLeadsView(){
+  if(!window.CloudApp || window.CloudApp.isLocal()){ renderEmpty("本地模式不读取云询盘，请用线上地址并登录查看"); return; }
+  var rows = await window.CloudApp.loadLeads();
+  if(!rows){ renderEmpty("读取询盘失败，请稍后重试或重新登录"); return; }
+  renderLeads(rows);
+}
+
+function refreshAuth(session){
+  var btn = document.getElementById("btnLogin");
+  if(!window.CloudApp || window.CloudApp.isLocal()){ btn.style.display="none"; renderEmpty("本地模式不读取云询盘，请用线上地址并登录查看"); return; }
+  btn.style.display="";
+  if(session){
+    var name = (session.user && (session.user.name||session.user.email)) || "已登录";
+    btn.textContent = "退出（"+name+"）";
+    btn.onclick = function(){ if(window.CloudApp) window.CloudApp.signOut(); };
+    loadLeadsView();
+  } else {
+    btn.textContent = "使用 WorkBuddy 登录";
+    btn.onclick = function(){ if(window.CloudApp) window.CloudApp.signIn("workbuddy"); };
+    renderEmpty("登录 WorkBuddy 后可查看客户询盘（数据仅本人可见）");
+  }
+}
+
+function init(){
+  if(window.CloudApp && window.CloudApp.onAuth){
+    window.CloudApp.onAuth(function(s){ refreshAuth(s); });
+  }
+  // CloudApp may already be ready
+  if(window.CloudApp && window.CloudApp.getSession){ refreshAuth(window.CloudApp.getSession()); }
+  else if(window.CloudApp){ refreshAuth(null); }
+  else { renderEmpty("云组件加载中，请稍候刷新…"); }
+}
+if(document.readyState!=="loading") init(); else document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
