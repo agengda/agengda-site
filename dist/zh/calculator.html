@@ -28,12 +28,12 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1705274534492715');fbq('track','PageView');
-</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1705274534492715&ev=PageView&noscript=1" /></noscript><script>
+fbq('init','693778412985325');fbq('track','PageView');
+</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=693778412985325&ev=PageView&noscript=1" /></noscript><script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 function track(ev,params){var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});
 try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
-try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact'};
+try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
 /* set GA_ID in build.js to enable GA4 */
@@ -174,7 +174,7 @@ document.getElementById('calcForm').addEventListener('submit',function(e){
     <div class="copy">© 2026 Agengda. 保留所有权利。</div>
     <div class="tag">源头工厂 · 工业冷却解决方案</div>
   </div>
-  <div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)"><a href="https://wa.me/8615888503789" target="_blank" rel="noopener" style="text-decoration:none">💬 WhatsApp</a><a href="https://www.facebook.com/profile.php?id=100086934803896" target="_blank" rel="noopener" style="text-decoration:none">📘 Facebook</a><a href="https://m.me/100086934803896" target="_blank" rel="noopener" style="text-decoration:none">📨 Messenger</a></div>
+  <div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)"><a href="https://wa.me/8615888503789" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'whatsapp'})">💬 WhatsApp</a><a href="https://www.facebook.com/profile.php?id=100086934803896" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'facebook'})">📘 Facebook</a><a href="https://m.me/100086934803896" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'messenger'})">📨 Messenger</a></div>
 </footer>
 <a class="wa-float" href="https://wa.me/8615888503789?text=%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E5%AF%B9%E4%BD%A0%E4%BB%AC%E7%9A%84%E5%B7%A5%E4%B8%9A%E5%86%B7%E6%B0%B4%E6%9C%BA%E6%84%9F%E5%85%B4%E8%B6%A3%EF%BC%8C%E8%AF%B7%E7%BB%99%E6%88%91%E4%B8%80%E4%BB%BD%E6%8A%A5%E4%BB%B7%E3%80%82" target="_blank" rel="noopener" title="WhatsApp 咨询" onclick="track('wa_click',{placement:'float'})">💬</a>
 <a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本页内容</a>
