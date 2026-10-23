@@ -147,6 +147,9 @@ function factoryFacts(lang) {
 // ---------- Site config (edit here) ----------
 const BRAND = process.env.SITE_BRAND || "Agengda";                    // replace with your real brand name
 const WHATSAPP = process.env.WHATSAPP || "8615888503789";            // wa.me number, no "+" (e.g. 8615888503789)
+const FACEBOOK = process.env.FACEBOOK || "https://www.facebook.com/profile.php?id=100086934803896"; // public page / profile
+const MESSENGER = process.env.MESSENGER || "https://m.me/100086934803896"; // same identity as Facebook
+const INSTAGRAM = process.env.INSTAGRAM || "";                      // your IG url; leave "" to hide
 const GA_ID = process.env.GA_ID || "YOUR-GA-ID";                  // GA4 measurement id (G-XXXXXXX). Events fire once set.
 const FB_PIXEL = process.env.FB_PIXEL || "1705274534492715";      // Meta Pixel ID (Events Manager). Leave "" to disable.
 const SITE_URL = process.env.SITE_URL || "https://agengda-industrial-chiller.com";  // canonical + sitemap base
@@ -229,11 +232,26 @@ function footer(t) {
     <div class="copy">${t.footer_copy}</div>
     <div class="tag">${t.footer_made}</div>
   </div>
+  ${socialRow()}
 </footer>`;
 }
 
 function waFloat(t) {
   return `<a class="wa-float" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" title="${t.cta_whatsapp}" onclick="track('wa_click',{placement:'float'})">💬</a>`;
+}
+
+// Social row shown in the footer on every page. Links live in the config block
+// above (WHATSAPP / FACEBOOK / MESSENGER / INSTAGRAM) so they survive rebuilds.
+function socialRow() {
+  const items = [
+    { href: `https://wa.me/${WHATSAPP}`, icon: "💬", label: "WhatsApp" },
+    { href: FACEBOOK, icon: "📘", label: "Facebook" },
+    { href: MESSENGER, icon: "📨", label: "Messenger" },
+  ];
+  if (INSTAGRAM) items.push({ href: INSTAGRAM, icon: "📸", label: "Instagram" });
+  return `<div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)">` +
+    items.map((i) => `<a href="${i.href}" target="_blank" rel="noopener" style="text-decoration:none">${i.icon} ${i.label}</a>`).join("") +
+    `</div>`;
 }
 
 function analytics() {
