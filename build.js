@@ -151,7 +151,7 @@ const FACEBOOK = process.env.FACEBOOK || "https://www.facebook.com/profile.php?i
 const MESSENGER = process.env.MESSENGER || "https://m.me/100086934803896"; // same identity as Facebook
 const INSTAGRAM = process.env.INSTAGRAM || "";                      // your IG url; leave "" to hide
 const GA_ID = process.env.GA_ID || "YOUR-GA-ID";                  // GA4 measurement id (G-XXXXXXX). Events fire once set.
-const FB_PIXEL = process.env.FB_PIXEL || "693778412985325";      // Meta Pixel ID (Events Manager). Leave "" to disable.
+const FB_PIXEL = process.env.FB_PIXEL || "1705274534492715";      // Meta Pixel ID (Events Manager). Leave "" to disable.
 const SITE_URL = process.env.SITE_URL || "https://agengda-industrial-chiller.com";  // canonical + sitemap base
 const LEAD_API = "/api/lead";                // lead endpoint served by server.js
 // --------------------------------------------
