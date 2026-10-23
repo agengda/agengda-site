@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UTM 链接生成器</title>
+<link rel="stylesheet" href="./assets/css/style.css?v=60d7dc00">
+<style>.ub{max-width:760px;margin:40px auto;padding:0 16px;font:14px/1.6 system-ui,"Microsoft YaHei",sans-serif}.ub label{display:block;margin:12px 0 4px;font-weight:600;color:#334155}.ub input,.ub select{width:100%;padding:9px 11px;border:1px solid #d3dae3;border-radius:9px;box-sizing:border-box;font:inherit}.ub .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ub pre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:10px;white-space:pre-wrap;word-break:break-all;margin-top:16px}.ub button{margin-top:14px;padding:9px 16px;border:0;border-radius:9px;background:#16a34a;color:#fff;font:inherit;font-weight:600;cursor:pointer}.ub .hint{color:#64748b;font-size:12.5px;margin-top:6px}</style>
+</head><body><div class="ub">
+<h1>UTM 广告链接生成器</h1>
+<p class="hint">给每个广告系列生成带 UTM 的链接，GA4 就能看出哪个渠道带来的询盘最多。建议按「渠道_国家_素材」命名 campaign。</p>
+<div class="row">
+  <div><label>落地页基础网址</label><input id="u" value="https://agengda-industrial-chiller.com/en/products.html"></div>
+  <div><label>来源 utm_source</label><input id="s" value="google" list="srcs"><datalist id="srcs"><option>google<option>facebook<option>instagram<option>tiktok<option>linkedin</datalist></div>
+</div>
+<div class="row">
+  <div><label>媒介 utm_medium</label><input id="m" value="cpc" list="meds"><datalist id="meds"><option>cpc<option>paid_social<option>display<option>email<option>referral</datalist></div>
+  <div><label>系列 utm_campaign</label><input id="c" placeholder="例：chiller_mx_video_01"></div>
+</div>
+<div class="row">
+  <div><label>关键词 utm_term（可选）</label><input id="t" placeholder="冷水机"></div>
+  <div><label>素材 utm_content（可选）</label><input id="cn" placeholder="video_a / image_b"></div>
+</div>
+<button id="go">生成链接</button>
+<pre id="out">填完上面点「生成链接」</pre>
+<script>
+(function(){
+  function g(id){return document.getElementById(id).value.trim();}
+  document.getElementById('go').addEventListener('click',function(){
+    var u=g('u'); if(!u) return;
+    var p=new URLSearchParams();
+    ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k,i){
+      var v=[g('s'),g('m'),g('c'),g('t'),g('cn')][i]; if(v) p.set(k,v);
+    });
+    var sep=u.indexOf('?')>=0?'&':'?';
+    var full=u+sep+p.toString();
+    document.getElementById('out').textContent=full;
+    navigator.clipboard&&navigator.clipboard.writeText(full);
+  });
+})();
+</script>
+</div></body></html>
