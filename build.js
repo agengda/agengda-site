@@ -151,7 +151,7 @@ const FACEBOOK = process.env.FACEBOOK || "https://www.facebook.com/profile.php?i
 const MESSENGER = process.env.MESSENGER || "https://m.me/100086934803896"; // same identity as Facebook
 const INSTAGRAM = process.env.INSTAGRAM || "";                      // your IG url; leave "" to hide
 const GA_ID = process.env.GA_ID || "YOUR-GA-ID";                  // GA4 measurement id (G-XXXXXXX). Events fire once set.
-const FB_PIXEL = process.env.FB_PIXEL || "1705274534492715";      // Meta Pixel ID (Events Manager). Leave "" to disable.
+const FB_PIXEL = process.env.FB_PIXEL || "693778412985325";      // Meta Pixel ID (Events Manager). Leave "" to disable.
 const SITE_URL = process.env.SITE_URL || "https://agengda-industrial-chiller.com";  // canonical + sitemap base
 const LEAD_API = "/api/lead";                // lead endpoint served by server.js
 // --------------------------------------------
@@ -244,13 +244,13 @@ function waFloat(t) {
 // above (WHATSAPP / FACEBOOK / MESSENGER / INSTAGRAM) so they survive rebuilds.
 function socialRow() {
   const items = [
-    { href: `https://wa.me/${WHATSAPP}`, icon: "💬", label: "WhatsApp" },
-    { href: FACEBOOK, icon: "📘", label: "Facebook" },
-    { href: MESSENGER, icon: "📨", label: "Messenger" },
+    { href: `https://wa.me/${WHATSAPP}`, icon: "💬", label: "WhatsApp", channel: "whatsapp" },
+    { href: FACEBOOK, icon: "📘", label: "Facebook", channel: "facebook" },
+    { href: MESSENGER, icon: "📨", label: "Messenger", channel: "messenger" },
   ];
-  if (INSTAGRAM) items.push({ href: INSTAGRAM, icon: "📸", label: "Instagram" });
+  if (INSTAGRAM) items.push({ href: INSTAGRAM, icon: "📸", label: "Instagram", channel: "instagram" });
   return `<div class="container" style="justify-content:center;gap:22px;flex-wrap:wrap;padding-top:16px;margin-top:6px;border-top:1px solid rgba(255,255,255,.14)">` +
-    items.map((i) => `<a href="${i.href}" target="_blank" rel="noopener" style="text-decoration:none">${i.icon} ${i.label}</a>`).join("") +
+    items.map((i) => `<a href="${i.href}" target="_blank" rel="noopener" style="text-decoration:none" onclick="track('contact_click',{channel:'${i.channel}'})">${i.icon} ${i.label}</a>`).join("") +
     `</div>`;
 }
 
@@ -268,7 +268,7 @@ fbq('init','${FB_PIXEL}');fbq('track','PageView');
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 function track(ev,params){var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});
 try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
-try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact'};
+try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
 ${on ? `gtag('js',new Date());gtag('config','${GA_ID}');` : "/* set GA_ID in build.js to enable GA4 */"}
