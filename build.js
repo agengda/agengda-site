@@ -389,7 +389,7 @@ function specTable(s, d) {
 const EV_DEFAULTS = [
   { key: "workshop", img: "workshop.jpg", icon: "🏭", ui: "ev_workshop" },
   { key: "test", img: "test.jpg", icon: "🔧", ui: "ev_test" },
-  { key: "cert", img: "cert.jpg", icon: "📜", ui: "ev_cert" },
+  { key: "cert", img: "factory-test.jpg", icon: "📊", ui: "ev_cert" },
   { key: "shipping", img: "shipping.jpg", icon: "🚢", ui: "ev_ship" },
 ];
 
@@ -409,9 +409,20 @@ function evidenceTiles(d, lang) {
 
 function evidence(d, lang) {
   const tiles = evidenceTiles(d, lang);
-  const cells = tiles.map((x) => hasImg(x.img)
-    ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" /><figcaption>${x.label}</figcaption></figure>`
-    : `<figure class="ev-tile ev-icon" data-ev-key="${x.key}"><div class="ev-ic">${x.icon}</div><figcaption>${x.label}</figcaption></figure>`).join("\n    ");
+  const cells = tiles.map((x) => {
+    const base = String(x.img || "").replace(/\.[^.]+$/, "");
+    const vmp4 = fs.existsSync(path.join(IMG_SRC, base + ".mp4")) ? base + ".mp4" : null;
+    const vwebm = fs.existsSync(path.join(IMG_SRC, base + ".webm")) ? base + ".webm" : null;
+    const poster = fs.existsSync(path.join(IMG_SRC, base + ".jpg")) ? base + ".jpg" : null;
+    if (vmp4 || vwebm) {
+      const srcs = (vmp4 ? `<source src="../assets/img/${vmp4}" type="video/mp4" />` : "")
+        + (vwebm ? `<source src="../assets/img/${vwebm}" type="video/webm" />` : "");
+      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video autoplay muted loop playsinline${poster ? ` poster="../assets/img/${poster}"` : ""} preload="metadata">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
+    }
+    return hasImg(x.img)
+      ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" /><figcaption>${x.label}</figcaption></figure>`
+      : `<figure class="ev-tile ev-icon" data-ev-key="${x.key}"><div class="ev-ic">${x.icon}</div><figcaption>${x.label}</figcaption></figure>`;
+  }).join("\n    ");
   // Factory video (uploaded via /admin as factory-video.mp4 / .webm).
   // Rendered unconditionally; a tiny script hides the whole block when the
   // file isn't there (404), so nothing shows until media exists.
