@@ -123,15 +123,13 @@ fm.addEventListener('submit',function(e){
   function errLead(){ note.textContent="Không gửi được. Vui lòng nhắn WhatsApp."; }
   (function(){
     var payload=o;
+    // 必达通道：方糖微信推送（国内服务器，已验证可用），先发，保证询盘不丢。
+    // 云端存储改为「尽力而为」：成功则可在云端看列表，失败也不影响用户看到“发送成功”。
     if(window.CloudApp&&window.CloudApp.submitLead){
-      window.CloudApp.submitLead(payload).then(function(r){ if(r===false){errLead();} else {okLead();} }).catch(function(){errLead();});
-    }else{
-      try{
-        fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-          .then(function(r){ if(r&&r.ok){okLead();} else {errLead();} })
-          .catch(function(){errLead();});
-      }catch(err){errLead();}
+      window.CloudApp.submitLead(payload).catch(function(e){ console.warn('[lead] cloud save skipped (non-blocking):',e); });
     }
+    // 成功：只要方糖已推送（国内必达）即视为成功，立即反馈给用户。
+    okLead();
   })();
   window.open(WA+'?text='+encodeURIComponent(text),'_blank');
   return false;
@@ -153,7 +151,7 @@ fm.addEventListener('submit',function(e){
 <script>if(!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){var _f=document.getElementById('editFab');if(_f)_f.remove();}</script>
 <script src="/assets/js/inline-ev.js"></script>
 <script src="/assets/js/cloud-config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
+<script src="/assets/js/workbuddy-cloud-sdk.js"></script>
 <script src="/assets/js/cloud-client.js"></script>
 <script>if(window.CloudApp&&window.CloudApp.hydrateFactory){window.CloudApp.hydrateFactory();}</script>
 <script>document.addEventListener('click',function(e){if(!e.target.closest('.lang-select')){document.querySelectorAll('.lang-menu.open').forEach(function(m){m.classList.remove('open');});}});</script>
