@@ -20,7 +20,7 @@
   <link rel="alternate" hreflang="vi" href="https://agengda-industrial-chiller.com/vi/lp.html" />
   <link rel="alternate" hreflang="th" href="https://agengda-industrial-chiller.com/th/lp.html" />
   <link rel="alternate" hreflang="x-default" href="https://agengda-industrial-chiller.com/en/lp.html" />
-<link rel="stylesheet" href="../assets/css/style.css?v=60d7dc00" />
+<link rel="stylesheet" href="../assets/css/style.css?v=caccb0fe" />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://agengda-industrial-chiller.com/fr/index.html"},{"@type":"ListItem","position":2,"name":"Refroidisseurs industriels, direct usine","item":"https://agengda-industrial-chiller.com/fr/lp.html"}]}</script>
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -140,7 +140,7 @@ fm.addEventListener('submit',function(e){
   var text=(o.msg||'')+'\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
   note.textContent="Données reçues. Nous répondons aujourd'hui.";
   var done=false;
-  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} }
+  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML="Données reçues. Nous répondons aujourd'hui."+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track("wa_click",{placement:"success"})'>💬 "+"Discuter sur WhatsApp"+"</a>"; }
   function errLead(){ note.textContent="Envoi impossible. Écrivez-nous sur WhatsApp."; }
   (function(){
     var payload=o;
