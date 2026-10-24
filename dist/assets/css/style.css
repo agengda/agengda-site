@@ -105,6 +105,8 @@ form label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6
 form input, form textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--c-border); border-radius: 8px; font-size: 15px; font-family: inherit; color: var(--c-text); }
 form input:focus, form textarea:focus { outline: none; border-color: var(--c-primary); box-shadow: 0 0 0 3px var(--c-bg-3); }
 .note { color: var(--c-muted); font-size: 14px; margin-top: 14px; }
+.wa-link { display:inline-flex; align-items:center; gap:6px; background:#25d366; color:#fff !important; padding:7px 15px; border-radius:8px; font-weight:700; margin-inline-start:8px; text-decoration:none; white-space:nowrap; }
+.wa-link:hover { background:#1ebe5b; text-decoration:none; }
 
 .site-footer { background: var(--c-primary-d); color: #cfe0f2; padding: 40px 0 30px; margin-top: 20px; }
 .site-footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
