@@ -229,6 +229,7 @@ form input:focus, form textarea:focus { outline: none; border-color: var(--c-pri
 .ev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
 .ev-tile { margin: 0; border: 1px solid var(--c-border); border-radius: var(--radius); overflow: hidden; background: #fff; }
 .ev-tile img { width: 100%; height: 150px; object-fit: cover; display: block; }
+.ev-tile.ev-video video { width: 100%; height: 150px; object-fit: contain; display: block; background: #f1f4f6; }
 .ev-tile figcaption { padding: 10px 14px; font-size: 13px; color: var(--c-muted); }
 .ev-ph { height: 150px; display: grid; place-items: center; background: var(--c-bg-2); border-bottom: 1px dashed var(--c-border); color: #9aa7b6; font-size: 13px; text-align: center; padding: 0 12px; }
 .ev-tile.ev-icon { display: flex; flex-direction: column; }
