@@ -124,7 +124,7 @@ const FACTORY_TEXT_KEYS = ["intro", "a1_t", "a1_d", "a2_t", "a2_d", "a3_t", "a3_
 const EV_KEYS = [
   { key: "workshop", img: "workshop.jpg", zh: "车间与产线", en: "Workshop & production lines" },
   { key: "test", img: "test.jpg", zh: "整机试机", en: "Full-unit testing" },
-  { key: "cert", img: "cert.jpg", zh: "认证证书", en: "Certificates" },
+  { key: "cert", img: "factory-test.jpg", zh: "出厂测试", en: "Factory test" },
   { key: "shipping", img: "shipping.jpg", zh: "装柜与出口", en: "Loading & export" },
 ];
 const IMG_DIR = path.join(DIST, "assets", "img");
