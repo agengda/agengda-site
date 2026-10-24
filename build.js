@@ -532,6 +532,8 @@ function homeBody(t, ui, lang) {
   <div class="app-grid">${APPS.map((a) => appCard(a, aT[a.key])).join("\n    ")}</div>
 </div></section>
 
+${evidence(d, lang)}
+
 <section><div class="container">
   <div class="cta-band">
     <h2>${t.h_cta_title}</h2>
@@ -1053,17 +1055,21 @@ ${urls}
     `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE_URL}/sitemap.xml\n`, "utf8");
 
   // assets
+  const copyForce = (src, dst) => {
+    try { fs.unlinkSync(dst); } catch (_) {}
+    fs.copyFileSync(src, dst);
+  };
   fs.mkdirSync(path.join(DIST, "assets", "css"), { recursive: true });
   fs.writeFileSync(path.join(DIST, "assets", "css", "style.css"), SITE_CSS);
   fs.mkdirSync(IMG_DIST, { recursive: true });
   if (fs.existsSync(IMG_SRC)) {
-    fs.readdirSync(IMG_SRC).forEach((n) => fs.copyFileSync(path.join(IMG_SRC, n), path.join(IMG_DIST, n)));
+    fs.readdirSync(IMG_SRC).forEach((n) => copyForce(path.join(IMG_SRC, n), path.join(IMG_DIST, n)));
   }
   const JS_SRC = path.join(ROOT, "src", "assets", "js");
   const JS_DIST = path.join(DIST, "assets", "js");
   if (fs.existsSync(JS_SRC)) {
     fs.mkdirSync(JS_DIST, { recursive: true });
-    fs.readdirSync(JS_SRC).forEach((n) => fs.copyFileSync(path.join(JS_SRC, n), path.join(JS_DIST, n)));
+    fs.readdirSync(JS_SRC).forEach((n) => copyForce(path.join(JS_SRC, n), path.join(JS_DIST, n)));
   }
 
   // Admin backend: served from the site root on the published site too, so the
