@@ -152,6 +152,7 @@ const MESSENGER = process.env.MESSENGER || "https://m.me/100086934803896"; // sa
 const INSTAGRAM = process.env.INSTAGRAM || "";                      // your IG url; leave "" to hide
 const GA_ID = process.env.GA_ID || "YOUR-GA-ID";                  // GA4 measurement id (G-XXXXXXX). Events fire once set.
 const FB_PIXEL = process.env.FB_PIXEL || "1705274534492715";      // Meta Pixel ID (Events Manager). Leave "" to disable.
+const SERVERJIANG = process.env.SERVERJIANG || "SCT449072TH4I7bOrX48bA7WeEDWGIe5uK"; // 方糖(Server酱) SendKey: 新询盘推送到微信. Leave "" to disable.
 const SITE_URL = process.env.SITE_URL || "https://agengda-industrial-chiller.com";  // canonical + sitemap base
 const LEAD_API = "/api/lead";                // lead endpoint served by server.js
 // --------------------------------------------
@@ -271,6 +272,7 @@ try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
 try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
+window.__notifyLead=function(o){try{var k='${SERVERJIANG}';if(!k)return;o=o||{};var name=o.name||'',company=o.company||'',country=o.country||'',phone=o.phone||'',model=o.model||'',qty=o.qty||'',msg=o.msg||'';var title='新询盘 · agengda工业冷水机';var desp=[name&&('姓名: '+name),company&&('公司: '+company),country&&('国家: '+country),phone&&('电话: '+phone),model&&('机型: '+model),qty&&('数量: '+qty),msg&&('留言: '+msg)].filter(Boolean).join('\n');var u='https://sctapi.ftqq.com/'+encodeURIComponent(k)+'.send?title='+encodeURIComponent(title)+'&desp='+encodeURIComponent(desp);new Image().src=u;}catch(e){}};
 ${on ? `gtag('js',new Date());gtag('config','${GA_ID}');` : "/* set GA_ID in build.js to enable GA4 */"}
 </script>${on ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>` : ""}`;
 }
@@ -466,7 +468,7 @@ fm.addEventListener('submit',function(e){
   var text=(o.msg||'')+'\\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
   note.textContent=${JSON.stringify(f.f_sent)};
   var done=false;
-  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); }
+  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} }
   function errLead(){ note.textContent=${JSON.stringify(f.f_err)}; }
   (function(){
     var payload=o;
