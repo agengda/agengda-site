@@ -417,7 +417,7 @@ function evidence(d, lang) {
     if (vmp4 || vwebm) {
       const srcs = (vmp4 ? `<source src="../assets/img/${vmp4}" type="video/mp4" />` : "")
         + (vwebm ? `<source src="../assets/img/${vwebm}" type="video/webm" />` : "");
-      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video autoplay muted loop playsinline${poster ? ` poster="../assets/img/${poster}"` : ""} preload="metadata">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
+      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video controls playsinline loop${poster ? ` poster="../assets/img/${poster}"` : ""} preload="metadata">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
     }
     return hasImg(x.img)
       ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" /><figcaption>${x.label}</figcaption></figure>`
