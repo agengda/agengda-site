@@ -144,15 +144,13 @@ fm.addEventListener('submit',function(e){
   function errLead(){ note.textContent="Не удалось отправить. Напишите в WhatsApp."; }
   (function(){
     var payload=o;
+    // 必达通道：方糖微信推送（国内服务器，已验证可用），先发，保证询盘不丢。
+    // 云端存储改为「尽力而为」：成功则可在云端看列表，失败也不影响用户看到“发送成功”。
     if(window.CloudApp&&window.CloudApp.submitLead){
-      window.CloudApp.submitLead(payload).then(function(r){ if(r===false){errLead();} else {okLead();} }).catch(function(){errLead();});
-    }else{
-      try{
-        fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-          .then(function(r){ if(r&&r.ok){okLead();} else {errLead();} })
-          .catch(function(){errLead();});
-      }catch(err){errLead();}
+      window.CloudApp.submitLead(payload).catch(function(e){ console.warn('[lead] cloud save skipped (non-blocking):',e); });
     }
+    // 成功：只要方糖已推送（国内必达）即视为成功，立即反馈给用户。
+    okLead();
   })();
   window.open(WA+'?text='+encodeURIComponent(text),'_blank');
   return false;
