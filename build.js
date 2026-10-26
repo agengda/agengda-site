@@ -568,7 +568,7 @@ fm.addEventListener('submit',function(e){
   var text=(o.msg||'')+'\\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
   note.textContent=${JSON.stringify(f.f_sent)};
   var done=false;
-  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_sent)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(\"wa_click\",{placement:\"success\"})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
+  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_reply)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(\"wa_click\",{placement:\"success\"})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
   function errLead(){ note.textContent=${JSON.stringify(f.f_err)}; }
   (function(){
     var payload=o;
