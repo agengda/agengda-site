@@ -436,9 +436,9 @@ function evidence(d, lang) {
     <div class="section-head"><h2>${d.ui.ev_title || "Factory"} · Video</h2></div>
     <video controls preload="metadata" playsinline poster="../assets/img/factory-video-poster.jpg" style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
       onerror="var w=this.closest('[data-factory-video]');if(w)w.style.display='none'">
-      <source src="../assets/img/factory-video-480.mp4" type="video/mp4" />
-      <source src="../assets/img/factory-video.mp4" type="video/mp4" />
       <source src="../assets/img/factory-video.webm" type="video/webm" />
+      <source src="../assets/img/factory-video.mp4" type="video/mp4" />
+      <source src="../assets/img/factory-video-480.mp4" type="video/mp4" />
     </video>
   </div>`;
   return `<section class="bg-soft"><div class="container">
