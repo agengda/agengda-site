@@ -189,13 +189,14 @@ const PAGES = [
 
 // ---------- Shared chrome ----------
 function langMenu(current, file) {
+  const cur = LANGS.find((x) => x.code === current || (x.htmlLang || x.code) === current) || { code: current, name: current.toUpperCase() };
   const items = LANGS.map((l) => {
-    const active = l.code === current ? ' style="font-weight:700;background:var(--c-bg-3)"' : "";
+    const active = l.code === cur.code ? ' style="font-weight:700;background:var(--c-bg-3)"' : "";
     return `<a href="../${l.code}/${file}"${active}><span class="lang-flag">${l.flag}</span>${l.name}</a>`;
   }).join("\n");
   return `
   <div class="lang-select">
-    <button onclick="document.getElementById('lm-${current}-${file.replace(/\W/g, "")}').classList.toggle('open')" aria-label="language">🌐 <span>${current.toUpperCase()}</span></button>
+    <button onclick="document.getElementById('lm-${current}-${file.replace(/\W/g, "")}').classList.toggle('open')" aria-label="language">🌐 <span>${cur.name.split("(")[0].trim()}</span> ▾</button>
     <div class="lang-menu" id="lm-${current}-${file.replace(/\W/g, "")}">${items}</div>
   </div>`;
 }
