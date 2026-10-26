@@ -132,13 +132,45 @@ form input:focus, form textarea:focus { outline: none; border-color: var(--c-pri
 
 .spec-note { background: #fff7e6; border: 1px solid #f3d28a; color: #8a5a00; border-radius: 8px; padding: 12px 16px; font-size: 14px; margin-top: 18px; }
 
+/* Mobile burger menu */
+.nav-burger {
+  display: none;
+  width: 42px; height: 42px; padding: 0; border-radius: 9px; cursor: pointer;
+  background: var(--c-bg-2); border: 1px solid var(--c-border); color: var(--c-text);
+  font-size: 19px; line-height: 1; align-items: center; justify-content: center;
+}
+.nav-burger:active { background: var(--c-bg-3); }
+
 @media (max-width: 860px) {
   .grid-3 { grid-template-columns: 1fr; }
   .grid-2 { grid-template-columns: 1fr; }
   .contact-wrap { grid-template-columns: 1fr; }
   .hero h1 { font-size: 30px; }
-  .nav-links { display: none; }
   .lang-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* header: brand ... [lang globe] [burger] */
+  .nav { justify-content: flex-start; }
+  .brand { margin-inline-end: auto; }
+  .nav-burger { display: inline-flex; }
+  .lang-select > button span { display: none; }
+  .nav-right { gap: 8px; }
+  .nav-right .btn-primary { display: none; }
+
+  /* nav collapses into a full-width dropdown drawer */
+  .nav-links {
+    display: none;
+    position: absolute; top: 64px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: #fff; border-bottom: 1px solid var(--c-border);
+    box-shadow: 0 14px 28px rgba(12, 68, 124, 0.14);
+    padding: 6px 20px 18px; z-index: 60;
+    max-height: calc(100vh - 64px); overflow-y: auto;
+    font-size: 16px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 14px 2px; border-bottom: 1px solid var(--c-border); font-size: 16px; }
+  .nav-links a:last-child { border-bottom: 0; }
+  body.nav-open { overflow: hidden; }
 }
 
 [dir="rtl"] body { direction: rtl; text-align: right; }
@@ -329,5 +361,11 @@ form input:focus, form textarea:focus { outline: none; border-color: var(--c-pri
 .ev-foot {
   display: flex; justify-content: flex-end; gap: 10px;
   padding: 14px 18px; border-top: 1px solid #eef2f7; background: #fbfdff;
+}
+
+/* Mobile: RTL Arabic drawer must stack vertically (override the row-reverse rule above) */
+@media (max-width: 860px) {
+  [dir="rtl"] .nav-links { flex-direction: column; align-items: stretch; }
+  [dir="rtl"] .nav-links a { padding: 14px 2px; }
 }
 `;
