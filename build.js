@@ -218,6 +218,7 @@ function header(t, lang, file, ui, d) {
       ${langMenu(lang, file)}
       <a class="btn btn-primary" href="./contact.html">${t.cta_whatsapp}</a>
     </div>
+    <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" onclick="var n=this.parentNode.querySelector('.nav-links');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o?'true':'false');document.body.classList.toggle('nav-open',o);">☰</button>
   </div>
 </header>`;
 }
@@ -348,7 +349,7 @@ ${bare ? "" : `<a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本�
 <script src="/assets/js/workbuddy-cloud-sdk.js"></script>
 <script src="/assets/js/cloud-client.js"></script>
 <script>if(window.CloudApp&&window.CloudApp.hydrateFactory){window.CloudApp.hydrateFactory();}</script>`}
-<script>document.addEventListener('click',function(e){if(!e.target.closest('.lang-select')){document.querySelectorAll('.lang-menu.open').forEach(function(m){m.classList.remove('open');});}});</script>
+<script>document.addEventListener('click',function(e){if(!e.target.closest('.lang-select')){document.querySelectorAll('.lang-menu.open').forEach(function(m){m.classList.remove('open');});}if(!e.target.closest('.nav-burger')&&!e.target.closest('.nav-links')){document.querySelectorAll('.nav-links.open').forEach(function(n){n.classList.remove('open');});document.body.classList.remove('nav-open');var b=document.querySelector('.nav-burger');if(b)b.setAttribute('aria-expanded','false');}});</script>
 ${attribScript()}
 </body>
 </html>`;
