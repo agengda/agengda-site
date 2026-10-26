@@ -1125,6 +1125,10 @@ ${urls}
   fs.writeFileSync(path.join(DIST, "robots.txt"),
     `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${SITE_URL}/sitemap.xml\n`, "utf8");
 
+  // IndexNow key file (Bing / Yandex / Seznam instant indexing must find it at /<key>.txt)
+  const INDEXNOW_KEY = "6b50956eba5d3fe8ad77216d0ea10369";
+  fs.writeFileSync(path.join(DIST, INDEXNOW_KEY + ".txt"), INDEXNOW_KEY, "utf8");
+
   // assets
   const copyForce = (src, dst) => {
     try { fs.unlinkSync(dst); } catch (_) {}
