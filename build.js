@@ -4,6 +4,7 @@
 const fs = require("fs");
 const path = require("path");
 const { LANGS, DEFAULT_LANG, T } = require("./src/i18n.js");
+const SEOT = require("./src/seo.js");
 const { APPS, APP_UI, APP_T } = require("./src/apps.js");
 const { SERIES_KEYS, DEEP } = require("./src/data/deep.js");
 const { SERIES, SPEC_FIELDS, RULES, CORRECTIONS, WATER_TEMP, MARGIN } = require("./src/data/catalog.js");
@@ -182,6 +183,7 @@ const PAGES = [
   { file: "calculator.html", kind: "calc" },
   { file: "factory.html", kind: "factory" },
   { file: "contact.html", kind: "contact" },
+  { file: "distributors.html", kind: "dist" },
   { file: "lp.html", kind: "lp" },
 ];
 
@@ -208,6 +210,7 @@ function header(t, lang, file, ui, d) {
       <a href="./cases.html">${d.ui.nav_cases}</a>
       <a href="./calculator.html">${d.ui.nav_calc}</a>
       <a href="./factory.html">${t.nav_factory}</a>
+      <a href="./distributors.html">${(SEOT[lang] || SEOT.en).nav_d}</a>
       <a href="./contact.html">${t.nav_contact}</a>
     </nav>
     <div class="nav-right">
@@ -499,6 +502,61 @@ fm.addEventListener('submit',function(e){
 }
 
 // ---------- Page bodies ----------
+function trustStrip(lang) {
+  const s = SEOT[lang] || SEOT.en;
+  const cells = s.stats.map(([n, l2]) =>
+    `<div style="flex:1 1 160px;min-width:150px;text-align:center;padding:20px 10px;border:1px solid rgba(255,255,255,.3);border-radius:12px;background:rgba(255,255,255,.08)"><b style="display:block;font-size:1.5rem">${n}</b><span style="font-size:.92rem;opacity:.92">${l2}</span></div>`).join("");
+  return `<section><div class="container">
+  <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">${cells}</div>
+  <p style="text-align:center;font-size:.78rem;opacity:.65;margin-top:10px">${s.fn}</p>
+</div></section>`;
+}
+
+function distBody(lang, t) {
+  const s = SEOT[lang] || SEOT.en;
+  const dp = s.distPage;
+  const wa = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(dp.wa)}`;
+  const cards = dp.items.map(([ic, tt, dd]) =>
+    `<div class="card"><div class="ic">${ic}</div><h3>${tt}</h3><p>${dd}</p></div>`).join("\n    ");
+  const stat = s.stats.map(([n, l2]) =>
+    `<div style="flex:1 1 170px;min-width:160px;text-align:center;padding:22px 10px;border:1px solid #e5e7eb;border-radius:12px;background:#fff"><b style="display:block;font-size:1.55rem">${n}</b><span style="font-size:.95rem;color:#555">${l2}</span></div>`).join("");
+  return `
+<section class="hero"><div class="container hero-inner">
+  <span class="kicker">${BRAND} · ${s.nav_d}</span>
+  <h1>${dp.h}</h1>
+  <p class="sub">${dp.s}</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="${wa}" target="_blank" rel="noopener">${dp.ctaB}</a>
+    <a class="btn btn-outline" style="color:#fff;border-color:#fff" href="./products.html">${t.nav_products}</a>
+  </div>
+</div></section>
+
+<section><div class="container">
+  <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">${stat}</div>
+  <p style="text-align:center;font-size:.78rem;opacity:.6;margin-top:10px">${s.fn}</p>
+</div></section>
+
+<section class="bg-soft"><div class="container">
+  <div class="section-head"><h2>${dp.why}</h2></div>
+  <div class="grid-3">
+    ${cards}
+  </div>
+</div></section>
+
+<section><div class="container">
+  <div class="section-head"><h2>${dp.who_h}</h2></div>
+  <p style="max-width:860px;margin:0 auto;text-align:center;font-size:1.05rem;line-height:1.7">${dp.who}</p>
+</div></section>
+
+<section><div class="container">
+  <div class="cta-band">
+    <h2>${dp.ctaH}</h2>
+    <p>${dp.ctaP}</p>
+    <a class="btn btn-primary" style="background:#fff;color:var(--c-accent)" href="${wa}" target="_blank" rel="noopener">${dp.ctaB}</a>
+  </div>
+</div></section>`;
+}
+
 function homeBody(t, ui, lang) {
   const d = DEEP[lang] || DEEP.en;
   const aT = APP_T[lang] || APP_T.en;
@@ -512,6 +570,8 @@ function homeBody(t, ui, lang) {
     <a class="btn btn-outline" style="color:#fff;border-color:#fff" href="./products.html">${t.nav_products}</a>
   </div>
 </div></section>
+
+${trustStrip(lang)}
 
 <section><div class="container">
   <div class="section-head"><h2>${t.h_value_title}</h2></div>
@@ -835,16 +895,24 @@ ${evidence(d, lang)}
 }
 
 // ---------- Titles / descriptions / structured data ----------
-function metaFor(p, t, ui, d, appT) {
+function metaFor(p, t, ui, d, appT, lang) {
+  const s = SEOT[lang] || SEOT.en;
   switch (p.kind) {
-    case "home": return { title: `${BRAND} | ${t.nav_home}`, desc: t.h_hero_sub };
-    case "products": return { title: `${BRAND} | ${t.p_title}`, desc: t.p_intro };
-    case "series": return { title: `${BRAND} | ${d.series[p.series.key].name}`, desc: d.series[p.series.key].intro };
-    case "app": return { title: `${BRAND} | ${appT[p.app.key].name}`, desc: appT[p.app.key].intro };
-    case "cases": return { title: `${BRAND} | ${d.ui.case_title}`, desc: `${d.ui.case_title}. ${t.footer_made}` };
-    case "calc": return { title: `${BRAND} | ${d.ui.calc_title}`, desc: d.ui.calc_sub };
-    case "factory": return { title: `${BRAND} | ${t.f_title}`, desc: t.f_intro };
-    case "contact": return { title: `${BRAND} | ${t.c_title}`, desc: t.c_intro };
+    case "home": return { title: s.home[0], desc: s.home[1] };
+    case "products": return { title: s.products[0], desc: s.products[1] };
+    case "series": {
+      const n = d.series[p.series.key].name;
+      return { title: s.series[0].replace("{name}", n), desc: s.series[1].replace("{name}", n) };
+    }
+    case "app": {
+      const n = appT[p.app.key].name;
+      return { title: s.app[0].replace("{name}", n), desc: s.app[1].replace("{name}", n) };
+    }
+    case "cases": return { title: s.cases[0], desc: s.cases[1] };
+    case "calc": return { title: s.calc[0], desc: s.calc[1] };
+    case "factory": return { title: s.factory[0], desc: s.factory[1] };
+    case "contact": return { title: s.contact[0], desc: s.contact[1] };
+    case "dist": return { title: s.dist[0], desc: s.dist[1] };
     case "lp": return { title: `${d.ui.lp_title} | ${BRAND}`, desc: d.ui.lp_sub };
     default: return { title: BRAND, desc: t.h_hero_sub };
   }
@@ -925,7 +993,7 @@ function build() {
     const dir = path.join(DIST, l.code);
 
     PAGES.forEach((p) => {
-      const meta = metaFor(p, t, ui, d, appT);
+      const meta = metaFor(p, t, ui, d, appT, l.code);
       let body;
       switch (p.kind) {
         case "home": body = homeBody(t, ui, l.code); break;
@@ -936,6 +1004,7 @@ function build() {
         case "calc": body = calcBody(t, ui, l.code, appT); break;
         case "factory": body = factoryBody(t, ui, l.code); break;
         case "contact": body = contactBody(t, ui, l.code); break;
+        case "dist": body = distBody(l.code, t); break;
         case "lp": body = lpBody(t, ui, l.code); break;
         default: body = "";
       }
