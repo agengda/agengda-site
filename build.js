@@ -9,6 +9,7 @@ const { APPS, APP_UI, APP_T } = require("./src/apps.js");
 const { SERIES_KEYS, DEEP } = require("./src/data/deep.js");
 const { SERIES, SPEC_FIELDS, RULES, CORRECTIONS, WATER_TEMP, MARGIN } = require("./src/data/catalog.js");
 const { FORM_L } = require("./src/data/form.js");
+const { FAQ } = require("./src/faq.js");
 
 // Cache-busting version for the stylesheet: changes whenever style.css changes,
 // so the browser always fetches the latest CSS instead of a stale 1-day cache.
@@ -161,6 +162,15 @@ const FB_PIXEL = process.env.FB_PIXEL || "1113369994432978";      // Meta Pixel 
 const SERVERJIANG = process.env.SERVERJIANG || "SCT449072TH4I7bOrX48bA7WeEDWGIe5uK"; // 方糖(Server酱) SendKey: 新询盘推送到微信. Leave "" to disable.
 const SITE_URL = process.env.SITE_URL || "https://agengda-industrial-chiller.com";  // canonical + sitemap base
 const LEAD_API = "/api/lead";                // lead endpoint served by server.js
+// Social-share preview (Open Graph / Twitter Card). A wide workshop photo reads
+// well when the link is shared on WhatsApp / Facebook / LinkedIn. Override via
+// env OG_IMAGE if you later produce a branded 1200x630 card.
+const OG_IMAGE = process.env.OG_IMAGE || `${SITE_URL}/assets/img/workshop.jpg`;
+// Map language code -> BCP47 locale for og:locale (helps FB/WhatsApp pick language).
+const OG_LOCALE = {
+  es: "es_MX", pt: "pt_BR", en: "en_US", zh: "zh_CN", de: "de_DE", fr: "fr_FR",
+  tr: "tr_TR", ru: "ru_RU", ar: "ar_AR", id: "id_ID", vi: "vi_VN", th: "th_TH",
+};
 // --------------------------------------------
 
 const ROOT = __dirname;
@@ -331,6 +341,46 @@ function ldScript(obj) {
   return `<script type="application/ld+json">${JSON.stringify(obj)}</script>`;
 }
 
+// ---------- FAQ (product / application pages) ----------
+// Returns the localized [question, answer] pairs with {name} filled in.
+function faqPairs(lang, name) {
+  const pairs = FAQ[lang] || FAQ.en;
+  return pairs.map(([q, a]) => [String(q).replace(/\{name\}/g, name), String(a).replace(/\{name\}/g, name)]);
+}
+
+// On-page FAQ section. Uses native <details> so the text is in the DOM (required
+// for FAQ rich results) and works without JS.
+function faqBlock(lang, name) {
+  const items = faqPairs(lang, name);
+  const head = FAQ_TITLE[lang] || "FAQ";
+  const rows = items.map(([q, a]) =>
+    `<details class="faq"><summary>${q}</summary><div class="faq-a">${a}</div></details>`).join("\n    ");
+  const style = `<style>.faq-section{margin:34px 0}.faq-list{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:10px}.faq{border:1px solid var(--c-border,#e2e8f0);border-radius:12px;background:#fff;overflow:hidden}.faq>summary{cursor:pointer;padding:14px 18px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}.faq>summary::-webkit-details-marker{display:none}.faq>summary::after{content:"+";font-size:1.2rem;color:var(--c-accent,#16a34a);transition:transform .15s}.faq[open]>summary::after{transform:rotate(45deg)}.faq-a{padding:0 18px 16px;color:#475569;line-height:1.65}</style>`;
+  return `${style}<section class="faq-section"><div class="container">
+  <div class="section-head"><h2>${head}</h2></div>
+  <div class="faq-list">${rows}</div>
+</div></section>`;
+}
+
+// Localized heading for the FAQ section.
+const FAQ_TITLE = {
+  es: "Preguntas frecuentes", pt: "Perguntas frequentes", en: "FAQ",
+  zh: "常见问题", de: "Häufige Fragen", fr: "FAQ", tr: "Sıkça Sorulan Sorular",
+  ru: "Частые вопросы", ar: "الأسئلة الشائعة", id: "Pertanyaan Umum",
+  vi: "Câu hỏi thường gặp", th: "คำถามที่พบบ่อย",
+};
+
+// FAQPage structured data (must mirror the visible FAQ text exactly).
+function faqSchema(lang, name) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqPairs(lang, name).map(([q, a]) => ({
+      "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+  };
+}
+
 function shell({ title, desc, code, lang, dir, file, body, t, ui, d, ld, bare, robots }) {
   return `<!DOCTYPE html>
 <html lang="${lang}" dir="${dir}">
@@ -342,6 +392,19 @@ function shell({ title, desc, code, lang, dir, file, body, t, ui, d, ld, bare, r
 ${robots ? `<meta name="robots" content="${robots}" />` : ""}
 <link rel="canonical" href="${abs(code, file)}" />
 ${hreflang(file)}
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="${BRAND}" />
+<meta property="og:title" content="${title}" />
+<meta property="og:description" content="${desc}" />
+<meta property="og:url" content="${abs(code, file)}" />
+<meta property="og:image" content="${OG_IMAGE}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="${OG_LOCALE[code] || code}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${title}" />
+<meta name="twitter:description" content="${desc}" />
+<meta name="twitter:image" content="${OG_IMAGE}" />
 <link rel="stylesheet" href="../assets/css/style.css?v=${ASSET_V}" />
 ${(ld || []).map(ldScript).join("\n")}
 ${analytics()}
@@ -439,17 +502,27 @@ function evidence(d, lang) {
       ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" /><figcaption>${x.label}</figcaption></figure>`
       : `<figure class="ev-tile ev-icon" data-ev-key="${x.key}"><div class="ev-ic">${x.icon}</div><figcaption>${x.label}</figcaption></figure>`;
   }).join("\n    ");
-  // Factory video (uploaded via /admin as factory-video.mp4 / .webm).
-  // Rendered unconditionally; a tiny script hides the whole block when the
-  // file isn't there (404), so nothing shows until media exists.
+  // Factory video. By default served from local assets (uploaded via /admin as
+  // factory-video.mp4 / .webm). To make the video load fast inside China, set
+  // FACTORY_VIDEO_CDN to your China-accessible CDN sources; the block will then
+  // use those URLs instead of the local files. Leave empty to keep local mode.
+  // Example:
+  //   const FACTORY_VIDEO_CDN = [
+  //     { src: "https://cdn.example.com/factory-video.webm", type: "video/webm" },
+  //     { src: "https://cdn.example.com/factory-video.mp4",  type: "video/mp4" },
+  //   ];
+  const FACTORY_VIDEO_CDN = [];
+  const fvSources = FACTORY_VIDEO_CDN.length
+    ? FACTORY_VIDEO_CDN.map(s => `      <source src="${s.src}" type="${s.type}" />`).join("\n")
+    : `      <source src="../assets/img/factory-video.webm" type="video/webm" />
+      <source src="../assets/img/factory-video.mp4" type="video/mp4" />
+      <source src="../assets/img/factory-video-480.mp4" type="video/mp4" />`;
   const videoBlock = `
   <div class="factory-video-wrap" data-factory-video style="margin-top:26px">
     <div class="section-head"><h2>${d.ui.ev_title || "Factory"} · Video</h2></div>
     <video controls preload="none" playsinline poster="../assets/img/factory-video-poster.jpg" style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
       onerror="var w=this.closest('[data-factory-video]');if(w)w.style.display='none'">
-      <source src="../assets/img/factory-video.webm" type="video/webm" />
-      <source src="../assets/img/factory-video.mp4" type="video/mp4" />
-      <source src="../assets/img/factory-video-480.mp4" type="video/mp4" />
+${fvSources}
     </video>
   </div>`;
   return `<section class="bg-soft"><div class="container">
@@ -667,7 +740,8 @@ ${evidence(d, lang)}
 <section><div class="container">
   <div class="section-head"><h2>${t.p_title}</h2></div>
   <div class="series-grid">${others.map((o) => seriesCard(o, d, t)).join("\n    ")}</div>
-</div></section>`;
+</div></section>
+${faqBlock(lang, x.name)}`;
 }
 
 function appBody(t, ui, lang, app) {
@@ -708,7 +782,8 @@ function appBody(t, ui, lang, app) {
 <section class="bg-soft"><div class="container"><div class="cta-band">
   <h2>${ui.cta_title}</h2><p>${ui.cta_text}</p>
   <a class="btn btn-primary" style="background:#fff;color:var(--c-accent)" href="./contact.html">${t.h_cta_btn}</a>
-</div></div></section>`;
+</div></div></section>
+${faqBlock(lang, aT.name)}`;
 }
 
 function casesBody(t, ui, lang) {
@@ -965,18 +1040,23 @@ function structuredData(p, t, ui, d, appT, lang, file) {
       contactPoint: [{ "@type": "ContactPoint", contactType: "sales", telephone: `+${WHATSAPP}`, email: EMAILS[0], availableLanguage: LANGS.map((l) => l.code) }],
     });
     out.push({ "@context": "https://schema.org", "@type": "WebSite", name: BRAND, url: SITE_URL, inLanguage: LANGS.map((l) => l.hreflang || l.code) });
-  } else if (p.kind === "series") {
+  } else   if (p.kind === "series") {
     const x = d.series[p.series.key];
     out.push({
       "@context": "https://schema.org", "@type": "Product",
       name: x.name, description: x.intro, brand: { "@type": "Brand", name: BRAND },
       category: "Industrial water chiller", url: abs(lang, file),
+      image: `${SITE_URL}/assets/img/workshop.jpg`,
+      model: (SERIES.find((s) => s.key === p.series.key) || {}).models ? SERIES.find((s) => s.key === p.series.key).models.join(", ") : undefined,
       manufacturer: { "@type": "Organization", name: BRAND },
+      offers: { "@type": "Offer", availability: "https://schema.org/InStock", priceCurrency: "USD", url: abs(lang, file) },
     });
     out.push(crumb([{ name: t.nav_home, file: "index.html" }, { name: t.p_title, file: "products.html" }, { name: x.name, file }]));
+    out.push(faqSchema(lang, x.name));
   } else if (p.kind === "app") {
     const aT = appT[p.app.key];
     out.push(crumb([{ name: t.nav_home, file: "index.html" }, { name: ui.nav, file: "products.html" }, { name: aT.name, file }]));
+    out.push(faqSchema(lang, aT.name));
   } else if (p.kind === "lp") {
     out.push(crumb([{ name: t.nav_home, file: "index.html" }, { name: d.ui.lp_title, file }]));
   } else {
