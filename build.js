@@ -433,7 +433,7 @@ function evidence(d, lang) {
     if (vmp4 || vwebm) {
       const srcs = (vmp4 ? `<source src="../assets/img/${vmp4}" type="video/mp4" />` : "")
         + (vwebm ? `<source src="../assets/img/${vwebm}" type="video/webm" />` : "");
-      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video controls playsinline loop${poster ? ` poster="../assets/img/${poster}"` : ""} preload="metadata">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
+      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video controls playsinline loop${poster ? ` poster="../assets/img/${poster}"` : ""} preload="none">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
     }
     return hasImg(x.img)
       ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" /><figcaption>${x.label}</figcaption></figure>`
@@ -445,7 +445,7 @@ function evidence(d, lang) {
   const videoBlock = `
   <div class="factory-video-wrap" data-factory-video style="margin-top:26px">
     <div class="section-head"><h2>${d.ui.ev_title || "Factory"} · Video</h2></div>
-    <video controls preload="metadata" playsinline poster="../assets/img/factory-video-poster.jpg" style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
+    <video controls preload="none" playsinline poster="../assets/img/factory-video-poster.jpg" style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
       onerror="var w=this.closest('[data-factory-video]');if(w)w.style.display='none'">
       <source src="../assets/img/factory-video.webm" type="video/webm" />
       <source src="../assets/img/factory-video.mp4" type="video/mp4" />
