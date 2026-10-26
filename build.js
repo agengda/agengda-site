@@ -150,7 +150,12 @@ const BRAND = process.env.SITE_BRAND || "Agengda";                    // replace
 const WHATSAPP = process.env.WHATSAPP || "8615888503789";            // wa.me number, no "+" (e.g. 8615888503789)
 const FACEBOOK = process.env.FACEBOOK || "https://www.facebook.com/profile.php?id=100086934803896"; // public page / profile
 const MESSENGER = process.env.MESSENGER || "https://m.me/100086934803896"; // same identity as Facebook
-const INSTAGRAM = process.env.INSTAGRAM || "";                      // your IG url; leave "" to hide
+const INSTAGRAM = process.env.INSTAGRAM || "https://www.instagram.com/agengda2021"; // your IG url; leave "" to hide
+// ---- Company identity (appears in footer, contact page and Organization schema) ----
+const COMPANY_NAME = process.env.COMPANY_NAME || "Agengda";
+const ADDRESS = "No. 88, Manao Third Road, Changfu Industrial Park, Caidian District, Wuhan City, Hubei Province, China";
+const EMAILS = ["agengda2021@gmail.com", "15888503789@163.com"];
+const TEL_DISPLAY = "+86 158 8850 3789";
 const GA_ID = process.env.GA_ID || "YOUR-GA-ID";                  // GA4 measurement id (G-XXXXXXX). Events fire once set.
 const FB_PIXEL = process.env.FB_PIXEL || "1113369994432978";      // Meta Pixel ID (Events Manager). Leave "" to disable.
 const SERVERJIANG = process.env.SERVERJIANG || "SCT449072TH4I7bOrX48bA7WeEDWGIe5uK"; // 方糖(Server酱) SendKey: 新询盘推送到微信. Leave "" to disable.
@@ -237,6 +242,12 @@ function footer(t) {
   <div class="container">
     <div class="copy">${t.footer_copy}</div>
     <div class="tag">${t.footer_made}</div>
+  </div>
+  <div class="container" style="padding-top:14px;color:var(--c-muted);font-size:13px;line-height:1.7;text-align:center">
+    <div><strong>${COMPANY_NAME}</strong></div>
+    <div>📍 ${ADDRESS}</div>
+    <div>📧 ${EMAILS.map((e) => `<a href="mailto:${e}">${e}</a>`).join(" · ")}</div>
+    <div>📱 <a href="https://wa.me/${WHATSAPP}">${TEL_DISPLAY}</a>${INSTAGRAM ? ` · 📸 <a href="${INSTAGRAM}" target="_blank" rel="noopener">Instagram @agengda2021</a>` : ""}</div>
   </div>
   ${socialRow()}
 </footer>`;
@@ -859,6 +870,19 @@ function contactBody(t, ui, lang) {
     </div>
     ${leadForm(f, t, d)}
   </div>
+</div></section>
+<section class="bg-soft"><div class="container">
+  <div class="section-head"><h2>${COMPANY_NAME} · Factory &amp; Contact Details</h2></div>
+  <div class="grid-3">
+    <div class="card"><div class="ic">🏭</div><h3>Factory Address</h3><p>${ADDRESS}</p></div>
+    <div class="card"><div class="ic">📧</div><h3>Email</h3><p>${EMAILS.map((e) => `<a href="mailto:${e}">${e}</a>`).join("<br />")}</p></div>
+    <div class="card"><div class="ic">📱</div><h3>WhatsApp / Mobile</h3><p><a href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">${TEL_DISPLAY}</a></p><p><a href="${waLink(t.wa_msg)}" target="_blank" rel="noopener">${t.cta_whatsapp}</a></p></div>
+  </div>
+  <div class="grid-3" style="margin-top:14px">
+    <div class="card"><div class="ic">📸</div><h3>Instagram</h3><p><a href="${INSTAGRAM}" target="_blank" rel="noopener">@agengda2021</a></p></div>
+    <div class="card"><div class="ic">📘</div><h3>Facebook</h3><p><a href="${FACEBOOK}" target="_blank" rel="noopener">${t.footer_copy.split("©")[0].trim() || "Agengda"}</a></p></div>
+    <div class="card"><div class="ic">💬</div><h3>Messenger</h3><p><a href="${MESSENGER}" target="_blank" rel="noopener">Chat on Messenger</a></p></div>
+  </div>
 </div></section>`;
 }
 
@@ -932,9 +956,13 @@ function structuredData(p, t, ui, d, appT, lang, file) {
   if (p.kind === "home") {
     out.push({
       "@context": "https://schema.org", "@type": "Organization",
-      name: BRAND, url: SITE_URL, logo: `${SITE_URL}/assets/img/logo.png`,
+      name: COMPANY_NAME, url: SITE_URL, logo: `${SITE_URL}/assets/img/logo.png`,
       description: t.footer_made,
-      contactPoint: [{ "@type": "ContactPoint", contactType: "sales", telephone: `+${WHATSAPP}`, availableLanguage: LANGS.map((l) => l.code) }],
+      email: EMAILS,
+      telephone: TEL_DISPLAY,
+      address: { "@type": "PostalAddress", streetAddress: "No. 88, Manao Third Road, Changfu Industrial Park, Caidian District", addressLocality: "Wuhan", addressRegion: "Hubei", addressCountry: "CN" },
+      sameAs: [FACEBOOK, INSTAGRAM].filter(Boolean),
+      contactPoint: [{ "@type": "ContactPoint", contactType: "sales", telephone: `+${WHATSAPP}`, email: EMAILS[0], availableLanguage: LANGS.map((l) => l.code) }],
     });
     out.push({ "@context": "https://schema.org", "@type": "WebSite", name: BRAND, url: SITE_URL, inLanguage: LANGS.map((l) => l.hreflang || l.code) });
   } else if (p.kind === "series") {
