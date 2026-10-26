@@ -35,7 +35,7 @@ module.exports = {
       ctaH: "Hablemos de su territorio",
       ctaP: "Envíenos un mensaje con su país y tipo de negocio; le respondemos con la propuesta de distribución.",
       ctaB: "Escribir por WhatsApp",
-      wa: "Hola, quiero ser distribuidor de Agengda en mi país.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   pt: {
@@ -68,7 +68,7 @@ module.exports = {
       ctaH: "Vamos falar do seu território",
       ctaP: "Envie uma mensagem com seu país e tipo de negócio — responderemos com a proposta de distribuição.",
       ctaB: "Falar no WhatsApp",
-      wa: "Olá, quero ser distribuidor da Agengda no meu país.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   en: {
@@ -101,7 +101,7 @@ module.exports = {
       ctaH: "Let's talk about your territory",
       ctaP: "Send us a message with your country and business type — we'll reply with our distribution proposal.",
       ctaB: "Chat on WhatsApp",
-      wa: "Hello, I'd like to become an Agengda distributor in my country.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   zh: {
@@ -134,7 +134,7 @@ module.exports = {
       ctaH: "谈谈您的区域市场",
       ctaP: "发消息告诉我们您的国家和业务类型，我们将回复代理合作方案。",
       ctaB: "WhatsApp 咨询代理",
-      wa: "你好，我想在贵国成为 Agengda 冷水机代理商。",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   de: {
@@ -167,7 +167,7 @@ module.exports = {
       ctaH: "Lassen Sie uns über Ihr Gebiet sprechen",
       ctaP: "Senden Sie uns Land und Geschäftsart — wir antworten mit unserem Vertriebsvorschlag.",
       ctaB: "Per WhatsApp schreiben",
-      wa: "Hallo, ich möchte Agengda-Händler in meinem Land werden.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   fr: {
@@ -200,7 +200,7 @@ module.exports = {
       ctaH: "Parlons de votre territoire",
       ctaP: "Envoyez-nous votre pays et votre activité — nous répondrons avec notre proposition de distribution.",
       ctaB: "Discuter sur WhatsApp",
-      wa: "Bonjour, je souhaite devenir distributeur Agengda dans mon pays.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   tr: {
@@ -233,7 +233,7 @@ module.exports = {
       ctaH: "Bölgenizi konuşalım",
       ctaP: "Ülkenizi ve iş türünüzü içeren bir mesaj gönderin — distribütörlük teklifimizle yanıtlayalım.",
       ctaB: "WhatsApp'tan yazın",
-      wa: "Merhaba, ülkemde Agengda distribütörü olmak istiyorum.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   ru: {
@@ -266,7 +266,7 @@ module.exports = {
       ctaH: "Обсудим вашу территорию",
       ctaP: "Отправьте сообщение с указанием страны и типа бизнеса — мы ответим дилерским предложением.",
       ctaB: "Написать в WhatsApp",
-      wa: "Здравствуйте, я хочу стать дилером Agengda в своей стране.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   ar: {
@@ -299,7 +299,7 @@ module.exports = {
       ctaH: "لنتحدث عن منطقتكم",
       ctaP: "أرسل لنا رسالة فيها بلدكم ونوع نشاطكم — وسنرد بعرض التوزيع.",
       ctaB: "تحدث عبر واتساب",
-      wa: "مرحباً، أريد أن أصبح موزعاً لـ Agengda في بلدي.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   id: {
@@ -332,7 +332,7 @@ module.exports = {
       ctaH: "Mari bicara soal wilayah Anda",
       ctaP: "Kirim pesan dengan negara dan jenis usaha Anda — kami balas dengan proposal kemitraan.",
       ctaB: "Chat via WhatsApp",
-      wa: "Halo, saya ingin menjadi distributor Agengda di negara saya.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   vi: {
@@ -365,7 +365,7 @@ module.exports = {
       ctaH: "Trao đổi về khu vực của bạn",
       ctaP: "Gửi tin nhắn kèm quốc gia và loại hình kinh doanh — chúng tôi sẽ phản hồi đề xuất hợp tác.",
       ctaB: "Nhắn tin WhatsApp",
-      wa: "Xin chào, tôi muốn trở thành nhà phân phối Agengda tại quốc gia của tôi.",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
   th: {
@@ -398,7 +398,7 @@ module.exports = {
       ctaH: "คุยกันเรื่องเขตพื้นที่ของคุณ",
       ctaP: "ส่งข้อความบอกประเทศและประเภทธุรกิจของคุณ — เราจะตอบกลับพร้อมข้อเสนอการเป็นตัวแทน",
       ctaB: "ทัก WhatsApp",
-      wa: "สวัสดี ฉันสนใจเป็นตัวแทนจำหน่าย Agengda ในประเทศของฉัน",
+      wa: "Hello, I would like to become an Agengda distributor in my country.",
     },
   },
 };
