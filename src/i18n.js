@@ -52,7 +52,7 @@ const T = {
     c_wa_text: "Toca para chatear con nuestro equipo de ventas en WhatsApp.",
     c_name: "Nombre", c_company: "Empresa", c_country: "País", c_msg: "Mensaje", c_submit: "Enviar",
     c_note: "Normalmente respondemos en un día hábil.",
-    wa_msg: "Hola, me interesan sus enfriadores industriales. Por favor envíenme una cotización.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   pt: {
     nav_home: "Início", nav_products: "Produtos", nav_factory: "Fábrica", nav_contact: "Contato",
@@ -87,7 +87,7 @@ const T = {
     c_wa_text: "Toque para conversar com nosso time de vendas no WhatsApp.",
     c_name: "Nome", c_company: "Empresa", c_country: "País", c_msg: "Mensagem", c_submit: "Enviar",
     c_note: "Geralmente respondemos em um dia útil.",
-    wa_msg: "Olá, tenho interesse nos seus chillers industriais. Por favor enviem um orçamento.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   en: {
     nav_home: "Home", nav_products: "Products", nav_factory: "Factory", nav_contact: "Contact",
@@ -157,7 +157,7 @@ const T = {
     c_wa_text: "点一下，直接和我们的销售团队在 WhatsApp 对话。",
     c_name: "姓名", c_company: "公司", c_country: "国家", c_msg: "需求描述", c_submit: "发送",
     c_note: "通常一个工作日内回复。",
-    wa_msg: "你好，我对你们的工业冷水机感兴趣，请给我一份报价。",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   de: {
     nav_home: "Start", nav_products: "Produkte", nav_factory: "Fabrik", nav_contact: "Kontakt",
@@ -192,7 +192,7 @@ const T = {
     c_wa_text: "Tippen, um mit unserem Vertriebsteam auf WhatsApp zu chatten.",
     c_name: "Name", c_company: "Firma", c_country: "Land", c_msg: "Nachricht", c_submit: "Senden",
     c_note: "Wir antworten meist innerhalb eines Werktags.",
-    wa_msg: "Hallo, ich interessiere mich für Ihre Industriekühler. Bitte senden Sie mir ein Angebot.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   fr: {
     nav_home: "Accueil", nav_products: "Produits", nav_factory: "Usine", nav_contact: "Contact",
@@ -227,7 +227,7 @@ const T = {
     c_wa_text: "Touchez pour discuter avec notre équipe commerciale sur WhatsApp.",
     c_name: "Nom", c_company: "Société", c_country: "Pays", c_msg: "Message", c_submit: "Envoyer",
     c_note: "Nous répondons généralement en un jour ouvré.",
-    wa_msg: "Bonjour, je suis intéressé par vos refroidisseurs industriels. Veuillez m'envoyer un devis.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   tr: {
     nav_home: "Ana Sayfa", nav_products: "Ürünler", nav_factory: "Fabrika", nav_contact: "İletişim",
@@ -262,7 +262,7 @@ const T = {
     c_wa_text: "Satış ekibimizle WhatsApp'tan sohbet etmek için dokunun.",
     c_name: "Ad", c_company: "Şirket", c_country: "Ülke", c_msg: "Mesaj", c_submit: "Gönder",
     c_note: "Genellikle bir iş günü içinde yanıt veririz.",
-    wa_msg: "Merhaba, endüstriyel soğutucularınızla ilgileniyorum. Lütfen bana teklif gönderin.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   ru: {
     nav_home: "Главная", nav_products: "Продукция", nav_factory: "Завод", nav_contact: "Контакты",
@@ -297,7 +297,7 @@ const T = {
     c_wa_text: "Нажмите, чтобы написать отделу продаж в WhatsApp.",
     c_name: "Имя", c_company: "Компания", c_country: "Страна", c_msg: "Сообщение", c_submit: "Отправить",
     c_note: "Обычно отвечаем в течение одного рабочего дня.",
-    wa_msg: "Здравствуйте, интересуют ваши промышленные чиллеры. Пришлите, пожалуйста, расчёт.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   ar: {
     nav_home: "الرئيسية", nav_products: "المنتجات", nav_factory: "المصنع", nav_contact: "اتصل بنا",
@@ -332,7 +332,7 @@ const T = {
     c_wa_text: "اضغط للدردشة مع فريق المبيعات على واتساب.",
     c_name: "الاسم", c_company: "الشركة", c_country: "البلد", c_msg: "الرسالة", c_submit: "إرسال",
     c_note: "نرد عادة خلال يوم عمل واحد.",
-    wa_msg: "مرحباً، أهتم بمبرداتكم الصناعية. يرجى إرسال عرض سعر.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   id: {
     nav_home: "Beranda", nav_products: "Produk", nav_factory: "Pabrik", nav_contact: "Kontak",
@@ -367,7 +367,7 @@ const T = {
     c_wa_text: "Ketuk untuk chat dengan tim penjualan kami di WhatsApp.",
     c_name: "Nama", c_company: "Perusahaan", c_country: "Negara", c_msg: "Pesan", c_submit: "Kirim",
     c_note: "Kami biasanya membalas dalam satu hari kerja.",
-    wa_msg: "Halo, saya tertarik dengan chiller industri Anda. Mohon kirimkan penawaran.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   vi: {
     nav_home: "Trang chủ", nav_products: "Sản phẩm", nav_factory: "Nhà máy", nav_contact: "Liên hệ",
@@ -402,7 +402,7 @@ const T = {
     c_wa_text: "Nhấn để chat với đội bán hàng qua WhatsApp.",
     c_name: "Tên", c_company: "Công ty", c_country: "Quốc gia", c_msg: "Tin nhắn", c_submit: "Gửi",
     c_note: "Chúng tôi thường phản hồi trong một ngày làm việc.",
-    wa_msg: "Xin chào, tôi quan tâm đến máy làm lạnh công nghiệp của bạn. Vui lòng gửi báo giá.",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
   th: {
     nav_home: "หน้าแรก", nav_products: "สินค้า", nav_factory: "โรงงาน", nav_contact: "ติดต่อ",
@@ -437,7 +437,7 @@ const T = {
     c_wa_text: "แตะเพื่อแชทกับทีมขายผ่าน WhatsApp",
     c_name: "ชื่อ", c_company: "บริษัท", c_country: "ประเทศ", c_msg: "ข้อความ", c_submit: "ส่ง",
     c_note: "เรามักตอบภายในหนึ่งวันทำการ",
-    wa_msg: "สวัสดี ฉันสนใจเครื่องทำน้ำเย็นอุตสาหกรรมของคุณ กรุณาส่งใบเสนอราคา",
+    wa_msg: "Hello, I am interested in your industrial chillers. Please send me a quotation.",
   },
 };
 
