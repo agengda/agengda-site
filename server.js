@@ -699,6 +699,13 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, toCsv(readLeads()), "text/csv; charset=utf-8");
   }
 
+  if (url.startsWith("/api/leads.json")) {
+    if (!AUTH_ON) return send(res, 503, "导出未启用：服务器未配置 LEAD_TOKEN", "text/plain; charset=utf-8");
+    const q = new URLSearchParams(url.split("?")[1] || "");
+    if (!authed(req, q)) return send(res, 401, "Unauthorized", "text/plain; charset=utf-8");
+    return send(res, 200, JSON.stringify(readLeads()), "application/json; charset=utf-8");
+  }
+
   if (req.method !== "GET" && req.method !== "HEAD") return send(res, 405, "Method not allowed", "text/plain; charset=utf-8");
   return serveStatic(req, res, url);
 });
