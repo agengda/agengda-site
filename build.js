@@ -264,7 +264,7 @@ function footer(t) {
 }
 
 function waFloat(t) {
-  return `<a class="wa-float" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" title="${t.cta_whatsapp}" onclick="track('wa_click',{placement:'float'})">💬</a>`;
+  return `<a class="wa-float" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" title="${t.cta_whatsapp}" onclick="track('wa_click',{placement:'float'});waLead('float')">💬</a>`;
 }
 
 // Social row shown in the footer on every page. Links live in the config block
@@ -298,6 +298,7 @@ try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
 try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
+window.waLead=function(placement){try{var a=window.__attribLast||{};var m={name:'WhatsApp咨询',company:'',country:'',phone:'',model:'',qty:'',temp:'',delivery:'',msg:'WhatsApp 咨询（'+(placement||'')+'，未填表单）',page:location.pathname,lang:document.documentElement.lang,source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||''};if(window.__notifyLead)window.__notifyLead(m);if(window.CloudApp&&window.CloudApp.submitLead)window.CloudApp.submitLead(m).catch(function(e){});}catch(e){}};
 window.__notifyLead=function(o){try{var k='${SERVERJIANG}';if(!k)return;o=o||{};var name=o.name||'',company=o.company||'',country=o.country||'',phone=o.phone||'',model=o.model||'',qty=o.qty||'',temp=o.temp||'',delivery=o.delivery||'',msg=o.msg||'',src=[o.source,o.medium,o.campaign].filter(Boolean).join(' / ');var title='新询盘 · agengda工业冷水机';var desp=[name&&('姓名: '+name),company&&('公司: '+company),country&&('国家: '+country),phone&&('电话: '+phone),model&&('机型: '+model),qty&&('数量: '+qty),temp&&('温度: '+temp),delivery&&('交期: '+delivery),src&&('来源: '+src),msg&&('留言: '+msg)].filter(Boolean).join('\n');var u='https://sctapi.ftqq.com/'+encodeURIComponent(k)+'.send?title='+encodeURIComponent(title)+'&desp='+encodeURIComponent(desp);new Image().src=u;}catch(e){}};
 ${on ? `gtag('js',new Date());gtag('config','${GA_ID}');` : "/* set GA_ID in build.js to enable GA4 */"}
 </script>${on ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>` : ""}`;
@@ -940,7 +941,7 @@ function contactBody(t, ui, lang) {
       <div style="font-size:46px;margin-bottom:10px">💬</div>
       <h3 style="margin:0 0 8px">WhatsApp</h3>
       <p style="color:var(--c-muted);margin:0 0 18px">${t.c_wa_text}</p>
-      <a class="wa-btn" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" onclick="track('wa_click',{placement:'contact'})">📱 ${t.cta_whatsapp}</a>
+      <a class="wa-btn" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" onclick="track('wa_click',{placement:'contact'});waLead('contact')">📱 ${t.cta_whatsapp}</a>
       <p class="note" style="margin-top:18px">${d.ui.calc_title} → <a href="./calculator.html">${d.ui.calc_sub}</a></p>
     </div>
     ${leadForm(f, t, d)}
@@ -970,7 +971,7 @@ function lpBody(t, ui, lang) {
   <h1>${d.ui.lp_title}</h1>
   <p class="sub">${d.ui.lp_sub}</p>
   <div class="actions">
-    <a class="btn btn-primary" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" onclick="track('wa_click',{placement:'lp_hero'})">${t.cta_whatsapp}</a>
+    <a class="btn btn-primary" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" onclick="track('wa_click',{placement:'lp_hero'});waLead('lp_hero')">${t.cta_whatsapp}</a>
     <a class="btn btn-outline" style="color:#fff;border-color:#fff" href="#lead">${t.h_hero_btn}</a>
   </div>
 </div></section>
