@@ -17,6 +17,7 @@
 // defaults in src/data/catalog.js.
 
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const { execFile, execFileSync } = require("child_process");
@@ -664,6 +665,27 @@ const server = http.createServer(async (req, res) => {
       fs.appendFileSync(LEADS, JSON.stringify(row) + "\n", "utf8");
       fs.writeFileSync(CSV, toCsv(readLeads()), "utf8");
       console.log(`lead  ${row.ts}  ${row.name || "-"}  ${row.country || "-"}  ${row.model || "-"}`);
+      // 服务端推送（不依赖访客浏览器）：表单到后端即由服务器推微信，必到
+      try {
+        const sKey = process.env.SERVERJIANG || "SCT449072TH4I7bOrX48bA7WeEDWGIe5uK";
+        if (sKey) {
+          const title = "新询盘 · agengda工业冷水机";
+          const desp = [
+            row.name && ("姓名: " + row.name),
+            row.company && ("公司: " + row.company),
+            row.country && ("国家: " + row.country),
+            row.phone && ("电话: " + row.phone),
+            row.model && ("机型: " + row.model),
+            row.qty && ("数量: " + row.qty),
+            row.temp && ("温度: " + row.temp),
+            row.delivery && ("交期: " + row.delivery),
+            (row.source || row.medium || row.campaign) && ("来源: " + [row.source, row.medium, row.campaign].filter(Boolean).join(" / ")),
+            row.msg && ("留言: " + row.msg)
+          ].filter(Boolean).join("\n");
+          const purl = "https://sctapi.ftqq.com/" + encodeURIComponent(sKey) + ".send?title=" + encodeURIComponent(title) + "&desp=" + encodeURIComponent(desp);
+          https.get(purl, (r) => { r.resume(); }).on("error", (e) => console.warn("[lead notify] failed:", e.message));
+        }
+      } catch (e) { console.warn("[lead notify] error:", e.message); }
       return send(res, 200, JSON.stringify({ ok: true }));
     } catch (e) {
       return send(res, 400, JSON.stringify({ ok: false, error: String(e.message || e) }));
