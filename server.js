@@ -31,6 +31,9 @@ const DIST = path.join(ROOT, "dist");
 const DATA_DIR = path.join(ROOT, "data");
 const LEADS = path.join(DATA_DIR, "leads.jsonl");
 const CSV = path.join(DATA_DIR, "leads.csv");
+// WorkBuddy 云库 leads 持久化（重部署不丢）。publishable key 本就在前端公开，可安全内置。
+const CLOUD_LEADS_URL = process.env.WB_CLOUD_LEADS_URL || "https://chiller-b2b-site.app.workbuddy.host/.cloud/database/rest/leads";
+const CLOUD_KEY = process.env.WB_CLOUD_KEY || "wbpk_t2KFszYVSzwXFrG40uHS4q_QCQsJY4GRgleqrX0YpoilF30XGS2Th8c";
 const CATALOG_JSON = path.join(DATA_DIR, "catalog.json");
 const ADMIN_HTML = path.join(ROOT, "admin.html");
 
@@ -686,6 +689,25 @@ const server = http.createServer(async (req, res) => {
           https.get(purl, (r) => { r.resume(); }).on("error", (e) => console.warn("[lead notify] failed:", e.message));
         }
       } catch (e) { console.warn("[lead notify] error:", e.message); }
+      // 云端持久化：把本条询盘写入 WorkBuddy 云库（重部署/磁盘重置都不丢）。
+      // 切勿加 .select() / Prefer:return=representation —— 匿名角色无 SELECT 权限，回读会让整条插入失败。
+      try {
+        const cloudRow = {};
+        ["name", "company", "phone", "country", "model", "qty", "temp", "delivery", "msg", "page", "lang", "source", "medium", "campaign", "term", "content", "gclid", "fbclid", "ttclid"].forEach((k) => { if (row[k] != null && row[k] !== "") cloudRow[k] = row[k]; });
+        if (row.ip) cloudRow.ip = row.ip;
+        const payload = JSON.stringify(cloudRow);
+        const creq = https.request(CLOUD_LEADS_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Content-Length": Buffer.byteLength(payload),
+            "x-wb-webapp-access-key": CLOUD_KEY,
+            "Prefer": "return=minimal"
+          }
+        }, (cr) => { cr.resume(); console.log("[cloud sync] " + cr.statusCode); });
+        creq.on("error", (e) => console.warn("[cloud sync] failed:", e.message));
+        creq.write(payload); creq.end();
+      } catch (e) { console.warn("[cloud sync] error:", e.message); }
       return send(res, 200, JSON.stringify({ ok: true }));
     } catch (e) {
       return send(res, 400, JSON.stringify({ ok: false, error: String(e.message || e) }));
