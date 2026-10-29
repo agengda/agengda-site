@@ -95,40 +95,17 @@
     } catch (e) { return null; }
   }
 
-  // ---------- Leads (public anon insert, authenticated read) ----------
+  // ---------- Leads (统一走服务器：本地落盘 + 云端持久化 + 微信提醒) ----------
   async function submitLead(o) {
     o = o || {};
-    if (isLocal()) {
-      try {
-        var r = await fetch("/api/lead", {
-          method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(o)
-        });
-        return r.ok;
-      } catch (e) { return false; }
-    }
-    var c = ensureCloud();
-    if (c) {
-      try {
-        var row = {
-          name: o.name || null, company: o.company || null, phone: o.phone || null,
-          country: o.country || null, model: o.model || null, qty: o.qty || null,
-          temp: o.temp || null, delivery: o.delivery || null, msg: o.msg || null,
-          page: o.page || null, lang: o.lang || null, ip: o.ip || null,
-          source: o.source || null, medium: o.medium || null, campaign: o.campaign || null,
-          term: o.term || null, content: o.content || null,
-          gclid: o.gclid || null, fbclid: o.fbclid || null, ttclid: o.ttclid || null
-        };
-        var res = await c.database.from("leads").insert(row).select();
-        if (!res.error) return true;
-        console.error("[cloud] lead insert failed", res.error);
-      } catch (e) { console.error("[cloud] lead insert error", e); }
-    }
-    // Resilience: fall back to the local server API if the cloud write failed.
+    // 不再由浏览器直连云端库。原因：旧逻辑用 .insert().select()，而匿名角色没有
+    // SELECT 权限（RLS 仅 authenticated 可读），回读会让整条插入失败 → 询盘丢失。
+    // 现在统一 POST /api/lead，由服务器一次完成：本地 leads.jsonl + 云端库 + 微信推送。
     try {
-      var r2 = await fetch("/api/lead", {
+      var r = await fetch("/api/lead", {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(o)
       });
-      return r2.ok;
+      return r.ok;
     } catch (e) { return false; }
   }
 
