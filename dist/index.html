@@ -19,7 +19,7 @@
 <link rel="alternate" hreflang="vi" href="https://agengda-industrial-chiller.com/vi/index.html" />
 <link rel="alternate" hreflang="th" href="https://agengda-industrial-chiller.com/th/index.html" />
 <meta http-equiv="refresh" content="0; url=./en/index.html" />
-<script>location.replace("./en/index.html");</script>
+<noscript><meta http-equiv="refresh" content="0; url=./en/index.html" /></noscript>
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -31,9 +31,10 @@ fbq('init','1113369994432978');fbq('track','PageView');
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 function track(ev,params){var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});
 try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
-try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
+try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Lead',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
+window.waLead=function(placement){try{var a=window.__attribLast||{};var m={name:'WhatsApp咨询',company:'',country:'',phone:'',model:'',qty:'',temp:'',delivery:'',msg:'WhatsApp 咨询（'+(placement||'')+'，未填表单）',page:location.pathname,lang:document.documentElement.lang,source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||''};if(window.__notifyLead)window.__notifyLead(m);if(window.CloudApp&&window.CloudApp.submitLead)window.CloudApp.submitLead(m).catch(function(e){});}catch(e){}};
 window.__notifyLead=function(o){try{var k='SCT449072TH4I7bOrX48bA7WeEDWGIe5uK';if(!k)return;o=o||{};var name=o.name||'',company=o.company||'',country=o.country||'',phone=o.phone||'',model=o.model||'',qty=o.qty||'',temp=o.temp||'',delivery=o.delivery||'',msg=o.msg||'',src=[o.source,o.medium,o.campaign].filter(Boolean).join(' / ');var title='新询盘 · agengda工业冷水机';var desp=[name&&('姓名: '+name),company&&('公司: '+company),country&&('国家: '+country),phone&&('电话: '+phone),model&&('机型: '+model),qty&&('数量: '+qty),temp&&('温度: '+temp),delivery&&('交期: '+delivery),src&&('来源: '+src),msg&&('留言: '+msg)].filter(Boolean).join('
 ');var u='https://sctapi.ftqq.com/'+encodeURIComponent(k)+'.send?title='+encodeURIComponent(title)+'&desp='+encodeURIComponent(desp);new Image().src=u;}catch(e){}};
 /* set GA_ID in build.js to enable GA4 */
@@ -42,8 +43,30 @@ window.__notifyLead=function(o){try{var k='SCT449072TH4I7bOrX48bA7WeEDWGIe5uK';i
 <body>
 <div class="lang-chooser"><div class="box">
   <h1>Agengda</h1>
-  <p>Opening English version… <a href="./en/index.html">Continue</a></p>
-  <p style="margin-top:14px;font-size:13px"><a href="./choose.html">Other languages / 其他语言</a></p>
+  <p>Loading… <a href="./choose.html">Other languages / 其他语言</a></p>
 </div></div>
+<script>
+(function(){
+  var L=["es","pt","en","zh","de","fr","tr","ru","ar","id","vi","th"];
+  var want='';
+  try{
+    var p=new URLSearchParams(location.search);
+    want=(p.get('lang')||'').toLowerCase();
+    if(L.indexOf(want)<0) want='';
+    if(!want){ want=(localStorage.getItem('lang_choice')||'').toLowerCase(); if(L.indexOf(want)<0) want=''; }
+    if(!want){
+      var nls=navigator.languages||[navigator.language||navigator.userLanguage||'en'];
+      for(var i=0;i<nls.length&&!want;i++){
+        var nl=String(nls[i]||'').toLowerCase();
+        if(nl.indexOf('zh')===0){ want='zh'; break; }
+        for(var j=0;j<L.length;j++){ if(nl.indexOf(L[j])===0){ want=L[j]; break; } }
+      }
+    }
+  }catch(e){}
+  if(L.indexOf(want)<0) want='en';
+  try{ localStorage.setItem('lang_last',want); }catch(e){}
+  location.replace('./'+want+'/index.html'+location.search);
+})();
+</script>
 </body>
 </html>
