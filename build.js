@@ -295,7 +295,7 @@ fbq('init','${FB_PIXEL}');fbq('track','PageView');
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 function track(ev,params){var a=window.__attribLast||{};var m=Object.assign({source:a.source||'',medium:a.medium||'',campaign:a.campaign||''},params||{});
 try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
-try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Contact',calculator_wa:'Contact',contact_click:'Contact'};
+try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Lead',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
 window.waLead=function(placement){try{var a=window.__attribLast||{};var m={name:'WhatsApp咨询',company:'',country:'',phone:'',model:'',qty:'',temp:'',delivery:'',msg:'WhatsApp 咨询（'+(placement||'')+'，未填表单）',page:location.pathname,lang:document.documentElement.lang,source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||''};if(window.__notifyLead)window.__notifyLead(m);if(window.CloudApp&&window.CloudApp.submitLead)window.CloudApp.submitLead(m).catch(function(e){});}catch(e){}};
@@ -536,19 +536,14 @@ ${fvSources}
 }
 
 // ---------- Lead form ----------
+// Short form (3 fields): WhatsApp number (required) + machine model + message.
+// Long BANT forms kill mobile conversion; a short one keeps the lead flowing
+// and the WhatsApp conversation collects the rest.
 function leadForm(f, t, d, opts) {
   const o = opts || {};
   return `<form id="leadForm" class="lead-form">
-  <div class="field"><label>${t.c_name}</label><input name="name" required /></div>
-  <div class="field"><label>${t.c_company}</label><input name="company" /></div>
-  <div class="field"><label>${f.f_phone}</label><input name="phone" inputmode="tel" /></div>
-  <div class="field"><label>${t.c_country}</label><input name="country" /></div>
+  <div class="field"><label>${f.f_phone}</label><input name="phone" inputmode="tel" required /></div>
   <div class="field"><label>${f.f_model}</label><input name="model" /></div>
-  <div class="grid-2-tight">
-    <div class="field"><label>${f.f_qty}</label><input name="qty" inputmode="numeric" /></div>
-    <div class="field"><label>${f.f_temp}</label><input name="temp" /></div>
-  </div>
-  <div class="field"><label>${f.f_delivery}</label><input name="delivery" /></div>
   <div class="field"><label>${t.c_msg}</label><textarea name="msg" rows="3"></textarea></div>
   <button class="btn btn-primary" type="submit">${t.c_submit}</button>
   <a class="btn btn-outline" style="margin-inline-start:10px" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" onclick="track('wa_click',{placement:'form'})">${f.f_send_wa}</a>
@@ -563,6 +558,8 @@ fm.addEventListener('submit',function(e){
   e.preventDefault();
   var o={}; new FormData(fm).forEach(function(v,k){o[k]=v;});
   var a=window.__attribLast||{};
+  o.name=o.name||''; o.company=o.company||''; o.country=o.country||'';
+  o.qty=o.qty||''; o.temp=o.temp||''; o.delivery=o.delivery||'';
   o.source=a.source||''; o.medium=a.medium||''; o.campaign=a.campaign||''; o.term=a.term||''; o.content=a.content||'';
   o.gclid=a.gclid||''; o.fbclid=a.fbclid||''; o.ttclid=a.ttclid||'';
   o.page=location.pathname; o.lang=document.documentElement.lang; o.ts=new Date().toISOString();
@@ -1154,7 +1151,13 @@ ${analytics()}
 </body>
 </html>`, "utf8");
 
-  // root opens directly in the default language (English) instead of a chooser
+  // root opens in the visitor's own language:
+  //   1. explicit ?lang=xx in the URL (ad campaigns can pin the language)
+  //   2. language the visitor picked before (localStorage, set by /choose.html)
+  //   3. browser languages (es -> /es/, pt -> /pt/, ar -> /ar/ ...)
+  //   4. fall back to English
+  // UTM / click-id params are carried over to the target page so attribution
+  // (fbclid / utm_*) survives the redirect.
   fs.writeFileSync(path.join(DIST, "index.html"), `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1165,15 +1168,37 @@ ${analytics()}
 <link rel="alternate" hreflang="x-default" href="${abs(DEFAULT_LANG, "index.html")}" />
 ${LANGS.map((l) => `<link rel="alternate" hreflang="${l.hreflang || l.code}" href="${abs(l.code, "index.html")}" />`).join("\n")}
 <meta http-equiv="refresh" content="0; url=./en/index.html" />
-<script>location.replace("./en/index.html");</script>
+<noscript><meta http-equiv="refresh" content="0; url=./en/index.html" /></noscript>
 ${analytics()}
 </head>
 <body>
 <div class="lang-chooser"><div class="box">
   <h1>${BRAND}</h1>
-  <p>Opening English version… <a href="./en/index.html">Continue</a></p>
-  <p style="margin-top:14px;font-size:13px"><a href="./choose.html">Other languages / 其他语言</a></p>
+  <p>Loading… <a href="./choose.html">Other languages / 其他语言</a></p>
 </div></div>
+<script>
+(function(){
+  var L=${JSON.stringify(LANGS.map((l) => l.code))};
+  var want='';
+  try{
+    var p=new URLSearchParams(location.search);
+    want=(p.get('lang')||'').toLowerCase();
+    if(L.indexOf(want)<0) want='';
+    if(!want){ want=(localStorage.getItem('lang_choice')||'').toLowerCase(); if(L.indexOf(want)<0) want=''; }
+    if(!want){
+      var nls=navigator.languages||[navigator.language||navigator.userLanguage||'en'];
+      for(var i=0;i<nls.length&&!want;i++){
+        var nl=String(nls[i]||'').toLowerCase();
+        if(nl.indexOf('zh')===0){ want='zh'; break; }
+        for(var j=0;j<L.length;j++){ if(nl.indexOf(L[j])===0){ want=L[j]; break; } }
+      }
+    }
+  }catch(e){}
+  if(L.indexOf(want)<0) want='en';
+  try{ localStorage.setItem('lang_last',want); }catch(e){}
+  location.replace('./'+want+'/index.html'+location.search);
+})();
+</script>
 </body>
 </html>`, "utf8");
 
