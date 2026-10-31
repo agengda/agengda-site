@@ -728,9 +728,172 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, JSON.stringify(readLeads()), "application/json; charset=utf-8");
   }
 
+  // ---- 隐私政策页（Meta 即时表单必填链接：墨西哥用 Aviso de Privacidad）----
+  if (LEGAL_ES_PATHS.indexOf(pathname) !== -1) return send(res, 200, LEGAL_ES_HTML, "text/html; charset=utf-8");
+  if (LEGAL_EN_PATHS.indexOf(pathname) !== -1) return send(res, 200, LEGAL_EN_HTML, "text/html; charset=utf-8");
+
   if (req.method !== "GET" && req.method !== "HEAD") return send(res, 405, "Method not allowed", "text/plain; charset=utf-8");
   return serveStatic(req, res, url);
 });
+
+// ============================================================
+// 隐私政策页（Meta 即时表单的 Privacy policy 链接必须真实可打开）
+// 全部内容基于站点已公开的真实信息：公司名 / 地址 / 邮箱 / 电话
+// ============================================================
+const LEGAL_ES_PATHS = ["/es/aviso-de-privacidad.html", "/aviso-de-privacidad.html", "/es/aviso-de-privacidad"];
+const LEGAL_EN_PATHS = ["/privacy.html", "/en/privacy.html", "/privacy"];
+
+const LEGAL_CSS = `
+  *{box-sizing:border-box}
+  body{margin:0;background:#f6f8fb;color:#1a1a1a;line-height:1.75;
+       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
+  .wrap{max-width:820px;margin:0 auto;padding:28px 18px 64px}
+  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .top a{color:#0D47A1;text-decoration:none;font-weight:700;font-size:15px}
+  .top .home{font-weight:400;font-size:13px;color:#5a6b85}
+  .card{background:#fff;border-radius:14px;padding:36px 34px;box-shadow:0 2px 20px rgba(13,71,161,.07)}
+  h1{color:#0D47A1;font-size:25px;line-height:1.3;margin:0 0 6px}
+  h2{color:#0D47A1;font-size:16px;margin:26px 0 8px}
+  .meta{color:#667;font-size:13px;margin:0 0 22px}
+  .box{background:#f0f5ff;border-left:4px solid #0D47A1;border-radius:6px;padding:13px 16px;font-size:14px;margin:18px 0}
+  ul{padding-left:20px;margin:8px 0}
+  li{margin:5px 0}
+  a{color:#0D47A1}
+  .foot{margin-top:30px;padding-top:16px;border-top:1px solid #e6ecf5;font-size:13px;color:#667}
+  @media(max-width:520px){.card{padding:24px 18px}h1{font-size:21px}}
+`;
+
+const LEGAL_ES_HTML = `<!doctype html><html lang="es-MX"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aviso de Privacidad | Agengda</title>
+<meta name="description" content="Aviso de Privacidad de Agengda: qué datos personales recabamos, con qué finalidad los usamos, cómo ejercer tus derechos ARCO y cómo contactarnos.">
+<link rel="canonical" href="https://agengda-industrial-chiller.com/es/aviso-de-privacidad.html">
+<style>${LEGAL_CSS}</style></head><body>
+<div class="wrap">
+  <div class="top"><a href="/es/">Agengda</a><a class="home" href="/es/">← Volver al inicio</a></div>
+  <div class="card">
+    <h1>Aviso de Privacidad</h1>
+    <p class="meta">Última actualización: 31 de octubre de 2026</p>
+
+    <div class="box">Al enviar cualquiera de nuestros formularios (incluidos los formularios instantáneos de Facebook e Instagram), usted acepta el presente Aviso de Privacidad.</div>
+
+    <h2>1. Responsable de los datos personales</h2>
+    <p><strong>Agengda</strong> (en adelante, "Agengda"), fabricante de enfriadores industriales, con domicilio en No. 88, Manao Third Road, Changfu Industrial Park, Caidian District, Wuhan City, Hubei Province, China.</p>
+    <p>Correo de contacto: <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a> · Teléfono / WhatsApp: <a href="https://wa.me/8615888503789">+86 158 8850 3789</a></p>
+
+    <h2>2. Datos personales que recabamos</h2>
+    <p>A través de nuestros formularios, de nuestro sitio web, de WhatsApp o de correo electrónico podemos recabar los siguientes datos:</p>
+    <ul>
+      <li>Nombre completo y cargo</li>
+      <li>Nombre de la empresa</li>
+      <li>Ciudad y estado</li>
+      <li>Número de WhatsApp o teléfono y correo electrónico</li>
+      <li>Información sobre su proceso productivo, equipo actual, capacidad requerida o volumen de compra</li>
+    </ul>
+    <p>No recabamos datos personales sensibles.</p>
+
+    <h2>3. Finalidades primarias (necesarias)</h2>
+    <p>Sus datos se utilizan para las siguientes finalidades que dan origen a la relación comercial:</p>
+    <ul>
+      <li>Elaborar y enviarle cotizaciones</li>
+      <li>Enviarle fichas técnicas y documentación de producto</li>
+      <li>Dar seguimiento comercial a su solicitud</li>
+      <li>Coordinar logística, garantía y servicio posventa</li>
+    </ul>
+
+    <h2>4. Finalidades secundarias (opcionales)</h2>
+    <p>Podemos utilizar sus datos para enviarle información sobre nuevos productos, promociones o encuestas de satisfacción. Si no desea que sus datos se utilicen para estos fines, escríbanos a <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a> indicándolo. Su negativa no afectará la atención de su solicitud.</p>
+
+    <h2>5. Transferencias de datos</h2>
+    <p>No transferimos sus datos personales a terceros sin su consentimiento, salvo las excepciones previstas por la ley (por ejemplo, requerimientos de autoridad competente) o cuando sea indispensable para completar el envío, la logística o el cobro de su pedido, limitándonos a los datos necesarios para ello.</p>
+
+    <h2>6. Derechos ARCO y revocación del consentimiento</h2>
+    <p>Usted tiene derecho a <strong>Acceder</strong> a sus datos, <strong>Rectificarlos</strong>, <strong>Cancelarlos</strong> u <strong>Oponerse</strong> a su tratamiento (derechos ARCO), así como a revocar el consentimiento que nos otorgó.</p>
+    <p>Para ejercerlos, envíe un correo a <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a> con: nombre completo, el derecho que desea ejercer y un medio para contactarle. Responderemos en un plazo máximo de 20 días hábiles.</p>
+
+    <h2>7. Conservación y seguridad de los datos</h2>
+    <p>Conservamos sus datos mientras exista una relación comercial o hasta que solicite su eliminación. Aplicamos medidas administrativas y técnicas razonables para protegerlos contra acceso no autorizado, pérdida o alteración.</p>
+
+    <h2>8. Datos recabados mediante plataformas de Meta</h2>
+    <p>Cuando usted envía un formulario instantáneo en Facebook o Instagram, los datos son recabados por Agengda y no por Meta. Meta Platforms, Inc. trata la información conforme a sus propias políticas de privacidad, las cuales no controlamos.</p>
+
+    <h2>9. Cambios a este aviso</h2>
+    <p>Cualquier modificación a este Aviso de Privacidad se publicará en esta misma página, indicando la fecha de actualización. Le recomendamos revisarla periódicamente.</p>
+
+    <h2>10. Contacto</h2>
+    <p>Para cualquier duda sobre este aviso o sobre el tratamiento de sus datos:</p>
+    <ul>
+      <li>Correo: <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a></li>
+      <li>WhatsApp / Teléfono: <a href="https://wa.me/8615888503789">+86 158 8850 3789</a></li>
+      <li>Domicilio: No. 88, Manao Third Road, Changfu Industrial Park, Caidian District, Wuhan City, Hubei Province, China</li>
+    </ul>
+    <div class="foot">Agengda · Fabricante de enfriadores industriales · <a href="/es/">agengda-industrial-chiller.com</a></div>
+  </div>
+</div></body></html>`;
+
+const LEGAL_EN_HTML = `<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy | Agengda</title>
+<meta name="description" content="Agengda Privacy Policy: what personal data we collect, why we use it, and how to exercise your rights.">
+<link rel="canonical" href="https://agengda-industrial-chiller.com/privacy.html">
+<style>${LEGAL_CSS}</style></head><body>
+<div class="wrap">
+  <div class="top"><a href="/">Agengda</a><a class="home" href="/">← Back to home</a></div>
+  <div class="card">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: October 31, 2026</p>
+
+    <div class="box">By submitting any of our forms (including Facebook and Instagram instant forms) you agree to this Privacy Policy.</div>
+
+    <h2>1. Data controller</h2>
+    <p><strong>Agengda</strong>, manufacturer of industrial chillers, No. 88, Manao Third Road, Changfu Industrial Park, Caidian District, Wuhan City, Hubei Province, China.</p>
+    <p>Contact: <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a> · Phone / WhatsApp: <a href="https://wa.me/8615888503789">+86 158 8850 3789</a></p>
+
+    <h2>2. Data we collect</h2>
+    <ul>
+      <li>Full name and job title</li>
+      <li>Company name</li>
+      <li>City and state</li>
+      <li>WhatsApp / phone number and email address</li>
+      <li>Information about your production process, current equipment, required capacity or purchase volume</li>
+    </ul>
+    <p>We do not collect sensitive personal data.</p>
+
+    <h2>3. Primary purposes</h2>
+    <ul>
+      <li>Preparing and sending quotations</li>
+      <li>Sending technical datasheets and product documentation</li>
+      <li>Following up on your enquiry</li>
+      <li>Coordinating logistics, warranty and after-sales service</li>
+    </ul>
+
+    <h2>4. Secondary purposes (optional)</h2>
+    <p>We may use your data to send information about new products, promotions or satisfaction surveys. To opt out, email <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a>. Your refusal will not affect the handling of your enquiry.</p>
+
+    <h2>5. Transfers</h2>
+    <p>We do not transfer your personal data to third parties without your consent, except where required by law or where strictly necessary to complete shipping, logistics or payment of your order.</p>
+
+    <h2>6. Your rights</h2>
+    <p>You have the right to access, rectify, cancel or object to the processing of your data, and to withdraw your consent at any time. Email <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a> with your full name, the right you wish to exercise and a way to contact you. We will respond within 20 business days.</p>
+
+    <h2>7. Retention and security</h2>
+    <p>We retain your data for as long as a commercial relationship exists or until you request deletion. We apply reasonable administrative and technical safeguards against unauthorised access, loss or alteration.</p>
+
+    <h2>8. Data collected through Meta platforms</h2>
+    <p>When you submit an instant form on Facebook or Instagram, the data is collected by Agengda, not by Meta. Meta Platforms, Inc. processes information under its own privacy policies, which we do not control.</p>
+
+    <h2>9. Changes</h2>
+    <p>Any change to this Privacy Policy will be published on this page with an updated date.</p>
+
+    <h2>10. Contact</h2>
+    <ul>
+      <li>Email: <a href="mailto:agengda2021@gmail.com">agengda2021@gmail.com</a></li>
+      <li>WhatsApp / Phone: <a href="https://wa.me/8615888503789">+86 158 8850 3789</a></li>
+      <li>Address: No. 88, Manao Third Road, Changfu Industrial Park, Caidian District, Wuhan City, Hubei Province, China</li>
+    </ul>
+    <div class="foot">Agengda · Industrial chiller manufacturer · <a href="/">agengda-industrial-chiller.com</a></div>
+  </div>
+</div></body></html>`;
 
 ensureData();
 server.listen(PORT, "0.0.0.0", () => {
