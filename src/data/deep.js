@@ -33,7 +33,7 @@ const DEEP = {
       lp_sub: "Cotiza el mismo día con los datos de tu máquina.",
     },
     series: {
-      air: { name: "Chiller enfriado por aire", intro: "Sin torre ni agua de proceso: llega y se conecta.", f: ["Sin torre de enfriamiento", "Instalación rápida", "Para plantas sin agua"] },
+      air: { name: "Chiller enfriado por aire", intro: "Sin torre ni agua de proceso: llega y se conecta. Enfriadoras de fábrica para moldeo por inyección, soplado y extrusión, con control térmico estable para mantener la producción en verano. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantía de 1 año y OEM/ODM desde 1 unidad.", f: ["Sin torre de enfriamiento", "Instalación rápida", "Para plantas sin agua"] },
       water: { name: "Chiller enfriado por agua", intro: "Más eficiencia cuando ya cuentas con torre o agua de proceso.", f: ["Mayor eficiencia", "Menos ruido y calor", "Para carga continua"] },
       low: { name: "Chiller de baja temperatura", intro: "Para procesos que piden agua por debajo de lo habitual.", f: ["Salida de baja temperatura", "Control estable", "Procesos especiales"] },
       screw: { name: "Chiller de tornillo", intro: "Para plantas grandes, varias máquinas y demanda continua.", f: ["Alta capacidad", "Varios circuitos", "Diseñado para 24/7"] },
@@ -72,7 +72,7 @@ const DEEP = {
       lp_sub: "Orçamento no mesmo dia com os dados da sua máquina.",
     },
     series: {
-      air: { name: "Chiller resfriado a ar", intro: "Sem torre e sem água de processo: chega e conecta.", f: ["Sem torre de resfriamento", "Instalação rápida", "Para fábrica sem água"] },
+      air: { name: "Chiller resfriado a ar", intro: "Sem torre e sem água de processo: chega e conecta. Chillers de fábrica para injeção, sopro e extrusão de plástico, com controle térmico estável para manter a produção no verão. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantia de 1 ano e OEM/ODM a partir de 1 unidade.", f: ["Sem torre de resfriamento", "Instalação rápida", "Para fábrica sem água"] },
       water: { name: "Chiller resfriado a água", intro: "Mais eficiência quando você já tem torre ou água de processo.", f: ["Maior eficiência", "Menos ruído e calor", "Para carga contínua"] },
       low: { name: "Chiller de baixa temperatura", intro: "Para processos que exigem água abaixo do normal.", f: ["Saída de baixa temperatura", "Controle estável", "Processos especiais"] },
       screw: { name: "Chiller de parafuso", intro: "Para fábricas grandes, várias máquinas e demanda contínua.", f: ["Alta capacidade", "Vários circuitos", "Feito para 24/7"] },
@@ -111,7 +111,7 @@ const DEEP = {
       lp_sub: "Same-day quote with your machine data.",
     },
     series: {
-      air: { name: "Air-cooled chiller", intro: "No tower, no process water: arrives and connects.", f: ["No cooling tower", "Fast installation", "For plants without water"] },
+      air: { name: "Air-cooled chiller", intro: "No cooling tower, no process water — connect and run. Factory-direct chillers built for plastic injection molding, blow molding and extrusion lines, with stable temperature control to keep production running through summer. 12–72 kW models (AGD-5IA to AGD-30IA), 1-year warranty, OEM/ODM from 1 unit.", f: ["No cooling tower", "Fast installation", "For plants without water"] },
       water: { name: "Water-cooled chiller", intro: "Higher efficiency when you already run a tower or process water.", f: ["Higher efficiency", "Less noise and heat", "For continuous load"] },
       low: { name: "Low-temperature chiller", intro: "For processes that need water below the usual range.", f: ["Low outlet temperature", "Stable control", "Special processes"] },
       screw: { name: "Screw chiller", intro: "For large plants, several machines and continuous demand.", f: ["High capacity", "Multiple circuits", "Built for 24/7"] },
