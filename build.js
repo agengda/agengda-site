@@ -343,16 +343,71 @@ function ldScript(obj) {
 }
 
 // ---------- FAQ (product / application pages) ----------
+// Extra FAQ pairs for specific pages (kept in sync between visible FAQ and schema).
+const EXTRA_FAQ = {
+  "en:air": [
+    ["Air-cooled or water-cooled — which is right for my plant?",
+     "Choose air-cooled if you lack a cooling tower or process water, or need fast installation with no water treatment. Choose water-cooled if your plant already has a tower and runs continuous heavy load, for higher energy efficiency."],
+    ["How do I choose the right chiller size?",
+     "Use our sizing calculator, or send us your machine type, required cooling capacity and voltage via WhatsApp. Our engineers recommend the right model and quote within one business day."],
+  ],
+  "es:air": [
+    ["¿Enfriadora por aire o por agua: cuál conviene a mi planta?",
+     "Elija enfriadora por aire si no tiene torre de enfriamiento ni agua de proceso, o necesita una instalación rápida sin tratamiento de agua. Elija por agua si su planta ya cuenta con torre y opera con carga alta continua, para mayor eficiencia energética."],
+    ["¿Cómo elijo el tamaño correcto de la enfriadora?",
+     "Use nuestra calculadora de selección o envíenos por WhatsApp el tipo de máquina, la capacidad de enfriamiento y la tensión. Nuestros ingenieros recomiendan el modelo y cotizan en un día hábil."],
+  ],
+  "pt:air": [
+    ["Chiller a ar ou a água: qual convém à minha planta?",
+     "Escolha a ar se você não tem torre de resfriamento nem água de processo, ou precisa de instalação rápida sem tratamento de água. Escolha a água se sua planta já tem torre e opera com carga contínua alta, para maior eficiência energética."],
+    ["Como escolho o tamanho certo do chiller?",
+     "Use nossa calculadora de dimensionamento ou envie pelo WhatsApp o tipo de máquina, a capacidade de resfriamento e a tensão. Nossos engenheiros recomendam o modelo e enviam orçamento em um dia útil."],
+  ],
+};
+
+// Air-cooled page SEO overrides for en/es/pt: localized long-tail keyword, H1, title, description and body copy.
+// Other languages and product pages keep the original generic template.
+const SEO_AIR = {
+  en: {
+    h1: "Air-Cooled Industrial Chiller for Injection Molding",
+    title: "Air-Cooled Chiller for Injection Molding | Agengda Factory",
+    desc: "Air-cooled chiller for injection molding, blow molding and extrusion. No tower needed. Factory price, 1-year warranty, OEM/ODM, MOQ 1. Quote on WhatsApp.",
+    bodyTitle: "How to choose the right air-cooled chiller",
+    body: `<p>Air-cooled chillers reject heat through finned condensers and fans, so they need no cooling tower, cooling-water pump or water treatment — a good fit for workshops with limited water supply or space, and for faster installation. If your plant already runs a cooling tower and carries continuous heavy load, our <a href="./water-cooled-chiller.html">water-cooled chillers</a> deliver higher efficiency.</p>
+  <p>To size a unit, tell us your machine type, required cooling capacity and supply voltage. Use our <a href="./calculator.html">sizing calculator</a> or send the data on WhatsApp and our engineers will recommend a model. Standard supply is 380V/50Hz/3-phase, with 220V/415V and other voltages available for export markets. OEM/private-label and refrigerant options can be customized.</p>`,
+    cards: ["Source factory — 30–45 units per month, exported to 25 countries", "1-year whole-machine warranty (wear parts excluded)", "MOQ 1 unit · OEM/ODM · multi-language support"],
+  },
+  es: {
+    h1: "Enfriadora industrial de aire para moldeo por inyección",
+    title: "Enfriadora de Aire para Moldeo por Inyección | Fábrica Agengda",
+    desc: "Enfriadora de aire para moldeo por inyección, soplado y extrusión. Sin torre de enfriamiento. Precio de fábrica, garantía 1 año, OEM/ODM, MOQ 1. Cotice por WhatsApp.",
+    bodyTitle: "Cómo elegir la enfriadora de aire adecuada",
+    body: `<p>Las enfriadoras de aire disipan el calor mediante condensadores de aletas y ventiladores, por lo que no necesitan torre de enfriamiento, bomba de agua de enfriamiento ni tratamiento de agua: ideales para talleres con suministro o espacio de agua limitado y para una instalación más rápida. Si su planta ya cuenta con torre de enfriamiento y opera con carga alta continua, nuestras <a href="./water-cooled-chiller.html">enfriadoras de agua</a> ofrecen mayor eficiencia.</p>
+  <p>Para dimensionar la unidad, indíquenos el tipo de máquina, la capacidad de enfriamiento y la tensión de alimentación. Use nuestra <a href="./calculator.html">calculadora de selección</a> o envíe los datos por WhatsApp; nuestros ingenieros recomendarán el modelo y le cotizarán en un día hábil. El suministro estándar es 380V/50Hz/trifásico; hay disponibles 220V/415V y otros voltajes para mercados de exportación. Se pueden personalizar OEM/marca blanca y refrigerante.</p>`,
+    cards: ["Fábrica de origen — 30–45 unidades al mes, exportadas a 25 países", "Garantía de 1 año en toda la máquina (excepto piezas de desgaste)", "MOQ 1 unidad · OEM/ODM · soporte multilingüe"],
+  },
+  pt: {
+    h1: "Chiller industrial a ar para injeção de plástico",
+    title: "Chiller a Ar para Injeção de Plástico | Fábrica Agengda",
+    desc: "Chiller a ar para injeção, sopro e extrusão de plástico. Sem torre de resfriamento. Preço de fábrica, garantia 1 ano, OEM/ODM, MOQ 1. Orçamento pelo WhatsApp.",
+    bodyTitle: "Como escolher o chiller a ar certo",
+    body: `<p>Os chillers a ar rejeitam o calor por meio de condensadores de aletas e ventiladores, portanto não precisam de torre de resfriamento, bomba de água de resfriamento nem tratamento de água — ideais para oficinas com fornecimento ou espaço limitado de água e para instalação mais rápida. Se sua planta já opera uma torre de resfriamento e tem carga contínua alta, nossos <a href="./water-cooled-chiller.html">chillers a água</a> oferecem maior eficiência.</p>
+  <p>Para dimensionar a unidade, informe o tipo de máquina, a capacidade de resfriamento e a tensão de alimentação. Use nossa <a href="./calculator.html">calculadora de dimensionamento</a> ou envie os dados pelo WhatsApp; nossos engenheiros recomendam o modelo e enviam orçamento em um dia útil. O fornecimento padrão é 380V/50Hz/trifásico; 220V/415V e outras tensões estão disponíveis para mercados de exportação. OEM/marca própria e refrigerante podem ser personalizados.</p>`,
+    cards: ["Fábrica de origem — 30–45 unidades por mês, exportadas para 25 países", "Garantia de 1 ano na máquina inteira (exceto peças de desgaste)", "MOQ 1 unidade · OEM/ODM · suporte multilíngue"],
+  },
+};
+
 // Returns the localized [question, answer] pairs with {name} filled in.
-function faqPairs(lang, name) {
+function faqPairs(lang, name, key) {
   const pairs = FAQ[lang] || FAQ.en;
-  return pairs.map(([q, a]) => [String(q).replace(/\{name\}/g, name), String(a).replace(/\{name\}/g, name)]);
+  const extra = key ? (EXTRA_FAQ[`${lang}:${key}`] || []) : [];
+  return [...pairs, ...extra].map(([q, a]) => [String(q).replace(/\{name\}/g, name), String(a).replace(/\{name\}/g, name)]);
 }
 
 // On-page FAQ section. Uses native <details> so the text is in the DOM (required
 // for FAQ rich results) and works without JS.
-function faqBlock(lang, name) {
-  const items = faqPairs(lang, name);
+function faqBlock(lang, name, key) {
+  const items = faqPairs(lang, name, key);
   const head = FAQ_TITLE[lang] || "FAQ";
   const rows = items.map(([q, a]) =>
     `<details class="faq"><summary>${q}</summary><div class="faq-a">${a}</div></details>`).join("\n    ");
@@ -372,11 +427,11 @@ const FAQ_TITLE = {
 };
 
 // FAQPage structured data (must mirror the visible FAQ text exactly).
-function faqSchema(lang, name) {
+function faqSchema(lang, name, key) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqPairs(lang, name).map(([q, a]) => ({
+    mainEntity: faqPairs(lang, name, key).map(([q, a]) => ({
       "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a },
     })),
   };
@@ -711,7 +766,7 @@ function seriesBody(t, ui, lang, s) {
   return `
 <div class="page-hero"><div class="container">
   <span class="kicker-line">${t.p_title}</span>
-  <h1>${x.name}</h1><p>${x.intro}</p>
+  <h1>${(SEO_AIR[lang] && s.key === "air") ? SEO_AIR[lang].h1 : x.name}</h1><p>${x.intro}</p>
   <div class="actions">
     <a class="btn btn-primary" href="./contact.html">${t.h_hero_btn}</a>
     <a class="btn btn-outline" href="./calculator.html">${d.ui.calc_title}</a>
@@ -722,6 +777,16 @@ function seriesBody(t, ui, lang, s) {
   <div class="section-head"><h2>${d.ui.spec_title}</h2></div>
   ${specTable(s, d)}
 </div></section>
+
+${(SEO_AIR[lang] && s.key === "air") ? `<section><div class="container">
+  <div class="section-head"><h2>${SEO_AIR[lang].bodyTitle}</h2></div>
+  ${SEO_AIR[lang].body}
+  <div class="grid-3">
+    <div class="card fit"><div class="ic">✓</div><p>${SEO_AIR[lang].cards[0]}</p></div>
+    <div class="card fit"><div class="ic">✓</div><p>${SEO_AIR[lang].cards[1]}</p></div>
+    <div class="card fit"><div class="ic">✓</div><p>${SEO_AIR[lang].cards[2]}</p></div>
+  </div>
+</div></section>` : ""}
 
 <section class="bg-soft"><div class="container">
   <div class="grid-3">
@@ -739,7 +804,7 @@ ${evidence(d, lang)}
   <div class="section-head"><h2>${t.p_title}</h2></div>
   <div class="series-grid">${others.map((o) => seriesCard(o, d, t)).join("\n    ")}</div>
 </div></section>
-${faqBlock(lang, x.name)}`;
+${faqBlock(lang, x.name, s.key)}`;
 }
 
 function appBody(t, ui, lang, app) {
@@ -1001,6 +1066,10 @@ function metaFor(p, t, ui, d, appT, lang) {
     case "products": return { title: s.products[0], desc: s.products[1] };
     case "series": {
       const n = d.series[p.series.key].name;
+      // en/es/pt air-cooled page: inject the localized long-tail keyword into title & description
+      if (SEO_AIR[lang] && p.series.key === "air") {
+        return { title: SEO_AIR[lang].title, desc: SEO_AIR[lang].desc };
+      }
       return { title: s.series[0].replace("{name}", n), desc: s.series[1].replace("{name}", n) };
     }
     case "app": {
@@ -1050,7 +1119,7 @@ function structuredData(p, t, ui, d, appT, lang, file) {
       offers: { "@type": "Offer", availability: "https://schema.org/InStock", priceCurrency: "USD", url: abs(lang, file) },
     });
     out.push(crumb([{ name: t.nav_home, file: "index.html" }, { name: t.p_title, file: "products.html" }, { name: x.name, file }]));
-    out.push(faqSchema(lang, x.name));
+    out.push(faqSchema(lang, x.name, p.series.key));
   } else if (p.kind === "app") {
     const aT = appT[p.app.key];
     out.push(crumb([{ name: t.nav_home, file: "index.html" }, { name: ui.nav, file: "products.html" }, { name: aT.name, file }]));
@@ -1059,6 +1128,28 @@ function structuredData(p, t, ui, d, appT, lang, file) {
     out.push(crumb([{ name: t.nav_home, file: "index.html" }, { name: d.ui.lp_title, file }]));
   } else {
     out.push(crumb([{ name: t.nav_home, file: "index.html" }, { name: metaFor(p, t, ui, d, appT).title.split("|").pop().trim(), file }]));
+  }
+  // Contact page (en/es/pt): LocalBusiness markup helps Google surface address/phone in search.
+  // name / address / telephone stay identical across languages for NAP consistency; only description is localized.
+  if (p.kind === "contact" && SEO_AIR[lang]) {
+    const lbDesc = {
+      en: "Industrial chiller manufacturer and exporter. Air-cooled, water-cooled, low-temperature and screw chillers for injection molding, blow molding, extrusion and laser applications.",
+      es: "Fabricante y exportador de enfriadoras industriales. Enfriadoras por aire, agua, baja temperatura y tornillo para moldeo por inyección, soplado, extrusión y láser.",
+      pt: "Fabricante e exportador de chillers industriais. Chillers a ar, a água, baixa temperatura e parafuso para injeção, sopro, extrusão e laser.",
+    };
+    out.push({
+      "@context": "https://schema.org", "@type": "LocalBusiness",
+      "@id": `${SITE_URL}/#localbusiness`,
+      name: "Agengda Industrial Chiller", alternateName: "阿庚达工业冷水机",
+      description: lbDesc[lang],
+      url: abs(lang, file),
+      image: `${SITE_URL}/assets/img/workshop.jpg`,
+      logo: `${SITE_URL}/assets/img/logo.png`,
+      telephone: TEL_DISPLAY, email: EMAILS[0],
+      address: { "@type": "PostalAddress", streetAddress: "No. 88, Manao Third Road, Changfu Industrial Park, Caidian District", addressLocality: "Wuhan", addressRegion: "Hubei", addressCountry: "CN" },
+      areaServed: "Worldwide — exported to 25 countries",
+      sameAs: [FACEBOOK, INSTAGRAM].filter(Boolean),
+    });
   }
   return out;
 }
