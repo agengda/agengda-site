@@ -19,7 +19,7 @@ const FAQ = {
     ["What is the typical lead time and minimum order?",
      "Standard models usually ship within 2–4 weeks; lead time for customized units depends on specifications. Minimum order is flexible — contact us for your project."],
     ["How do I get a quotation?",
-     "Send us your machine type, required cooling capacity, and voltage via WhatsApp or the contact form; we size the right unit and quote within one business day."],
+     "Send us your machine type, required cooling capacity, and voltage via WhatsApp or the contact form; we size the right unit and quote as soon as possible."],
   ],
   es: [
     ["¿Para qué sirve el {name}?",
@@ -29,7 +29,7 @@ const FAQ = {
     ["¿Cuál es el tiempo de entrega y pedido mínimo?",
      "Los modelos estándar suelen enviarse en 2–4 semanas; el tiempo de los equipos personalizados depende de las especificaciones. El pedido mínimo es flexible; contáctenos para su proyecto."],
     ["¿Cómo obtengo una cotización?",
-     "Envíenos por WhatsApp o el formulario su tipo de máquina, capacidad de enfriamiento y voltaje; dimensionamos la unidad correcta y cotizamos en un día hábil."],
+     "Envíenos por WhatsApp o el formulario su tipo de máquina, capacidad de enfriamiento y voltaje; dimensionamos la unidad correcta y cotizamos lo antes posible."],
   ],
   pt: [
     ["Para que serve o {name}?",
@@ -39,7 +39,7 @@ const FAQ = {
     ["Qual o prazo de entrega e pedido mínimo?",
      "Modelos padrão geralmente em 2–4 semanas; o prazo para unidades personalizadas depende das especificações. Pedido mínimo é flexível; fale conosco."],
     ["Como obtenho um orçamento?",
-     "Envie pelo WhatsApp ou formulário o tipo de máquina, capacidade de resfriamento e tensão; dimensionamos o equipamento certo e enviamos orçamento em um dia útil."],
+     "Envie pelo WhatsApp ou formulário o tipo de máquina, capacidade de resfriamento e tensão; dimensionamos o equipamento certo e enviamos orçamento o mais breve possível."],
   ],
   zh: [
     ["{name} 是用来做什么的？",
@@ -49,7 +49,7 @@ const FAQ = {
     ["交期和起订量是多少？",
      "标准机型一般 2–4 周发货；定制机型交期视规格而定。起订量灵活，可针对你的项目沟通。"],
     ["怎么获取报价？",
-     "通过 WhatsApp 或联系表单告诉我们机型、所需制冷量、电压，我们会帮你算准机型并在一个工作日内报价。"],
+     "通过 WhatsApp 或联系表单告诉我们机型、所需制冷量、电压，我们会帮你算准机型并尽快报价。"],
   ],
   de: [
     ["Wofür wird der {name} eingesetzt?",
@@ -59,7 +59,7 @@ const FAQ = {
     ["Wie lang ist die Lieferzeit und die Mindestbestellmenge?",
      "Standardmodelle werden in der Regel innerhalb von 2–4 Wochen geliefert; die Zeit für Sonderausführungen hängt von den Spezifikationen ab. Die Mindestmenge ist flexibel — kontaktieren Sie uns."],
     ["Wie erhalte ich ein Angebot?",
-     "Senden Sie uns Maschinentyp, benötigte Kälteleistung und Spannung per WhatsApp oder Kontaktformular; wir dimensionieren das passende Gerät und bieten innerhalb eines Werktags an."],
+     "Senden Sie uns Maschinentyp, benötigte Kälteleistung und Spannung per WhatsApp oder Kontaktformular; wir dimensionieren das passende Gerät und bieten schnellstmöglich an."],
   ],
   fr: [
     ["À quoi sert le {name} ?",
@@ -69,7 +69,7 @@ const FAQ = {
     ["Quel est le délai de livraison et la commande minimale ?",
      "Les modèles standard sont généralement expédiés en 2–4 semaines ; le délai des unités personnalisées dépend des spécifications. La quantité minimale est flexible — contactez-nous."],
     ["Comment obtenir un devis ?",
-     "Envoyez-nous par WhatsApp ou via le formulaire le type de machine, la puissance de refroidissement et la tension ; nous dimensionnons l'appareil adapté et vous soumettons un devis en un jour ouvré."],
+     "Envoyez-nous par WhatsApp ou via le formulaire le type de machine, la puissance de refroidissement et la tension ; nous dimensionnons l'appareil adapté et vous soumettons un devis dans les plus brefs délais."],
   ],
   tr: [
     ["{name} ne için kullanılır?",
@@ -79,7 +79,7 @@ const FAQ = {
     ["Teslim süresi ve minimum sipariş nedir?",
      "Standart modeller genellikle 2–4 hafta içinde gönderilir; özel ünitelerin süresi özelliklere bağlıdır. Minimum sipariş esnektir — bizimle iletişime geçin."],
     ["Nasıl teklif alırım?",
-     "WhatsApp veya iletişim formu üzerinden makine tipinizi, gereken soğutma kapasitesini ve voltajı gönderin; doğru üniteyi boyutlandırıp bir iş günü içinde teklif veririz."],
+     "WhatsApp veya iletişim formu üzerinden makine tipinizi, gereken soğutma kapasitesini ve voltajı gönderin; doğru üniteyi boyutlandırıp en kısa sürede teklif veririz."],
   ],
   ru: [
     ["Для чего используется {name}?",
@@ -89,7 +89,7 @@ const FAQ = {
     ["Какой срок поставки и минимальный заказ?",
      "Стандартные модели обычно отгружаются за 2–4 недели; срок нестандартных установок зависит от характеристик. Минимальный заказ гибкий — свяжитесь с нами."],
     ["Как получить расчёт?",
-     "Через WhatsApp или форму укажите тип машины, требуемую холодопроизводительность и напряжение; мы подберём нужный агрегат и дадим расчёт в течение одного рабочего дня."],
+     "Через WhatsApp или форму укажите тип машины, требуемую холодопроизводительность и напряжение; мы подберём нужный агрегат и дадим расчёт в ближайшее время."],
   ],
   ar: [
     ["لِمَ يُستخدم {name}؟",
@@ -99,7 +99,7 @@ const FAQ = {
     ["ما مدة التسليم والحد الأدنى للطلب؟",
      "تُشحن الطرز القياسية عادةً خلال 2–4 أسابيع؛ ومدة الوحدات المخصصة حسب المواصفات. الحد الأدنى مرن — تواصلوا معنا."],
     ["كيف أحصل على عرض سعر؟",
-     "أرسلوا عبر واتساب أو نموذج الاتصال نوع الماكينة وقدرة التبريد المطلوبة والجهد؛ سنحدد الوحدة المناسبة ونرسل العرض خلال يوم عمل واحد."],
+     "أرسلوا عبر واتساب أو نموذج الاتصال نوع الماكينة وقدرة التبريد المطلوبة والجهد؛ سنحدد الوحدة المناسبة ونرسل العرض في أقرب وقت ممكن."],
   ],
   id: [
     ["Untuk apa {name} digunakan?",
@@ -109,7 +109,7 @@ const FAQ = {
     ["Berapa waktu pengiriman dan pesanan minimum?",
      "Model standar biasanya dikirim dalam 2–4 minggu; waktu unit khusus tergantung spesifikasi. Pesanan minimum fleksibel — hubungi kami."],
     ["Bagaimana cara mendapatkan penawaran?",
-     "Kirimkan melalui WhatsApp atau formulir jenis mesin, kapasitas pendinginan, dan tegangan; kami akan menentukan unit yang tepat dan memberi penawaran dalam satu hari kerja."],
+     "Kirimkan melalui WhatsApp atau formulir jenis mesin, kapasitas pendinginan, dan tegangan; kami akan menentukan unit yang tepat dan memberi penawaran secepatnya."],
   ],
   vi: [
     ["{name} dùng để làm gì?",
@@ -119,7 +119,7 @@ const FAQ = {
     ["Thời gian giao hàng và số lượng tối thiểu là bao nhiêu?",
      "Mẫu tiêu chuẩn thường giao trong 2–4 tuần; thời gian đơn tùy chỉnh tùy thông số. Số lượng tối thiểu linh hoạt — liên hệ với chúng tôi."],
     ["Làm sao để nhận báo giá?",
-     "Gửi qua WhatsApp hoặc biểu mẫu loại máy, công suất làm mát và điện áp; chúng tôi sẽ tính đúng máy và báo giá trong một ngày làm việc."],
+     "Gửi qua WhatsApp hoặc biểu mẫu loại máy, công suất làm mát và điện áp; chúng tôi sẽ tính đúng máy và báo giá sớm nhất có thể."],
   ],
   th: [
     ["{name} ใช้ทำอะไร?",
@@ -129,7 +129,7 @@ const FAQ = {
     ["ระยะเวลาส่งและสั่งซื้อขั้นต่ำเป็นเท่าใด?",
      "รุ่นมาตรฐานมักส่งภายใน 2–4 สัปดาห์ ระยะเวลาสำหรับรุ่นสั่งทำขึ้นอยู่กับสเปก จำนวนสั่งขั้นต่ำยืดหยุ่น — ติดต่อเรา"],
     ["จะรับใบเสนอราคาได้อย่างไร?",
-     "ส่งประเภทเครื่อง ความเย็นที่ต้องการ และแรงดันผ่าน WhatsApp หรือฟอร์มติดต่อ เราจะคำนวณเครื่องที่เหมาะสมและส่งใบเสนอราคาภายในหนึ่งวันทำการ"],
+     "ส่งประเภทเครื่อง ความเย็นที่ต้องการ และแรงดันผ่าน WhatsApp หรือฟอร์มติดต่อ เราจะคำนวณเครื่องที่เหมาะสมและส่งใบเสนอราคาโดยเร็ว"],
   ],
 };
 
