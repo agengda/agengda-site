@@ -353,7 +353,7 @@ try{window.dataLayer.push(Object.assign({event:ev},m));}catch(e){}
 try{if(typeof fbq==='function'){var FB={lead_submit:'Lead',wa_click:'Lead',calculator_wa:'Contact',contact_click:'Contact'};
 if(FB[ev]){var up={content_name:(a.content||'')||ev};if(m.model)up.content_category=m.model;if(m.value)up.value=m.value;
 fbq('track',FB[ev],up,{eventID:ev+'_'+Date.now()});}else{fbq('trackCustom',ev,{source:m.source,campaign:m.campaign});}}}catch(e){}}
-window.waLead=function(placement){try{var a=window.__attribLast||{};var m={name:'WhatsApp咨询',company:'',country:'',phone:'',model:'',qty:'',temp:'',delivery:'',msg:'WhatsApp 咨询（'+(placement||'')+'，未填表单）',page:location.pathname,lang:document.documentElement.lang,source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||''};if(window.__notifyLead)window.__notifyLead(m);if(window.CloudApp&&window.CloudApp.submitLead)window.CloudApp.submitLead(m).catch(function(e){});}catch(e){}};
+window.waLead=function(placement){try{var a=window.__attribLast||{};var m={name:'WhatsApp咨询',company:'',country:'',phone:'',model:'',qty:'',temp:'',delivery:'',msg:'WhatsApp 咨询（'+(placement||'')+'，未填表单）',page:location.pathname,lang:document.documentElement.lang,source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||''};if(window.__notifyLead)window.__notifyLead(m);fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(m)}).catch(function(e){});}catch(e){}};
 window.__notifyLead=function(o){try{var k='${SERVERJIANG}';if(!k)return;o=o||{};var name=o.name||'',company=o.company||'',country=o.country||'',phone=o.phone||'',model=o.model||'',qty=o.qty||'',temp=o.temp||'',delivery=o.delivery||'',msg=o.msg||'',src=[o.source,o.medium,o.campaign].filter(Boolean).join(' / ');var title='新询盘 · agengda工业冷水机';var desp=[name&&('姓名: '+name),company&&('公司: '+company),country&&('国家: '+country),phone&&('电话: '+phone),model&&('机型: '+model),qty&&('数量: '+qty),temp&&('温度: '+temp),delivery&&('交期: '+delivery),src&&('来源: '+src),msg&&('留言: '+msg)].filter(Boolean).join(String.fromCharCode(10));var u='https://sctapi.ftqq.com/'+encodeURIComponent(k)+'.send?title='+encodeURIComponent(title)+'&desp='+encodeURIComponent(desp);new Image().src=u;}catch(e){}};
 ${on ? `gtag('js',new Date());gtag('config','${GA_ID}');` : "/* set GA_ID in build.js to enable GA4 */"}
 </script>${on ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>` : ""}`;
@@ -529,12 +529,24 @@ ${bare ? "" : footer(t, code, !["contact.html", "lp.html"].includes(file))}
 ${waFloat(t)}
 ${bare ? "" : `<a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本页内容</a>
 <script>if(!/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(location.hostname)){var _f=document.getElementById('editFab');if(_f)_f.remove();}</script>
-<script src="/assets/js/inline-ev.js"></script>
-<script src="/assets/js/cloud-config.js"></script>
-<script src="/assets/js/workbuddy-cloud-sdk.js"></script>
-<script src="/assets/js/cloud-client.js"></script>
-<script>if(window.CloudApp){if(window.CloudApp.hydrateFactory){window.CloudApp.hydrateFactory();}}/* 产品图已固化到静态 HTML：普通访客不再从云端拉取图片覆盖，避免"先显示一套、几秒后换成另一套"的闪烁。编辑模式（token/cookie）由 product-image-editor.js 自行调用 hydrateImages()。 */</script>
-<script src="/assets/js/product-image-editor.js"></script>`}
+<script src="/assets/js/inline-ev.js" defer></script>
+<script>
+(function(){
+  // 普通访客不需要云端 SDK：产品图已静态固化、表单自带提交、工厂数据已写死。
+  // 仅编辑模式（URL token / 会话标记 / 后台 cookie）按需加载，省约 100KB JS 与 4 个请求。
+  var edit=false;
+  try{ edit=/[?&]token=/.test(location.search)||sessionStorage.getItem("pie_auth")==="1"||document.cookie.indexOf("lead_token=")>=0; }
+  catch(e){ edit=/[?&]token=/.test(location.search); }
+  if(!edit) return;
+  var list=["/assets/js/cloud-config.js","/assets/js/workbuddy-cloud-sdk.js","/assets/js/cloud-client.js","/assets/js/product-image-editor.js"];
+  (function next(i){
+    if(i>=list.length) return;
+    var s=document.createElement("script"); s.src=list[i];
+    s.onload=s.onerror=function(){ next(i+1); };
+    document.body.appendChild(s);
+  })(0);
+})();
+</script>`}
 <script>document.addEventListener('click',function(e){if(!e.target.closest('.lang-select')){document.querySelectorAll('.lang-menu.open').forEach(function(m){m.classList.remove('open');});}if(!e.target.closest('.nav-burger')&&!e.target.closest('.nav-links')){document.querySelectorAll('.nav-links.open').forEach(function(n){n.classList.remove('open');});document.body.classList.remove('nav-open');var b=document.querySelector('.nav-burger');if(b)b.setAttribute('aria-expanded','false');}});</script>
 ${attribScript()}
 </body>
