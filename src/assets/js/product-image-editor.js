@@ -268,12 +268,23 @@
 
   async function init() {
     if (!app) return;
-    if (LOCAL) allowed = true;
-    else {
-      try {
-        var r = await fetch("/api/editor-status", { cache: "no-store" });
-        allowed = r.ok && (await r.json()).ok === true;
-      } catch (e) { allowed = false; }
+    if (LOCAL) {
+      allowed = true;
+    } else {
+      // Cloudflare caches everything, so the token is passed explicitly on the
+      // product URL once and verified with a cache-busted request. The result
+      // lives in sessionStorage for the rest of this browser tab.
+      var qToken = new URLSearchParams(location.search).get("token");
+      if (qToken) {
+        try {
+          var url = "/api/editor-status?token=" + encodeURIComponent(qToken) + "&_=" + Date.now();
+          var r = await fetch(url, { cache: "no-store" });
+          allowed = r.ok && (await r.json()).ok === true;
+        } catch (e) { allowed = false; }
+        if (allowed) sessionStorage.setItem("pie_allowed", "1");
+      } else {
+        allowed = sessionStorage.getItem("pie_allowed") === "1";
+      }
     }
     if (!allowed) return; // 普通访客完全看不到任何编辑入口
     var m = await app.loadImages();
