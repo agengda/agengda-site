@@ -166,7 +166,9 @@
   // on the custom domain because the cloud REST endpoint has no CORS headers.
   async function loadImages() {
     try {
-      var r = await fetch("/api/images", { cache: "no-store" });
+      // Cloudflare caches GET /api/images for 2h regardless of the server's
+      // no-store header. A unique query param forces an edge MISS every time.
+      var r = await fetch("/api/images?t=" + Date.now() + "-" + Math.random().toString(36).slice(2), { cache: "no-store" });
       if (!r.ok) return null;
       var j = await r.json();
       return (j && j.images) ? j.images : {};
