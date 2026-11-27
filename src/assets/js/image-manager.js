@@ -143,7 +143,15 @@
     next(0);
   }
 
+  function applyResult(ok, msg, mutate) {
+    if (!ok) { toast("保存失败，请稍后重试", true); return; }
+    if (mutate) mutate();
+    render();
+    toast(msg || "已保存，刷新网站即可看到");
+  }
+
   function save(nextState, nextGalleries, msg) {
+    // 兼容旧调用：全量保存（仅在没有局部接口时使用）。
     if (!app || !app.saveImages) { toast("云服务未就绪", true); return; }
     var payload = {};
     Object.keys(nextState).forEach(function (k) { payload[k] = nextState[k]; });
@@ -152,27 +160,26 @@
       toast("云端图片总量超过 12MB，请先删除一些已上传图片再添加", true);
       return;
     }
-    toast("正在保存，请稍候约 10 秒，不要关闭页面…");
+    toast("正在保存…");
     app.saveImages(payload).then(function (ok) {
-      if (!ok) { toast("保存失败，请稍后重试", true); return; }
-      state = nextState; galleries = nextGalleries;
-      render();
-      toast(msg || "已保存，刷新网站即可看到");
+      applyResult(ok, msg, function () { state = nextState; galleries = nextGalleries; });
     });
   }
 
   function writeSlot(key, val, msg) {
-    var n = {};
-    Object.keys(state).forEach(function (k) { if (k !== key) n[k] = state[k]; });
-    if (val !== null) n[key] = val;
-    save(n, galleries, msg);
+    if (!app || !app.saveSlot) { toast("云服务未就绪", true); return; }
+    toast("正在保存…");
+    app.saveSlot(key, val === null ? null : val).then(function (ok) {
+      applyResult(ok, msg, function () { if (val === null) delete state[key]; else state[key] = val; });
+    });
   }
 
   function writeGallery(key, items, msg) {
-    var g = {};
-    Object.keys(galleries).forEach(function (k) { if (k !== key) g[k] = galleries[k]; });
-    if (items !== null) g[key] = items;
-    save(state, g, msg);
+    if (!app || !app.saveGallery) { toast("云服务未就绪", true); return; }
+    toast("正在保存…");
+    app.saveGallery(key, items === null ? null : items).then(function (ok) {
+      applyResult(ok, msg, function () { if (items === null) delete galleries[key]; else galleries[key] = items; });
+    });
   }
 
   function itemsFor(gal) {
