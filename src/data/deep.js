@@ -33,10 +33,10 @@ const DEEP = {
       lp_sub: "Cotiza el mismo día con los datos de tu máquina.",
     },
     series: {
-      air: { name: "Chiller enfriado por aire", intro: "Sin torre ni agua de proceso: llega y se conecta. Enfriadoras de fábrica para moldeo por inyección, soplado y extrusión, con control térmico estable para mantener la producción en verano. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantía de 1 año y OEM/ODM desde 1 unidad.", f: ["Sin torre de enfriamiento", "Instalación rápida", "Para plantas sin agua"] },
-      water: { name: "Chiller enfriado por agua", intro: "Más eficiencia cuando ya cuentas con torre o agua de proceso.", f: ["Mayor eficiencia", "Menos ruido y calor", "Para carga continua"] },
-      low: { name: "Chiller de baja temperatura", intro: "Para procesos que piden agua por debajo de lo habitual.", f: ["Salida de baja temperatura", "Control estable", "Procesos especiales"] },
-      screw: { name: "Chiller de tornillo", intro: "Para plantas grandes, varias máquinas y demanda continua.", f: ["Alta capacidad", "Varios circuitos", "Diseñado para 24/7"] },
+      air: { name: "Chiller enfriado por aire", intro: "Sin torre ni agua de proceso: llega y se conecta. Enfriadoras de fábrica para moldeo por inyección, soplado y extrusión, con control térmico estable para mantener la producción en verano. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantía de 1 año y OEM/ODM desde 1 unidad.", f: ["Sin torre de enfriamiento", "Instalación rápida", "Para plantas sin agua"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Enfriadora box type en línea de producción", "Unidad enfriada por aire en fábrica", "Panel de control"] },
+      water: { name: "Chiller enfriado por agua", intro: "Más eficiencia cuando ya cuentas con torre o agua de proceso.", f: ["Mayor eficiencia", "Menos ruido y calor", "Para carga continua"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller de tornillo con condensador de agua", "Intercambiador de tubos de cobre", "Panel de control"] },
+      low: { name: "Chiller de baja temperatura", intro: "Para procesos que piden agua por debajo de lo habitual.", f: ["Salida de baja temperatura", "Control estable", "Procesos especiales"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Chiller de tornillo · vista frontal", "Panel de control", "Intercambiador de tubos de cobre"] },
+      screw: { name: "Chiller de tornillo", intro: "Para plantas grandes, varias máquinas y demanda continua.", f: ["Alta capacidad", "Varios circuitos", "Diseñado para 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller de tornillo con condensador de agua", "Chiller de tornillo · vista lateral", "Panel de control"] },
     },
     cases: [
       { t: "Caso 1 · Inyección", problem: "Máquina de [tonelaje] con paradas por temperatura de aceite en verano.", solution: "Máquina de [modelo] con circuito de aceite independiente.", result: "Menos paradas y [dato] % menos piezas rechazadas." },
@@ -72,10 +72,10 @@ const DEEP = {
       lp_sub: "Orçamento no mesmo dia com os dados da sua máquina.",
     },
     series: {
-      air: { name: "Chiller resfriado a ar", intro: "Sem torre e sem água de processo: chega e conecta. Chillers de fábrica para injeção, sopro e extrusão de plástico, com controle térmico estável para manter a produção no verão. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantia de 1 ano e OEM/ODM a partir de 1 unidade.", f: ["Sem torre de resfriamento", "Instalação rápida", "Para fábrica sem água"] },
-      water: { name: "Chiller resfriado a água", intro: "Mais eficiência quando você já tem torre ou água de processo.", f: ["Maior eficiência", "Menos ruído e calor", "Para carga contínua"] },
-      low: { name: "Chiller de baixa temperatura", intro: "Para processos que exigem água abaixo do normal.", f: ["Saída de baixa temperatura", "Controle estável", "Processos especiais"] },
-      screw: { name: "Chiller de parafuso", intro: "Para fábricas grandes, várias máquinas e demanda contínua.", f: ["Alta capacidade", "Vários circuitos", "Feito para 24/7"] },
+      air: { name: "Chiller resfriado a ar", intro: "Sem torre e sem água de processo: chega e conecta. Chillers de fábrica para injeção, sopro e extrusão de plástico, com controle térmico estável para manter a produção no verão. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantia de 1 ano e OEM/ODM a partir de 1 unidade.", f: ["Sem torre de resfriamento", "Instalação rápida", "Para fábrica sem água"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Resfriadora box type na linha de produção", "Unidade resfriada a ar na fábrica", "Painel de controle"] },
+      water: { name: "Chiller resfriado a água", intro: "Mais eficiência quando você já tem torre ou água de processo.", f: ["Maior eficiência", "Menos ruído e calor", "Para carga contínua"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller de parafuso com condensador de água", "Trocador de tubos de cobre", "Painel de controle"] },
+      low: { name: "Chiller de baixa temperatura", intro: "Para processos que exigem água abaixo do normal.", f: ["Saída de baixa temperatura", "Controle estável", "Processos especiais"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Chiller de parafuso · vista frontal", "Painel de controle", "Trocador de tubos de cobre"] },
+      screw: { name: "Chiller de parafuso", intro: "Para fábricas grandes, várias máquinas e demanda contínua.", f: ["Alta capacidade", "Vários circuitos", "Feito para 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller de parafuso com condensador de água", "Chiller de parafuso · vista lateral", "Painel de controle"] },
     },
     cases: [
       { t: "Caso 1 · Injeção", problem: "Máquina de [tonelagem] com paradas por temperatura do óleo no verão.", solution: "Máquina [modelo] com circuito de óleo independente.", result: "Menos paradas e [dado] % menos peças refugadas." },
@@ -111,10 +111,10 @@ const DEEP = {
       lp_sub: "Same-day quote with your machine data.",
     },
     series: {
-      air: { name: "Air-cooled chiller", intro: "No cooling tower, no process water — connect and run. Factory-direct chillers built for plastic injection molding, blow molding and extrusion lines, with stable temperature control to keep production running through summer. 12–72 kW models (AGD-5IA to AGD-30IA), 1-year warranty, OEM/ODM from 1 unit.", f: ["No cooling tower", "Fast installation", "For plants without water"] },
-      water: { name: "Water-cooled chiller", intro: "Higher efficiency when you already run a tower or process water.", f: ["Higher efficiency", "Less noise and heat", "For continuous load"] },
-      low: { name: "Low-temperature chiller", intro: "For processes that need water below the usual range.", f: ["Low outlet temperature", "Stable control", "Special processes"] },
-      screw: { name: "Screw chiller", intro: "For large plants, several machines and continuous demand.", f: ["High capacity", "Multiple circuits", "Built for 24/7"] },
+      air: { name: "Air-cooled chiller", intro: "No cooling tower, no process water — connect and run. Factory-direct chillers built for plastic injection molding, blow molding and extrusion lines, with stable temperature control to keep production running through summer. 12–72 kW models (AGD-5IA to AGD-30IA), 1-year warranty, OEM/ODM from 1 unit.", f: ["No cooling tower", "Fast installation", "For plants without water"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Box-type chiller on production line", "Air-cooled unit at the factory", "Control panel"] },
+      water: { name: "Water-cooled chiller", intro: "Higher efficiency when you already run a tower or process water.", f: ["Higher efficiency", "Less noise and heat", "For continuous load"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Screw chiller with water-cooled condenser", "Copper tube heat exchanger", "Control panel"] },
+      low: { name: "Low-temperature chiller", intro: "For processes that need water below the usual range.", f: ["Low outlet temperature", "Stable control", "Special processes"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Screw chiller · front view", "Control panel", "Copper tube heat exchanger"] },
+      screw: { name: "Screw chiller", intro: "For large plants, several machines and continuous demand.", f: ["High capacity", "Multiple circuits", "Built for 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Screw chiller with water-cooled condenser", "Screw chiller · side view", "Control panel"] },
     },
     cases: [
       { t: "Case 1 · Injection", problem: "[Tonnage] machine shutting down on oil temperature in summer.", solution: "[Model] unit with a separate oil circuit.", result: "Fewer stops and [data]% less scrap." },
@@ -150,10 +150,10 @@ const DEEP = {
       lp_sub: "带上设备参数，当天给你方案。",
     },
     series: {
-      air: { name: "风冷式冷水机", intro: "不用冷却塔、不用工艺水，到场接管就能用。", f: ["无需冷却塔", "安装快", "适合缺水车间"] },
-      water: { name: "水冷式冷水机", intro: "已有冷却塔或工艺水的车间，效率更高。", f: ["能效更高", "噪音与散热低", "适合连续负载"] },
-      low: { name: "低温冷水机", intro: "需要低于常规出水温度的模具与工艺。", f: ["出水温度低", "连续运行稳定", "适配特殊工艺"] },
-      screw: { name: "螺杆式冷水机", intro: "大车间、多台设备、全天不停机的场景。", f: ["制冷量大", "多回路设计", "为 24 小时运行而做"] },
+      air: { name: "风冷式冷水机", intro: "不用冷却塔、不用工艺水，到场接管就能用。", f: ["无需冷却塔", "安装快", "适合缺水车间"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["箱式风冷机组 · 生产线实拍", "风冷机组 · 工厂实拍", "控制面板"] },
+      water: { name: "水冷式冷水机", intro: "已有冷却塔或工艺水的车间，效率更高。", f: ["能效更高", "噪音与散热低", "适合连续负载"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["水冷螺杆机组 · 车间实拍", "铜管换热器", "控制面板"] },
+      low: { name: "低温冷水机", intro: "需要低于常规出水温度的模具与工艺。", f: ["出水温度低", "连续运行稳定", "适配特殊工艺"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["螺杆式冷水机 · 正面", "控制面板", "铜管换热器"] },
+      screw: { name: "螺杆式冷水机", intro: "大车间、多台设备、全天不停机的场景。", f: ["制冷量大", "多回路设计", "为 24 小时运行而做"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["水冷螺杆机组 · 车间实拍", "螺杆式冷水机 · 侧面", "控制面板"] },
     },
     cases: [
       { t: "案例一 · 注塑", problem: "[吨位] 注塑机，夏季油温高频繁停机。", solution: "配 [型号] 冷水机，油路独立循环。", result: "停机减少，不良品降 [数据]%。" },
@@ -189,10 +189,10 @@ const DEEP = {
       lp_sub: "Angebot am selben Tag mit Ihren Maschinendaten.",
     },
     series: {
-      air: { name: "Luftgekühlter Kühler", intro: "Kein Kühlturm, kein Prozesswasser: aufstellen und anschließen.", f: ["Kein Kühlturm", "Schnelle Montage", "Für Werke ohne Wasser"] },
-      water: { name: "Wassergekühlter Kühler", intro: "Höhere Effizienz, wenn Kühlturm oder Prozesswasser vorhanden ist.", f: ["Höhere Effizienz", "Wenig Lärm und Abwärme", "Für Dauerlast"] },
-      low: { name: "Niedertemperatur-Kühler", intro: "Für Prozesse, die Wasser unter dem üblichen Bereich brauchen.", f: ["Niedrige Vorlauftemperatur", "Stabile Regelung", "Für Sonderprozesse"] },
-      screw: { name: "Schraubenkühler", intro: "Für große Werke, mehrere Maschinen und Dauerbetrieb.", f: ["Hohe Leistung", "Mehrere Kreise", "Für 24/7 gebaut"] },
+      air: { name: "Luftgekühlter Kühler", intro: "Kein Kühlturm, kein Prozesswasser: aufstellen und anschließen.", f: ["Kein Kühlturm", "Schnelle Montage", "Für Werke ohne Wasser"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Box-Kühler in der Produktionslinie", "Luftgekühltes Gerät im Werk", "Steuerpanel"] },
+      water: { name: "Wassergekühlter Kühler", intro: "Höhere Effizienz, wenn Kühlturm oder Prozesswasser vorhanden ist.", f: ["Höhere Effizienz", "Wenig Lärm und Abwärme", "Für Dauerlast"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Schraubenkühler mit Wasserkondensator", "Kupferrohr-Wärmetauscher", "Steuerpanel"] },
+      low: { name: "Niedertemperatur-Kühler", intro: "Für Prozesse, die Wasser unter dem üblichen Bereich brauchen.", f: ["Niedrige Vorlauftemperatur", "Stabile Regelung", "Für Sonderprozesse"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Schraubenkühler · Vorderansicht", "Steuerpanel", "Kupferrohr-Wärmetauscher"] },
+      screw: { name: "Schraubenkühler", intro: "Für große Werke, mehrere Maschinen und Dauerbetrieb.", f: ["Hohe Leistung", "Mehrere Kreise", "Für 24/7 gebaut"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Schraubenkühler mit Wasserkondensator", "Schraubenkühler · Seitenansicht", "Steuerpanel"] },
     },
     cases: [
       { t: "Referenz 1 · Spritzguss", problem: "[Tonnage]-Maschine stoppt im Sommer wegen Öltemperatur.", solution: "[Modell] mit separatem Ölkreis.", result: "Weniger Stopps und [Daten] % weniger Ausschuss." },
@@ -228,10 +228,10 @@ const DEEP = {
       lp_sub: "Devis le jour même avec les données de votre machine.",
     },
     series: {
-      air: { name: "Refroidisseur à air", intro: "Ni tour ni eau de process : on installe et on raccorde.", f: ["Sans tour de refroidissement", "Installation rapide", "Pour usines sans eau"] },
-      water: { name: "Refroidisseur à eau", intro: "Meilleur rendement si vous avez déjà une tour ou de l'eau de process.", f: ["Meilleur rendement", "Moins de bruit et de chaleur", "Pour charge continue"] },
-      low: { name: "Refroidisseur basse température", intro: "Pour les procédés qui exigent une eau plus froide que la normale.", f: ["Sortie basse température", "Régulation stable", "Procédés spéciaux"] },
-      screw: { name: "Refroidisseur à vis", intro: "Pour grandes usines, plusieurs machines et marche continue.", f: ["Forte puissance", "Plusieurs circuits", "Conçu pour 24/7"] },
+      air: { name: "Refroidisseur à air", intro: "Ni tour ni eau de process : on installe et on raccorde.", f: ["Sans tour de refroidissement", "Installation rapide", "Pour usines sans eau"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Groupe box type en ligne de production", "Unité refroidie par air à l'usine", "Panneau de commande"] },
+      water: { name: "Refroidisseur à eau", intro: "Meilleur rendement si vous avez déjà une tour ou de l'eau de process.", f: ["Meilleur rendement", "Moins de bruit et de chaleur", "Pour charge continue"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Groupe à vis avec condenseur à eau", "Échangeur à tubes de cuivre", "Panneau de commande"] },
+      low: { name: "Refroidisseur basse température", intro: "Pour les procédés qui exigent une eau plus froide que la normale.", f: ["Sortie basse température", "Régulation stable", "Procédés spéciaux"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Groupe à vis · vue de face", "Panneau de commande", "Échangeur à tubes de cuivre"] },
+      screw: { name: "Refroidisseur à vis", intro: "Pour grandes usines, plusieurs machines et marche continue.", f: ["Forte puissance", "Plusieurs circuits", "Conçu pour 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Groupe à vis avec condenseur à eau", "Groupe à vis · vue latérale", "Panneau de commande"] },
     },
     cases: [
       { t: "Référence 1 · Injection", problem: "Presse de [tonnage] arrêtée en été sur température d'huile.", solution: "Groupe [modèle] avec circuit d'huile séparé.", result: "Moins d'arrêts et [donnée] % de rebut en moins." },
@@ -267,10 +267,10 @@ const DEEP = {
       lp_sub: "Makine verilerinizle aynı gün teklif.",
     },
     series: {
-      air: { name: "Hava soğutmalı chiller", intro: "Kule ve proses suyu yok: kur ve bağla.", f: ["Soğutma kulesi gerekmez", "Hızlı kurulum", "Susuz tesisler için"] },
-      water: { name: "Su soğutmalı chiller", intro: "Kule veya proses suyu varsa daha yüksek verim.", f: ["Daha yüksek verim", "Az gürültü ve ısı", "Sürekli yük için"] },
-      low: { name: "Düşük sıcaklık chiller", intro: "Suyun normalden soğuk istendiği prosesler için.", f: ["Düşük çıkış sıcaklığı", "Kararlı kontrol", "Özel prosesler"] },
-      screw: { name: "Vidalı chiller", intro: "Büyük tesisler, çok makine ve kesintisiz talep için.", f: ["Yüksek kapasite", "Çok devreli", "24/7 için üretildi"] },
+      air: { name: "Hava soğutmalı chiller", intro: "Kule ve proses suyu yok: kur ve bağla.", f: ["Soğutma kulesi gerekmez", "Hızlı kurulum", "Susuz tesisler için"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Box tipi soğutucu üretim hattında", "Hava soğutmalı ünite fabrikada", "Kontrol paneli"] },
+      water: { name: "Su soğutmalı chiller", intro: "Kule veya proses suyu varsa daha yüksek verim.", f: ["Daha yüksek verim", "Az gürültü ve ısı", "Sürekli yük için"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Su soğutmalı kondansatörlü vidalı chiller", "Bakır borulu ısı eşanjörü", "Kontrol paneli"] },
+      low: { name: "Düşük sıcaklık chiller", intro: "Suyun normalden soğuk istendiği prosesler için.", f: ["Düşük çıkış sıcaklığı", "Kararlı kontrol", "Özel prosesler"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Vidalı chiller · ön görünüm", "Kontrol paneli", "Bakır borulu ısı eşanjörü"] },
+      screw: { name: "Vidalı chiller", intro: "Büyük tesisler, çok makine ve kesintisiz talep için.", f: ["Yüksek kapasite", "Çok devreli", "24/7 için üretildi"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Su soğutmalı kondansatörlü vidalı chiller", "Vidalı chiller · yan görünüm", "Kontrol paneli"] },
     },
     cases: [
       { t: "Referans 1 · Enjeksiyon", problem: "[Tonaj] makine yazın yağ sıcaklığından duruyor.", solution: "Ayrı yağ devreli [model].", result: "Daha az duruş ve %[veri] daha az hatalı parça." },
@@ -306,10 +306,10 @@ const DEEP = {
       lp_sub: "Расчёт в тот же день по данным вашего станка.",
     },
     series: {
-      air: { name: "Чиллер с воздушным охлаждением", intro: "Без градирни и оборотной воды: поставил и подключил.", f: ["Без градирни", "Быстрый монтаж", "Для цехов без воды"] },
-      water: { name: "Чиллер с водяным охлаждением", intro: "Выше эффективность, если уже есть градирня или вода.", f: ["Выше эффективность", "Меньше шума и тепла", "Для постоянной нагрузки"] },
-      low: { name: "Низкотемпературный чиллер", intro: "Для процессов, где нужна вода холоднее обычного.", f: ["Низкая температура на выходе", "Стабильное регулирование", "Специальные процессы"] },
-      screw: { name: "Винтовой чиллер", intro: "Для больших производств, многих машин и непрерывной работы.", f: ["Большая мощность", "Несколько контуров", "Для работы 24/7"] },
+      air: { name: "Чиллер с воздушным охлаждением", intro: "Без градирни и оборотной воды: поставил и подключил.", f: ["Без градирни", "Быстрый монтаж", "Для цехов без воды"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Боксовый чиллер на производственной линии", "Воздушный чиллер на заводе", "Панель управления"] },
+      water: { name: "Чиллер с водяным охлаждением", intro: "Выше эффективность, если уже есть градирня или вода.", f: ["Выше эффективность", "Меньше шума и тепла", "Для постоянной нагрузки"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Винтовой чиллер с водяным конденсатором", "Теплообменник из медных труб", "Панель управления"] },
+      low: { name: "Низкотемпературный чиллер", intro: "Для процессов, где нужна вода холоднее обычного.", f: ["Низкая температура на выходе", "Стабильное регулирование", "Специальные процессы"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Винтовой чиллер · вид спереди", "Панель управления", "Теплообменник из медных труб"] },
+      screw: { name: "Винтовой чиллер", intro: "Для больших производств, многих машин и непрерывной работы.", f: ["Большая мощность", "Несколько контуров", "Для работы 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Винтовой чиллер с водяным конденсатором", "Винтовой чиллер · вид сбоку", "Панель управления"] },
     },
     cases: [
       { t: "Проект 1 · Литьё", problem: "Станок [тоннаж] летом вставал по температуре масла.", solution: "Агрегат [модель] с отдельным масляным контуром.", result: "Меньше простоев и на [данные] % меньше брака." },
@@ -345,10 +345,10 @@ const DEEP = {
       lp_sub: "عرض سعر في نفس اليوم ببيانات ماكينتك.",
     },
     series: {
-      air: { name: "مبرّد مبرَّد بالهواء", intro: "بلا برج ولا مياه عملية: يصل ويُوصل.", f: ["بلا برج تبريد", "تركيب سريع", "لمصانع بلا مياه"] },
-      water: { name: "مبرّد مبرَّد بالماء", intro: "كفاءة أعلى عند وجود برج أو مياه عملية.", f: ["كفاءة أعلى", "ضوضاء وحرارة أقل", "للحمل المستمر"] },
-      low: { name: "مبرّد منخفض الحرارة", intro: "للعمليات التي تحتاج ماءً أبرد من المعتاد.", f: ["حرارة خروج منخفضة", "تحكم مستقر", "عمليات خاصة"] },
-      screw: { name: "مبرّد لولبي", intro: "للمصانع الكبيرة والعديد من الماكينات والطلب المستمر.", f: ["سعة عالية", "دوائر متعددة", "مصمم لـ 24/7"] },
+      air: { name: "مبرّد مبرَّد بالهواء", intro: "بلا برج ولا مياه عملية: يصل ويُوصل.", f: ["بلا برج تبريد", "تركيب سريع", "لمصانع بلا مياه"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["مبرد صندوقي في خط الإنتاج", "وحدة تبريد هوائية في المصنع", "لوحة التحكم"] },
+      water: { name: "مبرّد مبرَّد بالماء", intro: "كفاءة أعلى عند وجود برج أو مياه عملية.", f: ["كفاءة أعلى", "ضوضاء وحرارة أقل", "للحمل المستمر"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["مبرد لولبي مع مكثف مائي", "مبادل حراري بأنابيب نحاسية", "لوحة التحكم"] },
+      low: { name: "مبرّد منخفض الحرارة", intro: "للعمليات التي تحتاج ماءً أبرد من المعتاد.", f: ["حرارة خروج منخفضة", "تحكم مستقر", "عمليات خاصة"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["مبرد لولبي · من الأمام", "لوحة التحكم", "مبادل حراري بأنابيب نحاسية"] },
+      screw: { name: "مبرّد لولبي", intro: "للمصانع الكبيرة والعديد من الماكينات والطلب المستمر.", f: ["سعة عالية", "دوائر متعددة", "مصمم لـ 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["مبرد لولبي مع مكثف مائي", "مبرد لولبي · من الجانب", "لوحة التحكم"] },
     },
     cases: [
       { t: "حالة 1 · الحقن", problem: "ماكينة [الحمولة] تتوقف صيفاً بسبب حرارة الزيت.", solution: "وحدة [الموديل] بدائرة زيت مستقلة.", result: "توقفات أقل و[البيانات]% أقل عيوباً." },
@@ -384,10 +384,10 @@ const DEEP = {
       lp_sub: "Penawaran di hari yang sama dengan data mesin Anda.",
     },
     series: {
-      air: { name: "Chiller berpendingin udara", intro: "Tanpa cooling tower dan tanpa air proses: pasang lalu sambung.", f: ["Tanpa cooling tower", "Pemasangan cepat", "Untuk pabrik tanpa air"] },
-      water: { name: "Chiller berpendingin air", intro: "Efisiensi lebih tinggi bila sudah ada tower atau air proses.", f: ["Efisiensi lebih tinggi", "Suara dan panas rendah", "Untuk beban kontinu"] },
-      low: { name: "Chiller suhu rendah", intro: "Untuk proses yang butuh air lebih dingin dari biasanya.", f: ["Suhu keluar rendah", "Kontrol stabil", "Proses khusus"] },
-      screw: { name: "Chiller screw", intro: "Untuk pabrik besar, banyak mesin, dan permintaan terus-menerus.", f: ["Kapasitas besar", "Beberapa sirkuit", "Dirancang untuk 24/7"] },
+      air: { name: "Chiller berpendingin udara", intro: "Tanpa cooling tower dan tanpa air proses: pasang lalu sambung.", f: ["Tanpa cooling tower", "Pemasangan cepat", "Untuk pabrik tanpa air"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller box di lini produksi", "Unit berpendingin udara di pabrik", "Panel kontrol"] },
+      water: { name: "Chiller berpendingin air", intro: "Efisiensi lebih tinggi bila sudah ada tower atau air proses.", f: ["Efisiensi lebih tinggi", "Suara dan panas rendah", "Untuk beban kontinu"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller screw dengan kondensor air", "Penukar tabung tembaga", "Panel kontrol"] },
+      low: { name: "Chiller suhu rendah", intro: "Untuk proses yang butuh air lebih dingin dari biasanya.", f: ["Suhu keluar rendah", "Kontrol stabil", "Proses khusus"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Chiller screw · tampak depan", "Panel kontrol", "Penukar tabung tembaga"] },
+      screw: { name: "Chiller screw", intro: "Untuk pabrik besar, banyak mesin, dan permintaan terus-menerus.", f: ["Kapasitas besar", "Beberapa sirkuit", "Dirancang untuk 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller screw dengan kondensor air", "Chiller screw · tampak samping", "Panel kontrol"] },
     },
     cases: [
       { t: "Kasus 1 · Injeksi", problem: "Mesin [tonase] berhenti karena suhu oli di musim panas.", solution: "Unit [model] dengan sirkuit oli terpisah.", result: "Lebih sedikit berhenti dan [data]% lebih sedikit reject." },
@@ -423,10 +423,10 @@ const DEEP = {
       lp_sub: "Báo giá trong ngày khi có thông số máy của bạn.",
     },
     series: {
-      air: { name: "Máy làm lạnh giải nhiệt gió", intro: "Không cần tháp và nước công nghệ: lắp là chạy.", f: ["Không cần tháp giải nhiệt", "Lắp đặt nhanh", "Cho xưởng thiếu nước"] },
-      water: { name: "Máy làm lạnh giải nhiệt nước", intro: "Hiệu quả hơn khi đã có tháp hoặc nước công nghệ.", f: ["Hiệu suất cao hơn", "Ít ồn và ít tỏa nhiệt", "Cho tải liên tục"] },
-      low: { name: "Máy làm lạnh nhiệt độ thấp", intro: "Cho quy trình cần nước lạnh hơn mức thông thường.", f: ["Nhiệt độ ra thấp", "Điều khiển ổn định", "Quy trình đặc biệt"] },
-      screw: { name: "Máy làm lạnh trục vít", intro: "Cho xưởng lớn, nhiều máy và nhu cầu liên tục.", f: ["Công suất lớn", "Nhiều vòng tuần hoàn", "Thiết kế chạy 24/7"] },
+      air: { name: "Máy làm lạnh giải nhiệt gió", intro: "Không cần tháp và nước công nghệ: lắp là chạy.", f: ["Không cần tháp giải nhiệt", "Lắp đặt nhanh", "Cho xưởng thiếu nước"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Máy làm lạnh dạng hộp trên dây chuyền", "Thiết bị làm lạnh không khí tại nhà máy", "Bảng điều khiển"] },
+      water: { name: "Máy làm lạnh giải nhiệt nước", intro: "Hiệu quả hơn khi đã có tháp hoặc nước công nghệ.", f: ["Hiệu suất cao hơn", "Ít ồn và ít tỏa nhiệt", "Cho tải liên tục"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller trục vít với dàn ngưng nước", "Bộ trao đổi nhiệt ống đồng", "Bảng điều khiển"] },
+      low: { name: "Máy làm lạnh nhiệt độ thấp", intro: "Cho quy trình cần nước lạnh hơn mức thông thường.", f: ["Nhiệt độ ra thấp", "Điều khiển ổn định", "Quy trình đặc biệt"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["Chiller trục vít · nhìn thẳng", "Bảng điều khiển", "Bộ trao đổi nhiệt ống đồng"] },
+      screw: { name: "Máy làm lạnh trục vít", intro: "Cho xưởng lớn, nhiều máy và nhu cầu liên tục.", f: ["Công suất lớn", "Nhiều vòng tuần hoàn", "Thiết kế chạy 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller trục vít với dàn ngưng nước", "Chiller trục vít · nhìn bên", "Bảng điều khiển"] },
     },
     cases: [
       { t: "Dự án 1 · Ép phun", problem: "Máy [tấn] dừng vì nhiệt độ dầu vào mùa hè.", solution: "Máy [model] với vòng dầu riêng.", result: "Ít dừng máy hơn và giảm [số liệu]% hàng lỗi." },
@@ -462,10 +462,10 @@ const DEEP = {
       lp_sub: "ขอใบเสนอราคาภายในวันเดียวเมื่อมีข้อมูลเครื่อง",
     },
     series: {
-      air: { name: "ชิลเลอร์ระบายความร้อนด้วยอากาศ", intro: "ไม่ต้องใช้หอผึ่งและน้ำกระบวนการ ติดตั้งแล้วต่อได้เลย", f: ["ไม่ต้องใช้หอผึ่ง", "ติดตั้งเร็ว", "สำหรับโรงงานที่ขาดน้ำ"] },
-      water: { name: "ชิลเลอร์ระบายความร้อนด้วยน้ำ", intro: "ประหยัดไฟกว่าเมื่อมีหอผึ่งหรือน้ำกระบวนการอยู่แล้ว", f: ["ประสิทธิภาพสูงกว่า", "เสียงและความร้อนต่ำ", "สำหรับโหลดต่อเนื่อง"] },
-      low: { name: "ชิลเลอร์อุณหภูมิต่ำ", intro: "สำหรับกระบวนการที่ต้องการน้ำเย็นกว่าปกติ", f: ["อุณหภูมิขาออกต่ำ", "ควบคุมนิ่ง", "งานเฉพาะทาง"] },
-      screw: { name: "ชิลเลอร์แบบสกรู", intro: "สำหรับโรงงานใหญ่ เครื่องหลายตัว และความต้องการต่อเนื่อง", f: ["กำลังทำความเย็นสูง", "หลายวงจร", "ออกแบบให้เดิน 24/7"] },
+      air: { name: "ชิลเลอร์ระบายความร้อนด้วยอากาศ", intro: "ไม่ต้องใช้หอผึ่งและน้ำกระบวนการ ติดตั้งแล้วต่อได้เลย", f: ["ไม่ต้องใช้หอผึ่ง", "ติดตั้งเร็ว", "สำหรับโรงงานที่ขาดน้ำ"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["เครื่องทำน้ำเย็นแบบตู้ในสายผลิต", "เครื่องทำน้ำเย็นแบบระบายความร้อนด้วยอากาศในโรงงาน", "แผงควบคุม"] },
+      water: { name: "ชิลเลอร์ระบายความร้อนด้วยน้ำ", intro: "ประหยัดไฟกว่าเมื่อมีหอผึ่งหรือน้ำกระบวนการอยู่แล้ว", f: ["ประสิทธิภาพสูงกว่า", "เสียงและความร้อนต่ำ", "สำหรับโหลดต่อเนื่อง"], imgs: ["prod-water-screw.jpg", "prod-detail-coils.jpg", "prod-detail-panel.jpg"], imgCaps: ["เครื่องทำน้ำเย็นแบบสกรูพร้อมคอนเดนเซอร์น้ำ", "เครื่องแลกเปลี่ยนความร้อนท่อทองแดง", "แผงควบคุม"] },
+      low: { name: "ชิลเลอร์อุณหภูมิต่ำ", intro: "สำหรับกระบวนการที่ต้องการน้ำเย็นกว่าปกติ", f: ["อุณหภูมิขาออกต่ำ", "ควบคุมนิ่ง", "งานเฉพาะทาง"], imgs: ["prod-screw-front.jpg", "prod-detail-panel.jpg", "prod-detail-coils.jpg"], imgCaps: ["เครื่องทำน้ำเย็นแบบสกรู · ด้านหน้า", "แผงควบคุม", "เครื่องแลกเปลี่ยนความร้อนท่อทองแดง"] },
+      screw: { name: "ชิลเลอร์แบบสกรู", intro: "สำหรับโรงงานใหญ่ เครื่องหลายตัว และความต้องการต่อเนื่อง", f: ["กำลังทำความเย็นสูง", "หลายวงจร", "ออกแบบให้เดิน 24/7"], imgs: ["prod-water-screw.jpg", "prod-screw-side.jpg", "prod-detail-panel.jpg"], imgCaps: ["เครื่องทำน้ำเย็นแบบสกรูพร้อมคอนเดนเซอร์น้ำ", "เครื่องทำน้ำเย็นแบบสกรู · ด้านข้าง", "แผงควบคุม"] },
     },
     cases: [
       { t: "ผลงาน 1 · ฉีดพลาสติก", problem: "เครื่อง [ตัน] หยุดเพราะอุณหภูมิน้ำมันในหน้าร้อน", solution: "เครื่อง [รุ่น] พร้อมวงจรน้ำมันแยก", result: "หยุดน้อยลง ของเสียลด [ข้อมูล]%" },
