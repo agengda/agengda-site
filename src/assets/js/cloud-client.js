@@ -188,6 +188,25 @@
     } catch (e) { console.error("[cloud] images save error", e); return false; }
   }
 
+  // Patch a single gallery / slot. Only the changed group is uploaded, so a
+  // big gallery elsewhere on the site never slows down this edit.
+  async function patchImage(key, kind, value) {
+    try {
+      var body = { key: key };
+      body[kind] = value; // null means "delete this gallery/slot"
+      var r = await fetch("/api/images/patch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      if (!r.ok) return false;
+      var j = await r.json();
+      return !!(j && j.ok);
+    } catch (e) { console.error("[cloud] images patch error", e); return false; }
+  }
+  function saveGallery(key, items) { return patchImage(key, "gallery", items); }
+  function saveSlot(key, val) { return patchImage(key, "slot", val); }
+
   // Apply cloud image overrides to every tagged element on the page.
   // Galleries are stored under the reserved "__galleries" key and rebuilt here,
   // so photos can be added / removed / replaced in /admin without a redeploy.
@@ -360,6 +379,8 @@
     hydrateFactory: hydrateFactory,
     loadImages: loadImages,
     saveImages: saveImages,
+    saveGallery: saveGallery,
+    saveSlot: saveSlot,
     hydrateImages: hydrateImages,
     signIn: signIn,
     signOut: signOut,
