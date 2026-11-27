@@ -154,7 +154,7 @@
     }
     toast("正在保存到云端…");
     app.saveImages(payload).then(function (ok) {
-      if (!ok) { toast("保存失败，请确认已用 WorkBuddy 账号登录", true); return; }
+      if (!ok) { toast("保存失败，请稍后重试", true); return; }
       state = nextState; galleries = nextGalleries;
       render();
       toast(msg || "已保存，刷新网站即可看到");
@@ -377,7 +377,7 @@
     sec2.appendChild(head2);
     sec2.appendChild(el("p", "sec-sub",
       "这里控制产品详情页和工厂实景页的图片张数。添加可一次选多张；删除只是移除图集，不会删掉网站默认文件。" +
-      "图片说明留空时自动沿用原来的多语言说明。（需先用 WorkBuddy 登录）"));
+      "图片说明留空时自动沿用原来的多语言说明。（改动自动保存，无需登录）"));
     GALLERIES.forEach(function (g) { renderGallery(sec2, g); });
     host.appendChild(sec2);
   }
