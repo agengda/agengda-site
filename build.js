@@ -552,7 +552,7 @@ function productGallery(s, x, t) {
   }).join("\n    ");
   return `<section><div class="container">
     <div class="section-head"><h2>${t.prod_gallery_title || "Product photos"}</h2></div>
-    <div class="prod-gallery">${cells}</div>
+    <div class="prod-gallery" data-gallery="${s.key}">${cells}</div>
   </div></section>`;
 }
 
@@ -636,7 +636,7 @@ ${fvSources}
   </div>`;
   return `<section class="bg-soft"><div class="container">
   <div class="section-head"><h2>${d.ui.ev_title}</h2></div>
-  <div class="ev-grid">
+  <div class="ev-grid" data-gallery="factory">
     ${cells}
   </div>
   ${videoBlock}
