@@ -394,19 +394,19 @@ const EXTRA_FAQ = {
     ["Air-cooled or water-cooled — which is right for my plant?",
      "Choose air-cooled if you lack a cooling tower or process water, or need fast installation with no water treatment. Choose water-cooled if your plant already has a tower and runs continuous heavy load, for higher energy efficiency."],
     ["How do I choose the right chiller size?",
-     "Use our sizing calculator, or send us your machine type, required cooling capacity and voltage via WhatsApp. Our engineers recommend the right model and quote within one business day."],
+     "Use our sizing calculator, or send us your machine type, required cooling capacity and voltage via WhatsApp. Our engineers recommend the right model and quote as soon as possible."],
   ],
   "es:air": [
     ["¿Enfriadora por aire o por agua: cuál conviene a mi planta?",
      "Elija enfriadora por aire si no tiene torre de enfriamiento ni agua de proceso, o necesita una instalación rápida sin tratamiento de agua. Elija por agua si su planta ya cuenta con torre y opera con carga alta continua, para mayor eficiencia energética."],
     ["¿Cómo elijo el tamaño correcto de la enfriadora?",
-     "Use nuestra calculadora de selección o envíenos por WhatsApp el tipo de máquina, la capacidad de enfriamiento y la tensión. Nuestros ingenieros recomiendan el modelo y cotizan en un día hábil."],
+     "Use nuestra calculadora de selección o envíenos por WhatsApp el tipo de máquina, la capacidad de enfriamiento y la tensión. Nuestros ingenieros recomiendan el modelo y cotizan lo antes posible."],
   ],
   "pt:air": [
     ["Chiller a ar ou a água: qual convém à minha planta?",
      "Escolha a ar se você não tem torre de resfriamento nem água de processo, ou precisa de instalação rápida sem tratamento de água. Escolha a água se sua planta já tem torre e opera com carga contínua alta, para maior eficiência energética."],
     ["Como escolho o tamanho certo do chiller?",
-     "Use nossa calculadora de dimensionamento ou envie pelo WhatsApp o tipo de máquina, a capacidade de resfriamento e a tensão. Nossos engenheiros recomendam o modelo e enviam orçamento em um dia útil."],
+     "Use nossa calculadora de dimensionamento ou envie pelo WhatsApp o tipo de máquina, a capacidade de resfriamento e a tensão. Nossos engenheiros recomendam o modelo e enviam orçamento o mais breve possível."],
   ],
 };
 
@@ -428,7 +428,7 @@ const SEO_AIR = {
     desc: "Enfriadora de aire para moldeo por inyección, soplado y extrusión. Sin torre de enfriamiento. Precio de fábrica, garantía 1 año, OEM/ODM, MOQ 1. Cotice por WhatsApp.",
     bodyTitle: "Cómo elegir la enfriadora de aire adecuada",
     body: `<p>Las enfriadoras de aire disipan el calor mediante condensadores de aletas y ventiladores, por lo que no necesitan torre de enfriamiento, bomba de agua de enfriamiento ni tratamiento de agua: ideales para talleres con suministro o espacio de agua limitado y para una instalación más rápida. Si su planta ya cuenta con torre de enfriamiento y opera con carga alta continua, nuestras <a href="./water-cooled-chiller.html">enfriadoras de agua</a> ofrecen mayor eficiencia.</p>
-  <p>Para dimensionar la unidad, indíquenos el tipo de máquina, la capacidad de enfriamiento y la tensión de alimentación. Use nuestra <a href="./calculator.html">calculadora de selección</a> o envíe los datos por WhatsApp; nuestros ingenieros recomendarán el modelo y le cotizarán en un día hábil. El suministro estándar es 380V/50Hz/trifásico; hay disponibles 220V/415V y otros voltajes para mercados de exportación. Se pueden personalizar OEM/marca blanca y refrigerante.</p>`,
+  <p>Para dimensionar la unidad, indíquenos el tipo de máquina, la capacidad de enfriamiento y la tensión de alimentación. Use nuestra <a href="./calculator.html">calculadora de selección</a> o envíe los datos por WhatsApp; nuestros ingenieros recomendarán el modelo y le cotizarán lo antes posible. El suministro estándar es 380V/50Hz/trifásico; hay disponibles 220V/415V y otros voltajes para mercados de exportación. Se pueden personalizar OEM/marca blanca y refrigerante.</p>`,
     cards: ["Fábrica de origen — 50 unidades al mes, exportadas a 25 países", "Garantía de 1 año en toda la máquina (excepto piezas de desgaste)", "MOQ 1 unidad · OEM/ODM · soporte multilingüe"],
   },
   pt: {
@@ -437,7 +437,7 @@ const SEO_AIR = {
     desc: "Chiller a ar para injeção, sopro e extrusão de plástico. Sem torre de resfriamento. Preço de fábrica, garantia 1 ano, OEM/ODM, MOQ 1. Orçamento pelo WhatsApp.",
     bodyTitle: "Como escolher o chiller a ar certo",
     body: `<p>Os chillers a ar rejeitam o calor por meio de condensadores de aletas e ventiladores, portanto não precisam de torre de resfriamento, bomba de água de resfriamento nem tratamento de água — ideais para oficinas com fornecimento ou espaço limitado de água e para instalação mais rápida. Se sua planta já opera uma torre de resfriamento e tem carga contínua alta, nossos <a href="./water-cooled-chiller.html">chillers a água</a> oferecem maior eficiência.</p>
-  <p>Para dimensionar a unidade, informe o tipo de máquina, a capacidade de resfriamento e a tensão de alimentação. Use nossa <a href="./calculator.html">calculadora de dimensionamento</a> ou envie os dados pelo WhatsApp; nossos engenheiros recomendam o modelo e enviam orçamento em um dia útil. O fornecimento padrão é 380V/50Hz/trifásico; 220V/415V e outras tensões estão disponíveis para mercados de exportação. OEM/marca própria e refrigerante podem ser personalizados.</p>`,
+  <p>Para dimensionar a unidade, informe o tipo de máquina, a capacidade de resfriamento e a tensão de alimentação. Use nossa <a href="./calculator.html">calculadora de dimensionamento</a> ou envie os dados pelo WhatsApp; nossos engenheiros recomendam o modelo e enviam orçamento o mais breve possível. O fornecimento padrão é 380V/50Hz/trifásico; 220V/415V e outras tensões estão disponíveis para mercados de exportação. OEM/marca própria e refrigerante podem ser personalizados.</p>`,
     cards: ["Fábrica de origem — 50 unidades por mês, exportadas para 25 países", "Garantia de 1 ano na máquina inteira (exceto peças de desgaste)", "MOQ 1 unidade · OEM/ODM · suporte multilíngue"],
   },
 };
