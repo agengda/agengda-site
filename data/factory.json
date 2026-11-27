@@ -1,22 +1,131 @@
 {
-  "i18n": {
-    "zh": {},
-    "en": {}
-  },
-  "facts": {},
-  "savedAt": "2026-10-21T07:50:45.765Z",
+  "textKeys": [
+    "intro",
+    "a1_t",
+    "a1_d",
+    "a2_t",
+    "a2_d",
+    "a3_t",
+    "a3_d",
+    "a4_t",
+    "a4_d",
+    "cta"
+  ],
+  "facts": [
+    {
+      "key": "founded",
+      "label": "成立年份",
+      "value": "2018"
+    },
+    {
+      "key": "area",
+      "label": "厂房面积",
+      "value": "3000"
+    },
+    {
+      "key": "staff",
+      "label": "员工人数",
+      "value": "20"
+    },
+    {
+      "key": "capacity",
+      "label": "月产能（台）",
+      "value": "30-45"
+    },
+    {
+      "key": "markets",
+      "label": "出口国家",
+      "value": "25"
+    }
+  ],
   "evidence": [
     {
-      "img": "workshop.jpg"
+      "key": "workshop",
+      "img": "workshop.jpg",
+      "zh": "生产车间与组装产线",
+      "en": "Workshop & assembly lines",
+      "defZh": "车间与产线",
+      "defEn": "Workshop & production lines",
+      "has": true
     },
     {
-      "img": "test.jpg"
+      "key": "test",
+      "img": "test.jpg",
+      "zh": "整机试机与运行检测",
+      "en": "Full-unit testing & run check",
+      "defZh": "整机试机",
+      "defEn": "Full-unit testing",
+      "has": true
     },
     {
-      "img": ""
+      "key": "cert",
+      "img": "factory-test.jpg",
+      "zh": "出厂前质量检验",
+      "en": "Pre-shipment quality inspection",
+      "defZh": "出厂测试",
+      "defEn": "Factory test",
+      "has": true
     },
     {
-      "img": "shipping.jpg"
+      "key": "shipping",
+      "img": "shipping.jpg",
+      "zh": "打包装柜与出口发运",
+      "en": "Packing, container loading & export",
+      "defZh": "装柜与出口",
+      "defEn": "Loading & export",
+      "has": true
     }
-  ]
+  ],
+  "i18n": {
+    "zh": {
+      "intro": "",
+      "a1_t": "",
+      "a1_d": "",
+      "a2_t": "",
+      "a2_d": "",
+      "a3_t": "",
+      "a3_d": "",
+      "a4_t": "",
+      "a4_d": "",
+      "cta": ""
+    },
+    "en": {
+      "intro": "",
+      "a1_t": "",
+      "a1_d": "",
+      "a2_t": "",
+      "a2_d": "",
+      "a3_t": "",
+      "a3_d": "",
+      "a4_t": "",
+      "a4_d": "",
+      "cta": ""
+    }
+  },
+  "defaults": {
+    "zh": {
+      "intro": "我们是自有产线的源头制造商，欢迎验厂。",
+      "a1_t": "源头工厂",
+      "a1_d": "自有产线、出厂直价，没有中间商加价。",
+      "a2_t": "品质管控",
+      "a2_d": "每台设备来料与出货双重检验。",
+      "a3_t": "研发能力",
+      "a3_d": "按你的工艺需求做定制方案。",
+      "a4_t": "售后支持",
+      "a4_d": "质保加技术支持，让你持续开机。",
+      "cta": "来工厂看看，或让我们发一段车间视频。"
+    },
+    "en": {
+      "intro": "We are a source manufacturer with our own production lines, open for factory audits.",
+      "a1_t": "Source factory",
+      "a1_d": "Own production lines and direct pricing—no trading markup.",
+      "a2_t": "Quality control",
+      "a2_d": "Strict incoming and outgoing inspection on every unit.",
+      "a3_t": "R&D capability",
+      "a3_d": "Customized solutions for your process requirements.",
+      "a4_t": "After-sales",
+      "a4_d": "Warranty and technical support to keep you running.",
+      "cta": "Visit our factory or request a video tour."
+    }
+  }
 }
