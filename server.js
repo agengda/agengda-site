@@ -33,7 +33,34 @@ const LEADS = path.join(DATA_DIR, "leads.jsonl");
 const CSV = path.join(DATA_DIR, "leads.csv");
 // WorkBuddy 云库 leads 持久化（重部署不丢）。publishable key 本就在前端公开，可安全内置。
 const CLOUD_LEADS_URL = process.env.WB_CLOUD_LEADS_URL || "https://chiller-b2b-site.app.workbuddy.host/.cloud/database/rest/leads";
+const CLOUD_IMAGES_URL = process.env.WB_CLOUD_IMAGES_URL || "https://chiller-b2b-site.app.workbuddy.host/.cloud/database/rest/site_images";
 const CLOUD_KEY = process.env.WB_CLOUD_KEY || "wbpk_t2KFszYVSzwXFrG40uHS4q_QCQsJY4GRgleqrX0YpoilF30XGS2Th8c";
+
+// Server-side proxy for site_images. Browsers on the custom domain cannot call
+// the WorkBuddy REST endpoint directly (CORS preflight has no ACAO header), so
+// the front-end talks to these same-origin endpoints instead.
+function cloudImagesApi(method, suffix, body) {
+  return new Promise((resolve, reject) => {
+    const payload = body ? JSON.stringify(body) : null;
+    const headers = { "Content-Type": "application/json", "x-wb-webapp-access-key": CLOUD_KEY, "Prefer": "return=representation" };
+    if (payload) headers["Content-Length"] = Buffer.byteLength(payload);
+    const r = https.request(CLOUD_IMAGES_URL + suffix, { method: method, headers: headers }, (res) => {
+      let raw = "";
+      res.on("data", (c) => { raw += c; });
+      res.on("end", () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try { resolve(raw ? JSON.parse(raw) : null); } catch (e) { resolve(null); }
+        } else {
+          reject(new Error("HTTP " + res.statusCode + " " + raw.slice(0, 200)));
+        }
+      });
+    });
+    r.on("error", reject);
+    r.setTimeout(20000, () => r.destroy(new Error("cloud timeout")));
+    if (payload) r.write(payload);
+    r.end();
+  });
+}
 const CATALOG_JSON = path.join(DATA_DIR, "catalog.json");
 const ADMIN_HTML = path.join(ROOT, "admin.html");
 
@@ -521,6 +548,29 @@ const server = http.createServer(async (req, res) => {
   // token cookie set by /admin?token=... (7 days), so no token is exposed in JS.
   if (pathname === "/api/editor-status") {
     return send(res, 200, JSON.stringify({ ok: authed(req, Q) }), "application/json; charset=utf-8");
+  }
+
+  // Cloud image store, proxied same-origin to avoid CORS on the custom domain.
+  if (pathname === "/api/images" && req.method === "GET") {
+    try {
+      const rows = await cloudImagesApi("GET", "?select=images&id=eq.1");
+      const images = (rows && rows[0] && rows[0].images) || {};
+      return send(res, 200, JSON.stringify({ images: images }));
+    } catch (e) {
+      return send(res, 502, JSON.stringify({ ok: false, error: String(e.message || e) }));
+    }
+  }
+  if (pathname === "/api/images" && req.method === "POST") {
+    try {
+      const o = JSON.parse((await readBody(req, 16 * 1024 * 1024)) || "{}");
+      if (!o.images || typeof o.images !== "object") {
+        return send(res, 400, JSON.stringify({ ok: false, error: "missing images" }));
+      }
+      await cloudImagesApi("PATCH", "?id=eq.1", { images: o.images, saved_at: new Date().toISOString() });
+      return send(res, 200, JSON.stringify({ ok: true }));
+    } catch (e) {
+      return send(res, 502, JSON.stringify({ ok: false, error: String(e.message || e) }));
+    }
   }
 
   // Editors change live site content, so every one of them sits behind LEAD_TOKEN.
