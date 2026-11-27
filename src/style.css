@@ -367,3 +367,39 @@ form input:focus, form textarea:focus { outline: none; border-color: var(--c-pri
   [dir="rtl"] .nav-links { flex-direction: column; align-items: stretch; }
   [dir="rtl"] .nav-links a { padding: 14px 2px; }
 }
+
+/* ---- Real product photos (full unit visible, never cropped) ---- */
+.series-cover {
+  margin: -18px -18px 16px; background: #f4f6f9; border-radius: 10px 10px 0 0;
+  padding: 10px; display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.series-cover img {
+  width: 100%; height: 190px; object-fit: contain; object-position: center;
+  display: block;
+}
+.prod-gallery {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+.prod-tile {
+  margin: 0; border: 1px solid var(--c-border, #e2e8f0); border-radius: 12px;
+  background: #fff; overflow: hidden;
+}
+.prod-shot {
+  background: #f4f6f9; padding: 14px; display: flex; align-items: center;
+  justify-content: center; min-height: 230px;
+}
+.prod-shot img {
+  width: 100%; height: 250px; object-fit: contain; object-position: center;
+  display: block;
+}
+.prod-tile figcaption {
+  padding: 10px 14px; font-size: 13px; color: var(--c-muted, #64748b);
+  text-align: center; border-top: 1px solid #eef2f7;
+}
+@media (max-width: 860px) {
+  .series-cover img { height: 150px; }
+  .prod-shot { min-height: 180px; padding: 10px; }
+  .prod-shot img { height: 190px; }
+}
