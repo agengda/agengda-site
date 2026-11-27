@@ -43,8 +43,12 @@ const OVERRIDE_FILE = path.join(__dirname, "data", "catalog.json");
   if (!fs.existsSync(OVERRIDE_FILE)) return;
   try {
     const o = JSON.parse(fs.readFileSync(OVERRIDE_FILE, "utf8"));
+    const ovSource = o.series || {};
     SERIES.forEach((s) => {
-      const ov = (o.series || {})[s.key];
+      // data/catalog.json may be an array of {key,...} or a keyed object.
+      const ov = Array.isArray(ovSource)
+        ? ovSource.find((x) => x && x.key === s.key)
+        : ovSource[s.key];
       if (!ov) return;
       if (Array.isArray(ov.models) && ov.models.length) s.models = ov.models.map(String);
       s.spec = ov.spec && typeof ov.spec === "object" ? ov.spec : {};
@@ -518,14 +522,38 @@ function appCard(a, aT) {
     </a>`;
 }
 
+// Real factory product photos. Images are full-unit shots; keep the whole
+// machine visible (object-fit: contain, no cropping) per the site image rule.
+const prodImg = (name, alt) => hasImg(name)
+  ? `<div class="prod-shot"><img src="../assets/img/${name}" alt="${alt}" loading="lazy" /></div>`
+  : "";
+
 function seriesCard(s, d, t) {
   const x = d.series[s.key];
+  const cover = (x.imgs && x.imgs[0]) || "";
+  const cap = (x.imgCaps && x.imgCaps[0]) || x.name;
   return `<a class="card series-card" href="./${s.slug}.html">
+      ${cover && hasImg(cover) ? `<div class="series-cover"><img src="../assets/img/${cover}" alt="${cap}" loading="lazy" /></div>` : ""}
       <h3>${x.name}</h3>
       <p>${x.intro}</p>
       <ul class="feat-list">${x.f.map((f) => `<li>${f}</li>`).join("")}</ul>
       <span class="series-more">${t.nav_products} →</span>
     </a>`;
+}
+
+// Gallery of real factory photos placed above the spec table on series pages.
+function productGallery(s, x, t) {
+  const imgs = x.imgs || [];
+  if (!imgs.length) return "";
+  const caps = x.imgCaps || [];
+  const cells = imgs.map((im, i) => {
+    const cap = caps[i] || "";
+    return `<figure class="prod-tile">${prodImg(im, cap)}<figcaption>${cap}</figcaption></figure>`;
+  }).join("\n    ");
+  return `<section><div class="container">
+    <div class="section-head"><h2>${t.prod_gallery_title || "Product photos"}</h2></div>
+    <div class="prod-gallery">${cells}</div>
+  </div></section>`;
 }
 
 function specTable(s, d) {
@@ -799,6 +827,8 @@ function seriesBody(t, ui, lang, s) {
   </div>
 </div></div>
 
+${productGallery(s, x, t)}
+
 <section><div class="container">
   <div class="section-head"><h2>${d.ui.spec_title}</h2></div>
   ${specTable(s, d)}
@@ -828,7 +858,7 @@ ${evidence(d, lang)}
 
 <section><div class="container">
   <div class="section-head"><h2>${t.p_title}</h2></div>
-  <div class="series-grid">${others.map((o) => seriesCard(o, d, t)).join("\n    ")}</div>
+  <div class="series-grid">${SERIES.map((o) => seriesCard(o, d, t)).join("\n    ")}</div>
 </div></section>
 ${faqBlock(lang, x.name, s.key)}`;
 }
