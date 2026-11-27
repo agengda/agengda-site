@@ -30,7 +30,7 @@ const DEEP = {
       case_title: "Casos", case_problem: "Problema", case_solution: "Solución", case_result: "Resultado",
       case_banner: "Marcador de posición: sustituir por un caso real autorizado por el cliente.",
       lp_title: "Enfriadores industriales directo de fábrica",
-      lp_sub: "Cotiza el mismo día con los datos de tu máquina.",
+      lp_sub: "Cotiza rápido con los datos de tu máquina.",
     },
     series: {
       air: { name: "Chiller enfriado por aire", intro: "Sin torre ni agua de proceso: llega y se conecta. Enfriadoras de fábrica para moldeo por inyección, soplado y extrusión, con control térmico estable para mantener la producción en verano. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantía de 1 año y OEM/ODM desde 1 unidad.", f: ["Sin torre de enfriamiento", "Instalación rápida", "Para plantas sin agua"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Enfriadora box type en línea de producción", "Unidad enfriada por aire en fábrica", "Panel de control"] },
@@ -69,7 +69,7 @@ const DEEP = {
       case_title: "Casos", case_problem: "Problema", case_solution: "Solução", case_result: "Resultado",
       case_banner: "Marcador de posição: substituir por um caso real autorizado pelo cliente.",
       lp_title: "Chillers industriais direto da fábrica",
-      lp_sub: "Orçamento no mesmo dia com os dados da sua máquina.",
+      lp_sub: "Orçamento rápido com os dados da sua máquina.",
     },
     series: {
       air: { name: "Chiller resfriado a ar", intro: "Sem torre e sem água de processo: chega e conecta. Chillers de fábrica para injeção, sopro e extrusão de plástico, com controle térmico estável para manter a produção no verão. Modelos de 12–72 kW (AGD-5IA a AGD-30IA), garantia de 1 ano e OEM/ODM a partir de 1 unidade.", f: ["Sem torre de resfriamento", "Instalação rápida", "Para fábrica sem água"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Resfriadora box type na linha de produção", "Unidade resfriada a ar na fábrica", "Painel de controle"] },
@@ -108,7 +108,7 @@ const DEEP = {
       case_title: "Cases", case_problem: "Problem", case_solution: "Solution", case_result: "Result",
       case_banner: "Placeholder: replace with a real case authorized by the customer.",
       lp_title: "Industrial chillers, factory direct",
-      lp_sub: "Same-day quote with your machine data.",
+      lp_sub: "Fast quote with your machine data.",
     },
     series: {
       air: { name: "Air-cooled chiller", intro: "No cooling tower, no process water — connect and run. Factory-direct chillers built for plastic injection molding, blow molding and extrusion lines, with stable temperature control to keep production running through summer. 12–72 kW models (AGD-5IA to AGD-30IA), 1-year warranty, OEM/ODM from 1 unit.", f: ["No cooling tower", "Fast installation", "For plants without water"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Box-type chiller on production line", "Air-cooled unit at the factory", "Control panel"] },
@@ -147,7 +147,7 @@ const DEEP = {
       case_title: "客户案例", case_problem: "问题", case_solution: "方案", case_result: "结果",
       case_banner: "此处为模板占位，请替换为客户授权的真实案例。",
       lp_title: "工业冷水机，工厂直供",
-      lp_sub: "带上设备参数，当天给你方案。",
+      lp_sub: "带上设备参数，尽快给你方案。",
     },
     series: {
       air: { name: "风冷式冷水机", intro: "不用冷却塔、不用工艺水，到场接管就能用。", f: ["无需冷却塔", "安装快", "适合缺水车间"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["箱式风冷机组 · 生产线实拍", "风冷机组 · 工厂实拍", "控制面板"] },
@@ -186,7 +186,7 @@ const DEEP = {
       case_title: "Referenzen", case_problem: "Problem", case_solution: "Lösung", case_result: "Ergebnis",
       case_banner: "Platzhalter: durch eine echte, vom Kunden freigegebene Referenz ersetzen.",
       lp_title: "Industriekühler direkt ab Werk",
-      lp_sub: "Angebot am selben Tag mit Ihren Maschinendaten.",
+      lp_sub: "Schnelles Angebot mit Ihren Maschinendaten.",
     },
     series: {
       air: { name: "Luftgekühlter Kühler", intro: "Kein Kühlturm, kein Prozesswasser: aufstellen und anschließen.", f: ["Kein Kühlturm", "Schnelle Montage", "Für Werke ohne Wasser"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Box-Kühler in der Produktionslinie", "Luftgekühltes Gerät im Werk", "Steuerpanel"] },
@@ -225,7 +225,7 @@ const DEEP = {
       case_title: "Références", case_problem: "Problème", case_solution: "Solution", case_result: "Résultat",
       case_banner: "Emplacement type : à remplacer par un cas réel autorisé par le client.",
       lp_title: "Refroidisseurs industriels, direct usine",
-      lp_sub: "Devis le jour même avec les données de votre machine.",
+      lp_sub: "Devis rapide avec les données de votre machine.",
     },
     series: {
       air: { name: "Refroidisseur à air", intro: "Ni tour ni eau de process : on installe et on raccorde.", f: ["Sans tour de refroidissement", "Installation rapide", "Pour usines sans eau"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Groupe box type en ligne de production", "Unité refroidie par air à l'usine", "Panneau de commande"] },
@@ -264,7 +264,7 @@ const DEEP = {
       case_title: "Referanslar", case_problem: "Sorun", case_solution: "Çözüm", case_result: "Sonuç",
       case_banner: "Yer tutucu: müşterinin onayladığı gerçek bir referansla değiştirin.",
       lp_title: "Endüstriyel soğutucular, fabrikadan",
-      lp_sub: "Makine verilerinizle aynı gün teklif.",
+      lp_sub: "Makine verilerinizle hızlı teklif.",
     },
     series: {
       air: { name: "Hava soğutmalı chiller", intro: "Kule ve proses suyu yok: kur ve bağla.", f: ["Soğutma kulesi gerekmez", "Hızlı kurulum", "Susuz tesisler için"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Box tipi soğutucu üretim hattında", "Hava soğutmalı ünite fabrikada", "Kontrol paneli"] },
@@ -303,7 +303,7 @@ const DEEP = {
       case_title: "Проекты", case_problem: "Проблема", case_solution: "Решение", case_result: "Результат",
       case_banner: "Заглушка: замените на реальный проект, согласованный с клиентом.",
       lp_title: "Промышленные чиллеры напрямую с завода",
-      lp_sub: "Расчёт в тот же день по данным вашего станка.",
+      lp_sub: "Быстрый расчёт по данным вашего станка.",
     },
     series: {
       air: { name: "Чиллер с воздушным охлаждением", intro: "Без градирни и оборотной воды: поставил и подключил.", f: ["Без градирни", "Быстрый монтаж", "Для цехов без воды"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Боксовый чиллер на производственной линии", "Воздушный чиллер на заводе", "Панель управления"] },
@@ -342,7 +342,7 @@ const DEEP = {
       case_title: "حالات", case_problem: "المشكلة", case_solution: "الحل", case_result: "النتيجة",
       case_banner: "عنصر مؤقت: استبدله بحالة حقيقية بموافقة العميل.",
       lp_title: "مبرّدات صناعية مباشرة من المصنع",
-      lp_sub: "عرض سعر في نفس اليوم ببيانات ماكينتك.",
+      lp_sub: "عرض سعر سريع ببيانات ماكينتك.",
     },
     series: {
       air: { name: "مبرّد مبرَّد بالهواء", intro: "بلا برج ولا مياه عملية: يصل ويُوصل.", f: ["بلا برج تبريد", "تركيب سريع", "لمصانع بلا مياه"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["مبرد صندوقي في خط الإنتاج", "وحدة تبريد هوائية في المصنع", "لوحة التحكم"] },
@@ -381,7 +381,7 @@ const DEEP = {
       case_title: "Studi kasus", case_problem: "Masalah", case_solution: "Solusi", case_result: "Hasil",
       case_banner: "Placeholder: ganti dengan studi kasus nyata yang disetujui pelanggan.",
       lp_title: "Chiller industri langsung dari pabrik",
-      lp_sub: "Penawaran di hari yang sama dengan data mesin Anda.",
+      lp_sub: "Penawaran cepat dengan data mesin Anda.",
     },
     series: {
       air: { name: "Chiller berpendingin udara", intro: "Tanpa cooling tower dan tanpa air proses: pasang lalu sambung.", f: ["Tanpa cooling tower", "Pemasangan cepat", "Untuk pabrik tanpa air"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Chiller box di lini produksi", "Unit berpendingin udara di pabrik", "Panel kontrol"] },
@@ -420,7 +420,7 @@ const DEEP = {
       case_title: "Dự án", case_problem: "Vấn đề", case_solution: "Giải pháp", case_result: "Kết quả",
       case_banner: "Chỗ giữ chỗ: thay bằng dự án thật đã được khách hàng đồng ý.",
       lp_title: "Máy làm lạnh công nghiệp, trực tiếp từ nhà máy",
-      lp_sub: "Báo giá trong ngày khi có thông số máy của bạn.",
+      lp_sub: "Báo giá nhanh khi có thông số máy của bạn.",
     },
     series: {
       air: { name: "Máy làm lạnh giải nhiệt gió", intro: "Không cần tháp và nước công nghệ: lắp là chạy.", f: ["Không cần tháp giải nhiệt", "Lắp đặt nhanh", "Cho xưởng thiếu nước"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["Máy làm lạnh dạng hộp trên dây chuyền", "Thiết bị làm lạnh không khí tại nhà máy", "Bảng điều khiển"] },
@@ -459,7 +459,7 @@ const DEEP = {
       case_title: "ผลงาน", case_problem: "ปัญหา", case_solution: "แนวทาง", case_result: "ผลลัพธ์",
       case_banner: "ข้อความตัวอย่าง: โปรดแทนที่ด้วยผลงานจริงที่ได้รับอนุญาตจากลูกค้า",
       lp_title: "เครื่องทำน้ำเย็นอุตสาหกรรม ส่งตรงจากโรงงาน",
-      lp_sub: "ขอใบเสนอราคาภายในวันเดียวเมื่อมีข้อมูลเครื่อง",
+      lp_sub: "ขอใบเสนอราคาอย่างรวดเร็วเมื่อมีข้อมูลเครื่อง",
     },
     series: {
       air: { name: "ชิลเลอร์ระบายความร้อนด้วยอากาศ", intro: "ไม่ต้องใช้หอผึ่งและน้ำกระบวนการ ติดตั้งแล้วต่อได้เลย", f: ["ไม่ต้องใช้หอผึ่ง", "ติดตั้งเร็ว", "สำหรับโรงงานที่ขาดน้ำ"], imgs: ["prod-air-box.jpg", "prod-air-large.jpg", "prod-detail-panel.jpg"], imgCaps: ["เครื่องทำน้ำเย็นแบบตู้ในสายผลิต", "เครื่องทำน้ำเย็นแบบระบายความร้อนด้วยอากาศในโรงงาน", "แผงควบคุม"] },
