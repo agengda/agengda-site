@@ -113,6 +113,12 @@ form input:focus, form textarea:focus { outline: none; border-color: var(--c-pri
 .site-footer a { color: #cfe0f2; }
 .site-footer .copy { font-size: 14px; }
 .site-footer .tag { font-size: 13px; color: #9db8d6; }
+/* Inquiry form in the footer (dark background): white card, light headings. */
+.site-footer .footer-inquiry { display: block; max-width: 760px; margin: 0 auto 28px; text-align: center; }
+.site-footer .footer-inquiry h2 { color: #fff; font-size: 24px; margin: 0 0 8px; }
+.site-footer .footer-inquiry > p { color: #cfe0f2; font-size: 15px; margin: 0 0 22px; }
+.site-footer .footer-inquiry .lead-form { text-align: start; }
+.site-footer .footer-inquiry .btn-outline { color: var(--c-primary) !important; border-color: var(--c-primary); }
 
 .wa-float { position: fixed; right: 22px; bottom: 22px; z-index: 60; background: #25d366; color: #fff; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45); font-size: 30px; }
 .wa-float:hover { background: #1ebe5b; text-decoration: none; }
