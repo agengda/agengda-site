@@ -507,7 +507,8 @@ ${bare ? "" : `<a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本�
 <script src="/assets/js/cloud-config.js"></script>
 <script src="/assets/js/workbuddy-cloud-sdk.js"></script>
 <script src="/assets/js/cloud-client.js"></script>
-<script>if(window.CloudApp){if(window.CloudApp.hydrateFactory){window.CloudApp.hydrateFactory();}if(window.CloudApp.hydrateImages){window.CloudApp.hydrateImages();}}</script>`}
+<script>if(window.CloudApp){if(window.CloudApp.hydrateFactory){window.CloudApp.hydrateFactory();}if(window.CloudApp.hydrateImages){window.CloudApp.hydrateImages();}}</script>
+<script src="/assets/js/product-image-editor.js"></script>`}
 <script>document.addEventListener('click',function(e){if(!e.target.closest('.lang-select')){document.querySelectorAll('.lang-menu.open').forEach(function(m){m.classList.remove('open');});}if(!e.target.closest('.nav-burger')&&!e.target.closest('.nav-links')){document.querySelectorAll('.nav-links.open').forEach(function(n){n.classList.remove('open');});document.body.classList.remove('nav-open');var b=document.querySelector('.nav-burger');if(b)b.setAttribute('aria-expanded','false');}});</script>
 ${attribScript()}
 </body>
