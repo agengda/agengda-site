@@ -161,6 +161,55 @@
     } catch (e) { console.error("[cloud] factory save error", e); return false; }
   }
 
+  // ---------- Site images (base64 in cloud DB; public read, signed-in write) ----------
+  // Images are stored as a single row (id=1) whose `images` object maps a stable
+  // key (e.g. "prod-water-screw", "ev-workshop", "logo") to a data URL. Pages
+  // hydrate these live so replacing a photo in /admin takes effect with no deploy.
+  async function loadImages() {
+    var c = ensureCloud();
+    if (!c) return null;
+    try {
+      var res = await c.database.from("site_images").select("images").eq("id", 1).maybeSingle();
+      if (res.error) { console.error("[cloud] images read failed", res.error); return null; }
+      return (res.data && res.data.images) ? res.data.images : {};
+    } catch (e) { return null; }
+  }
+
+  async function saveImages(images) {
+    var c = ensureCloud();
+    if (!c) return false;
+    try {
+      var res = await c.database.from("site_images")
+        .upsert({ id: 1, images: images, saved_at: new Date().toISOString() })
+        .select();
+      if (res.error) { console.error("[cloud] images save failed", res.error); return false; }
+      return true;
+    } catch (e) { console.error("[cloud] images save error", e); return false; }
+  }
+
+  // Apply cloud image overrides to every tagged element on the page.
+  // Elements carry data-img-key="KEY"; their src (or poster) gets replaced.
+  async function hydrateImages() {
+    var map = await loadImages();
+    if (!map) return;
+    var keys = Object.keys(map);
+    if (!keys.length) return;
+    keys.forEach(function (key) {
+      var val = map[key];
+      if (!val || typeof val !== "string") return;
+      var nodes = document.querySelectorAll('[data-img-key="' + key + '"]');
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (n.hasAttribute("data-img-poster")) {
+          if (n.getAttribute("poster") !== val) n.setAttribute("poster", val);
+        } else {
+          if (n.getAttribute("src") !== val) n.setAttribute("src", val);
+        }
+        n.classList.add("img-cloud-applied");
+      }
+    });
+  }
+
   // ---------- Public-page hydration (overrides build-time defaults live) ----------
   async function hydrateFactory() {
     if (isLocal()) return; // local uses static defaults; edits happen via /api at build time
@@ -211,6 +260,9 @@
     loadFactory: loadFactory,
     saveFactory: saveFactory,
     hydrateFactory: hydrateFactory,
+    loadImages: loadImages,
+    saveImages: saveImages,
+    hydrateImages: hydrateImages,
     signIn: signIn,
     signOut: signOut,
     getSession: getSession,
