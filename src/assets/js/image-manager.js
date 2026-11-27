@@ -54,7 +54,7 @@
     ]}
   ];
 
-  var MAX_W = 1600, MAX_H = 1600, QUALITY = 0.82;
+  var MAX_W = 1200, MAX_H = 1200, QUALITY = 0.72;
   var SIZE_LIMIT = 12 * 1024 * 1024; // 云端 JSON 总大小保护
   var state = {};     // 固定图位 key -> dataURL / "__hidden__"
   var galleries = {}; // "product:air" -> [item]
@@ -106,7 +106,7 @@
         ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, w, h);
         ctx.drawImage(img, 0, 0, w, h);
         var data = cv.toDataURL("image/jpeg", QUALITY);
-        if (data.length > 1.6 * 1024 * 1024) data = cv.toDataURL("image/jpeg", 0.65);
+        if (data.length > 160 * 1024) data = cv.toDataURL("image/jpeg", 0.55);
         cb(data, null);
       };
       img.src = reader.result;
@@ -152,7 +152,7 @@
       toast("云端图片总量超过 12MB，请先删除一些已上传图片再添加", true);
       return;
     }
-    toast("正在保存到云端…");
+    toast("正在保存，请稍候约 10 秒，不要关闭页面…");
     app.saveImages(payload).then(function (ok) {
       if (!ok) { toast("保存失败，请稍后重试", true); return; }
       state = nextState; galleries = nextGalleries;
