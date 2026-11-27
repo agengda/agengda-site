@@ -143,7 +143,8 @@
   }
 
   function decorateGallery(box) {
-    var series = box.getAttribute("data-gallery").slice(8);
+    // build.js 写的是 data-gallery="air"；云端配置键才是 "product:air"。
+    var series = box.getAttribute("data-gallery");
     var tiles = Array.prototype.slice.call(box.querySelectorAll(".prod-tile"));
     var items = itemsFor(series, box);
 
@@ -263,7 +264,7 @@
     bar.appendChild(tip); bar.appendChild(fab);
     document.body.appendChild(bar);
 
-    var boxes = document.querySelectorAll('[data-gallery^="product:"]');
+    var boxes = document.querySelectorAll(".prod-gallery[data-gallery]");
     Array.prototype.forEach.call(boxes, decorateGallery);
     decorateCovers();
   }
