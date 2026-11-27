@@ -110,10 +110,24 @@ const FACTORY_FILE = path.join(__dirname, "data", "factory.json");
 const FACT_KEYS = ["founded", "area", "staff", "capacity", "markets"];
 const FACT_LABEL = {
   founded: { zh: "成立年份", en: "Founded" },
-  area: { zh: "厂房面积", en: "Factory area" },
+  area: { zh: "厂房面积（㎡）", en: "Factory area (m²)" },
   staff: { zh: "员工人数", en: "Employees" },
   capacity: { zh: "月产能（台）", en: "Units per month" },
   markets: { zh: "出口国家", en: "Export markets" },
+};
+// Localized fact labels for the two facts that are actually populated.
+// Keys not present here fall back to zh/en above.
+const FACT_LABEL_LANG = {
+  es: { founded: "Fundada en", area: "Fábrica (m²)", staff: "Empleados", capacity: "Unidades al mes", markets: "Países de exportación" },
+  pt: { founded: "Fundada em", area: "Fábrica (m²)", staff: "Funcionários", capacity: "Unidades por mês", markets: "Países de exportação" },
+  de: { founded: "Gegründet", area: "Fabrikfläche (m²)", staff: "Mitarbeiter", capacity: "Einheiten pro Monat", markets: "Exportländer" },
+  fr: { founded: "Fondée en", area: "Surface (m²)", staff: "Employés", capacity: "Unités par mois", markets: "Pays d'exportation" },
+  tr: { founded: "Kuruluş", area: "Fabrika alanı (m²)", staff: "Çalışan", capacity: "Aylık üretim", markets: "İhracat ülkesi" },
+  ru: { founded: "Основана", area: "Площадь завода (м²)", staff: "Сотрудники", capacity: "Единиц в месяц", markets: "Стран экспорта" },
+  ar: { founded: "تأسست عام", area: "مساحة المصنع (م²)", staff: "الموظفون", capacity: "وحدة شهريًا", markets: "دول التصدير" },
+  id: { founded: "Didirikan", area: "Luas pabrik (m²)", staff: "Karyawan", capacity: "Unit per bulan", markets: "Negara ekspor" },
+  vi: { founded: "Thành lập", area: "Diện tích nhà máy (m²)", staff: "Nhân viên", capacity: "Máy mỗi tháng", markets: "Quốc gia xuất khẩu" },
+  th: { founded: "ก่อตั้งปี", area: "พื้นที่โรงงาน (ตร.ม.)", staff: "พนักงาน", capacity: "เครื่องต่อเดือน", markets: "ประเทศที่ส่งออก" },
 };
 let FACTORY = null;
 try {
@@ -139,10 +153,21 @@ try {
 
 function factoryFacts(lang) {
   if (!FACTORY || !FACTORY.facts) return [];
+  // data/factory.json may store facts as an array of {key,label,value} (current
+  // format saved by /admin) or as a keyed object (legacy). Support both.
+  const byKey = {};
+  if (Array.isArray(FACTORY.facts)) {
+    FACTORY.facts.forEach(function (f) {
+      if (f && f.key) byKey[f.key] = f.value;
+    });
+  } else {
+    Object.assign(byKey, FACTORY.facts);
+  }
+  const custom = FACT_LABEL_LANG[lang] || {};
   return FACT_KEYS.map((k) => ({
     key: k,
-    label: lang === "zh" ? FACT_LABEL[k].zh : FACT_LABEL[k].en,
-    value: String(FACTORY.facts[k] || "").trim(),
+    label: custom[k] || (lang === "zh" ? FACT_LABEL[k].zh : FACT_LABEL[k].en),
+    value: String(byKey[k] || "").trim(),
   })).filter((f) => f.value);
 }
 
