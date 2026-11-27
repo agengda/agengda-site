@@ -827,6 +827,37 @@ ${trustStrip(lang)}
   </div>
 </div></section>
 
+<section id="solution" class="bg-soft"><div class="container">
+  <div class="section-head"><h2>${t.h_sol_title}</h2><p>${t.h_sol_sub || ""}</p></div>
+  <div class="grid-3">
+    <div class="card"><div class="ic">🏷️</div><h3>${t.h_sol1_t}</h3><p>${t.h_sol1_d}</p></div>
+    <div class="card"><div class="ic">🧩</div><h3>${t.h_sol2_t}</h3><p>${t.h_sol2_d}</p></div>
+    <div class="card"><div class="ic">🔌</div><h3>${t.h_sol3_t}</h3><p>${t.h_sol3_d}</p></div>
+    <div class="card"><div class="ic">📦</div><h3>${t.h_sol4_t}</h3><p>${t.h_sol4_d}</p></div>
+    <div class="card"><div class="ic">🗂️</div><h3>${t.h_sol5_t}</h3><p>${t.h_sol5_d}</p></div>
+    <div class="card"><div class="ic">🔍</div><h3>${t.h_sol6_t}</h3><p>${t.h_sol6_d}</p></div>
+  </div>
+  <div class="section-head" style="margin-top:56px"><h2>${t.h_sol_proc_t}</h2><p>${t.h_sol_proc_sub || ""}</p></div>
+  <div class="grid-3">
+    <div class="card"><div class="ic">💬</div><h3>${t.h_proc1_t}</h3><p>${t.h_proc1_d}</p></div>
+    <div class="card"><div class="ic">📐</div><h3>${t.h_proc2_t}</h3><p>${t.h_proc2_d}</p></div>
+    <div class="card"><div class="ic">🧾</div><h3>${t.h_proc3_t}</h3><p>${t.h_proc3_d}</p></div>
+    <div class="card"><div class="ic">🏭</div><h3>${t.h_proc4_t}</h3><p>${t.h_proc4_d}</p></div>
+    <div class="card"><div class="ic">🚚</div><h3>${t.h_proc5_t}</h3><p>${t.h_proc5_d}</p></div>
+    <div class="card"><div class="ic">🤝</div><h3>${t.h_proc6_t}</h3><p>${t.h_proc6_d}</p></div>
+  </div>
+</div></section>
+
+<section id="coop-cases"><div class="container">
+  <div class="section-head"><h2>${t.h_sol_case_t}</h2><p>${t.h_sol_case_sub || ""}</p></div>
+  <div class="grid-3">
+    <div class="card"><div class="ic">🕌</div><h3>${t.h_case1_t}</h3><p>${t.h_case1_d}</p></div>
+    <div class="card"><div class="ic">🇲🇽</div><h3>${t.h_case2_t}</h3><p>${t.h_case2_d}</p></div>
+    <div class="card"><div class="ic">🇮🇩</div><h3>${t.h_case3_t}</h3><p>${t.h_case3_d}</p></div>
+  </div>
+  <div style="text-align:center;margin-top:28px"><a class="btn btn-outline" href="./cases.html">${t.h_sol_more}</a></div>
+</div></section>
+
 <section class="bg-soft"><div class="container">
   <div class="section-head"><h2>${t.h_prod_title}</h2><p>${t.h_prod_sub}</p></div>
   <div class="series-grid">${SERIES.map((s) => seriesCard(s, d, t)).join("\n    ")}</div>
