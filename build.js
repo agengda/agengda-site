@@ -598,6 +598,7 @@ function leadForm(f, t, d, opts) {
   const o = opts || {};
   return `<form id="leadForm" class="lead-form">
   <div class="field"><label>${f.f_phone}</label><input name="phone" inputmode="tel" required /></div>
+  <div class="field"><label>${f.f_btype}</label><select name="btype"><option value="">${f.f_btype}</option>${(f.f_btypes||[]).map(function(x){return '<option value="'+x+'">'+x+'</option>';}).join('')}</select></div>
   <div class="field"><label>${f.f_model}</label><input name="model" /></div>
   <div class="field"><label>${t.c_msg}</label><textarea name="msg" rows="3"></textarea></div>
   <button class="btn btn-primary" type="submit">${t.c_submit}</button>
@@ -614,11 +615,11 @@ fm.addEventListener('submit',function(e){
   var o={}; new FormData(fm).forEach(function(v,k){o[k]=v;});
   var a=window.__attribLast||{};
   o.name=o.name||''; o.company=o.company||''; o.country=o.country||'';
-  o.qty=o.qty||''; o.temp=o.temp||''; o.delivery=o.delivery||'';
+  o.qty=o.qty||''; o.temp=o.temp||''; o.delivery=o.delivery||''; o.btype=o.btype||'';
   o.source=a.source||''; o.medium=a.medium||''; o.campaign=a.campaign||''; o.term=a.term||''; o.content=a.content||'';
   o.gclid=a.gclid||''; o.fbclid=a.fbclid||''; o.ttclid=a.ttclid||'';
   o.page=location.pathname; o.lang=document.documentElement.lang; o.ts=new Date().toISOString();
-  var text=(o.msg||'')+'\\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
+  var text=(o.msg||'')+'\\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.btype?' | '+o.btype:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
   note.textContent=${JSON.stringify(f.f_sent)};
   var done=false;
   function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_reply)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(\"wa_click\",{placement:\"success\"})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
@@ -705,8 +706,8 @@ function homeBody(t, ui, lang) {
   <h1>${t.h_hero_title}</h1>
   <p class="sub">${t.h_hero_sub}</p>
   <div class="actions">
-    <a class="btn btn-primary" href="./calculator.html">${d.ui.calc_title}</a>
-    <a class="btn btn-outline" style="color:#fff;border-color:#fff" href="./products.html">${t.nav_products}</a>
+    <a class="btn btn-primary" href="./contact.html">${t.h_hero_btn}</a>
+    <a class="btn btn-outline" style="color:#fff;border-color:#fff" href="./distributors.html">${(SEOT[lang]||SEOT.en).nav_d}</a>
   </div>
 </div></section>
 
