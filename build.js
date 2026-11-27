@@ -507,7 +507,7 @@ ${bare ? "" : `<a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本�
 <script src="/assets/js/cloud-config.js"></script>
 <script src="/assets/js/workbuddy-cloud-sdk.js"></script>
 <script src="/assets/js/cloud-client.js"></script>
-<script>if(window.CloudApp&&window.CloudApp.hydrateFactory){window.CloudApp.hydrateFactory();}</script>`}
+<script>if(window.CloudApp){if(window.CloudApp.hydrateFactory){window.CloudApp.hydrateFactory();}if(window.CloudApp.hydrateImages){window.CloudApp.hydrateImages();}}</script>`}
 <script>document.addEventListener('click',function(e){if(!e.target.closest('.lang-select')){document.querySelectorAll('.lang-menu.open').forEach(function(m){m.classList.remove('open');});}if(!e.target.closest('.nav-burger')&&!e.target.closest('.nav-links')){document.querySelectorAll('.nav-links.open').forEach(function(n){n.classList.remove('open');});document.body.classList.remove('nav-open');var b=document.querySelector('.nav-burger');if(b)b.setAttribute('aria-expanded','false');}});</script>
 ${attribScript()}
 </body>
@@ -525,7 +525,7 @@ function appCard(a, aT) {
 // Real factory product photos. Images are full-unit shots; keep the whole
 // machine visible (object-fit: contain, no cropping) per the site image rule.
 const prodImg = (name, alt) => hasImg(name)
-  ? `<div class="prod-shot"><img src="../assets/img/${name}" alt="${alt}" loading="lazy" /></div>`
+  ? `<div class="prod-shot"><img src="../assets/img/${name}" alt="${alt}" loading="lazy" data-img-key="${name.replace(/\.[^.]+$/, "")}" /></div>`
   : "";
 
 function seriesCard(s, d, t) {
@@ -533,7 +533,7 @@ function seriesCard(s, d, t) {
   const cover = (x.imgs && x.imgs[0]) || "";
   const cap = (x.imgCaps && x.imgCaps[0]) || x.name;
   return `<a class="card series-card" href="./${s.slug}.html">
-      ${cover && hasImg(cover) ? `<div class="series-cover"><img src="../assets/img/${cover}" alt="${cap}" loading="lazy" /></div>` : ""}
+      ${cover && hasImg(cover) ? `<div class="series-cover"><img src="../assets/img/${cover}" alt="${cap}" loading="lazy" data-img-key="${cover.replace(/\.[^\.]+$/, "")}" /></div>` : ""}
       <h3>${x.name}</h3>
       <p>${x.intro}</p>
       <ul class="feat-list">${x.f.map((f) => `<li>${f}</li>`).join("")}</ul>
@@ -605,10 +605,10 @@ function evidence(d, lang) {
     if (vmp4 || vwebm) {
       const srcs = (vmp4 ? `<source src="../assets/img/${vmp4}" type="video/mp4" />` : "")
         + (vwebm ? `<source src="../assets/img/${vwebm}" type="video/webm" />` : "");
-      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video controls playsinline loop${poster ? ` poster="../assets/img/${poster}"` : ""} preload="none">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
+      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video controls playsinline loop${poster ? ` poster="../assets/img/${poster}" data-img-key="ev-${x.key}" data-img-poster` : ""} preload="none">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
     }
     return hasImg(x.img)
-      ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" /><figcaption>${x.label}</figcaption></figure>`
+      ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" data-img-key="ev-${x.key}" /><figcaption>${x.label}</figcaption></figure>`
       : `<figure class="ev-tile ev-icon" data-ev-key="${x.key}"><div class="ev-ic">${x.icon}</div><figcaption>${x.label}</figcaption></figure>`;
   }).join("\n    ");
   // Factory video. By default served from local assets (uploaded via /admin as
@@ -629,7 +629,7 @@ function evidence(d, lang) {
   const videoBlock = `
   <div class="factory-video-wrap" data-factory-video style="margin-top:26px">
     <div class="section-head"><h2>${d.ui.ev_title || "Factory"} · Video</h2></div>
-    <video controls preload="none" playsinline poster="../assets/img/factory-video-poster.jpg" style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
+    <video controls preload="none" playsinline poster="../assets/img/factory-video-poster.jpg" data-img-key="factory-video-poster" data-img-poster style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
       onerror="var w=this.closest('[data-factory-video]');if(w)w.style.display='none'">
 ${fvSources}
     </video>
