@@ -517,6 +517,12 @@ const server = http.createServer(async (req, res) => {
   const pathname = url.split("?")[0];
   const Q = new URLSearchParams(url.split("?")[1] || "");
 
+  // Lets public pages decide whether to show inline image tools. Uses the same
+  // token cookie set by /admin?token=... (7 days), so no token is exposed in JS.
+  if (pathname === "/api/editor-status") {
+    return send(res, 200, JSON.stringify({ ok: authed(req, Q) }), "application/json; charset=utf-8");
+  }
+
   // Editors change live site content, so every one of them sits behind LEAD_TOKEN.
   // /api/catalog and /api/factory are also read by the public JS bundle, so only
   // their write verbs are gated; reading the datasheet stays open.
