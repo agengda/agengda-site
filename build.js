@@ -420,7 +420,7 @@ const SEO_AIR = {
     bodyTitle: "How to choose the right air-cooled chiller",
     body: `<p>Air-cooled chillers reject heat through finned condensers and fans, so they need no cooling tower, cooling-water pump or water treatment — a good fit for workshops with limited water supply or space, and for faster installation. If your plant already runs a cooling tower and carries continuous heavy load, our <a href="./water-cooled-chiller.html">water-cooled chillers</a> deliver higher efficiency.</p>
   <p>To size a unit, tell us your machine type, required cooling capacity and supply voltage. Use our <a href="./calculator.html">sizing calculator</a> or send the data on WhatsApp and our engineers will recommend a model. Standard supply is 380V/50Hz/3-phase, with 220V/415V and other voltages available for export markets. OEM/private-label and refrigerant options can be customized.</p>`,
-    cards: ["Source factory — 30–45 units per month, exported to 25 countries", "1-year whole-machine warranty (wear parts excluded)", "MOQ 1 unit · OEM/ODM · multi-language support"],
+    cards: ["Source factory — 50 units per month, exported to 25 countries", "1-year whole-machine warranty (wear parts excluded)", "MOQ 1 unit · OEM/ODM · multi-language support"],
   },
   es: {
     h1: "Enfriadora industrial de aire para moldeo por inyección",
@@ -429,7 +429,7 @@ const SEO_AIR = {
     bodyTitle: "Cómo elegir la enfriadora de aire adecuada",
     body: `<p>Las enfriadoras de aire disipan el calor mediante condensadores de aletas y ventiladores, por lo que no necesitan torre de enfriamiento, bomba de agua de enfriamiento ni tratamiento de agua: ideales para talleres con suministro o espacio de agua limitado y para una instalación más rápida. Si su planta ya cuenta con torre de enfriamiento y opera con carga alta continua, nuestras <a href="./water-cooled-chiller.html">enfriadoras de agua</a> ofrecen mayor eficiencia.</p>
   <p>Para dimensionar la unidad, indíquenos el tipo de máquina, la capacidad de enfriamiento y la tensión de alimentación. Use nuestra <a href="./calculator.html">calculadora de selección</a> o envíe los datos por WhatsApp; nuestros ingenieros recomendarán el modelo y le cotizarán en un día hábil. El suministro estándar es 380V/50Hz/trifásico; hay disponibles 220V/415V y otros voltajes para mercados de exportación. Se pueden personalizar OEM/marca blanca y refrigerante.</p>`,
-    cards: ["Fábrica de origen — 30–45 unidades al mes, exportadas a 25 países", "Garantía de 1 año en toda la máquina (excepto piezas de desgaste)", "MOQ 1 unidad · OEM/ODM · soporte multilingüe"],
+    cards: ["Fábrica de origen — 50 unidades al mes, exportadas a 25 países", "Garantía de 1 año en toda la máquina (excepto piezas de desgaste)", "MOQ 1 unidad · OEM/ODM · soporte multilingüe"],
   },
   pt: {
     h1: "Chiller industrial a ar para injeção de plástico",
@@ -438,7 +438,7 @@ const SEO_AIR = {
     bodyTitle: "Como escolher o chiller a ar certo",
     body: `<p>Os chillers a ar rejeitam o calor por meio de condensadores de aletas e ventiladores, portanto não precisam de torre de resfriamento, bomba de água de resfriamento nem tratamento de água — ideais para oficinas com fornecimento ou espaço limitado de água e para instalação mais rápida. Se sua planta já opera uma torre de resfriamento e tem carga contínua alta, nossos <a href="./water-cooled-chiller.html">chillers a água</a> oferecem maior eficiência.</p>
   <p>Para dimensionar a unidade, informe o tipo de máquina, a capacidade de resfriamento e a tensão de alimentação. Use nossa <a href="./calculator.html">calculadora de dimensionamento</a> ou envie os dados pelo WhatsApp; nossos engenheiros recomendam o modelo e enviam orçamento em um dia útil. O fornecimento padrão é 380V/50Hz/trifásico; 220V/415V e outras tensões estão disponíveis para mercados de exportação. OEM/marca própria e refrigerante podem ser personalizados.</p>`,
-    cards: ["Fábrica de origem — 30–45 unidades por mês, exportadas para 25 países", "Garantia de 1 ano na máquina inteira (exceto peças de desgaste)", "MOQ 1 unidade · OEM/ODM · suporte multilíngue"],
+    cards: ["Fábrica de origem — 50 unidades por mês, exportadas para 25 países", "Garantia de 1 ano na máquina inteira (exceto peças de desgaste)", "MOQ 1 unidade · OEM/ODM · suporte multilíngue"],
   },
 };
 
