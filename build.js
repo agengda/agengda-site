@@ -292,8 +292,18 @@ function bareHeader(t, lang, file) {
 </header>`;
 }
 
-function footer(t) {
+function footer(t, code, showForm) {
+  const f = FORM_L[code] || FORM_L.en;
+  const d = DEEP[code] || DEEP.en;
+  // Contact page and landing page already carry a form in the body, so the
+  // footer form is skipped there to avoid two identical forms on one screen.
+  const formBlock = showForm === false ? "" : `<div class="container footer-inquiry">
+    <h2>${t.inq_title}</h2>
+    <p>${t.inq_sub}</p>
+    ${leadForm(f, t, d, { id: "footerLeadForm", placement: "footer_form" })}
+  </div>`;
   return `<footer class="site-footer">
+  ${formBlock}
   <div class="container">
     <div class="copy">${t.footer_copy}</div>
     <div class="tag">${t.footer_made}</div>
@@ -302,7 +312,7 @@ function footer(t) {
     <div><strong>${COMPANY_NAME}</strong></div>
     <div>📍 ${ADDRESS}</div>
     <div>📧 ${EMAILS.map((e) => `<a href="mailto:${e}">${e}</a>`).join(" · ")}</div>
-    <div>📱 <a href="https://wa.me/${WHATSAPP}">${TEL_DISPLAY}</a>${INSTAGRAM ? ` · 📸 <a href="${INSTAGRAM}" target="_blank" rel="noopener">Instagram @agengda2021</a>` : ""}</div>
+    <div>📱 <a href="tel:+${WHATSAPP}">${TEL_DISPLAY}</a> · 💬 <a href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">WhatsApp</a>${INSTAGRAM ? ` · 📸 <a href="${INSTAGRAM}" target="_blank" rel="noopener">Instagram @agengda2021</a>` : ""}</div>
   </div>
   ${socialRow()}
 </footer>`;
@@ -515,7 +525,7 @@ ${bare ? bareHeader(t, lang, file) : header(t, lang, file, ui, d)}
 <main>
 ${body}
 </main>
-${bare ? "" : footer(t)}
+${bare ? "" : footer(t, code, !["contact.html", "lp.html"].includes(file))}
 ${waFloat(t)}
 ${bare ? "" : `<a href="/admin" id="editFab" class="edit-fab">✏️ 编辑本页内容</a>
 <script>if(!/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(location.hostname)){var _f=document.getElementById('editFab');if(_f)_f.remove();}</script>
@@ -686,19 +696,24 @@ ${fvSources}
 // and the WhatsApp conversation collects the rest.
 function leadForm(f, t, d, opts) {
   const o = opts || {};
-  return `<form id="leadForm" class="lead-form">
+  // A page can now hold several forms (product-page form + footer form), so
+  // each instance needs its own DOM ids and its own analytics placement.
+  const uid = o.id || "leadForm";
+  const nid = uid + "Note";
+  const placement = o.placement || "form";
+  return `<form id="${uid}" class="lead-form">
   <div class="field"><label>${f.f_phone}</label><input name="phone" inputmode="tel" required /></div>
   <div class="field"><label>${f.f_btype}</label><select name="btype"><option value="">${f.f_btype}</option>${(f.f_btypes||[]).map(function(x){return '<option value="'+x+'">'+x+'</option>';}).join('')}</select></div>
   <div class="field"><label>${f.f_model}</label><input name="model" /></div>
   <div class="field"><label>${t.c_msg}</label><textarea name="msg" rows="3"></textarea></div>
   <button class="btn btn-primary" type="submit">${t.c_submit}</button>
-  <a class="btn btn-outline" style="margin-inline-start:10px" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" onclick="track('wa_click',{placement:'form'})">${f.f_send_wa}</a>
-  <p class="note" id="leadNote">${t.c_note}</p>
+  <a class="btn btn-outline" style="margin-inline-start:10px" href="${waLink(t.wa_msg)}" target="_blank" rel="noopener" onclick="track('wa_click',{placement:'${placement}'})">${f.f_send_wa}</a>
+  <p class="note" id="${nid}">${t.c_note}</p>
   ${o.hidden || ""}
 </form>
 <script>
 (function(){
-var fm=document.getElementById('leadForm'), note=document.getElementById('leadNote');
+var fm=document.getElementById('${uid}'), note=document.getElementById('${nid}');
 var WA='${waLink("").split("?")[0]}';
 fm.addEventListener('submit',function(e){
   e.preventDefault();
@@ -712,7 +727,7 @@ fm.addEventListener('submit',function(e){
   var text=(o.msg||'')+'\\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.btype?' | '+o.btype:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
   note.textContent=${JSON.stringify(f.f_sent)};
   var done=false;
-  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_reply)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(\"wa_click\",{placement:\"success\"})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
+  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,placement:'${placement}',model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_reply)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(\"wa_click\",{placement:\"success\"})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
   function errLead(){ note.textContent=${JSON.stringify(f.f_err)}; }
   (function(){
     var payload=o;
@@ -881,6 +896,7 @@ ${evidence(d, lang)}
 
 function productsBody(t, ui, lang) {
   const d = DEEP[lang] || DEEP.en;
+  const f = FORM_L[lang] || FORM_L.en;
   const aT = APP_T[lang] || APP_T.en;
   return `
 <div class="page-hero"><div class="container">
@@ -893,11 +909,16 @@ function productsBody(t, ui, lang) {
 <section class="bg-soft" id="apps"><div class="container">
   <div class="section-head"><h2>${ui.nav}</h2><p>${ui.kicker}</p></div>
   <div class="app-grid">${APPS.map((a) => appCard(a, aT[a.key])).join("\n    ")}</div>
+</div></section>
+<section id="inquiry"><div class="container" style="max-width:760px">
+  <div class="section-head"><h2>${t.inq_title}</h2><p>${t.inq_sub}</p></div>
+  ${leadForm(f, t, d, { id: "productsLeadForm", placement: "products_form" })}
 </div></section>`;
 }
 
 function seriesBody(t, ui, lang, s) {
   const d = DEEP[lang] || DEEP.en;
+  const f = FORM_L[lang] || FORM_L.en;
   const x = d.series[s.key];
   const others = SERIES.filter((o) => o.key !== s.key);
   return `
@@ -943,11 +964,16 @@ ${evidence(d, lang)}
   <div class="section-head"><h2>${t.p_title}</h2></div>
   <div class="series-grid">${SERIES.map((o) => seriesCard(o, d, t)).join("\n    ")}</div>
 </div></section>
+<section id="inquiry" class="bg-soft"><div class="container" style="max-width:760px">
+  <div class="section-head"><h2>${t.inq_title}</h2><p>${t.inq_sub}</p></div>
+  ${leadForm(f, t, d, { id: "seriesLeadForm", placement: "series_form" })}
+</div></section>
 ${faqBlock(lang, x.name, s.key)}`;
 }
 
 function appBody(t, ui, lang, app) {
   const d = DEEP[lang] || DEEP.en;
+  const f = FORM_L[lang] || FORM_L.en;
   const all = APP_T[lang] || APP_T.en;
   const aT = all[app.key];
   const others = APPS.filter((x) => x.key !== app.key);
@@ -985,6 +1011,10 @@ function appBody(t, ui, lang, app) {
   <h2>${ui.cta_title}</h2><p>${ui.cta_text}</p>
   <a class="btn btn-primary" style="background:#fff;color:var(--c-accent)" href="./contact.html">${t.h_cta_btn}</a>
 </div></div></section>
+<section id="inquiry"><div class="container" style="max-width:760px">
+  <div class="section-head"><h2>${t.inq_title}</h2><p>${t.inq_sub}</p></div>
+  ${leadForm(f, t, d, { id: "appLeadForm", placement: "app_form" })}
+</div></section>
 ${faqBlock(lang, aT.name)}`;
 }
 
