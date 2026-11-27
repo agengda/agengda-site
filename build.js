@@ -815,6 +815,18 @@ ${trustStrip(lang)}
   </div>
 </div></section>
 
+<section id="support"><div class="container">
+  <div class="section-head"><h2>${t.h_support_title}</h2><p>${t.h_support_sub || ""}</p></div>
+  <div class="grid-3">
+    <div class="card"><div class="ic">🧮</div><h3>${t.h_sup1_t}</h3><p>${t.h_sup1_d}</p></div>
+    <div class="card"><div class="ic">🔩</div><h3>${t.h_sup2_t}</h3><p>${t.h_sup2_d}</p></div>
+    <div class="card"><div class="ic">⚙️</div><h3>${t.h_sup3_t}</h3><p>${t.h_sup3_d}</p></div>
+    <div class="card"><div class="ic">🛡️</div><h3>${t.h_sup4_t}</h3><p>${t.h_sup4_d}</p></div>
+    <div class="card"><div class="ic">📞</div><h3>${t.h_sup5_t}</h3><p>${t.h_sup5_d}</p></div>
+    <div class="card"><div class="ic">📚</div><h3>${t.h_sup6_t}</h3><p>${t.h_sup6_d}</p></div>
+  </div>
+</div></section>
+
 <section class="bg-soft"><div class="container">
   <div class="section-head"><h2>${t.h_prod_title}</h2><p>${t.h_prod_sub}</p></div>
   <div class="series-grid">${SERIES.map((s) => seriesCard(s, d, t)).join("\n    ")}</div>
