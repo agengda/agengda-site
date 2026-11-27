@@ -253,10 +253,12 @@
     var tip = document.createElement("div");
     tip.className = "pie-tip";
     tip.textContent = "仅授权账号可见 · 改动实时生效";
-    var fab = button("📷 管理本页图片", "pie-fab", function () {
+    // 授权后默认直接进入编辑模式，避免用户以为按钮点不动。
+    document.body.classList.add("pie-on");
+    var fab = button("✅ 完成编辑（点此隐藏工具）", "pie-fab", function () {
       document.body.classList.toggle("pie-on");
       fab.textContent = document.body.classList.contains("pie-on")
-        ? "✅ 完成编辑" : "📷 管理本页图片";
+        ? "✅ 完成编辑（点此隐藏工具）" : "📷 管理本页图片";
     });
     bar.appendChild(tip); bar.appendChild(fab);
     document.body.appendChild(bar);
