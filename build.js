@@ -803,12 +803,15 @@ function homeBody(t, ui, lang) {
 
 ${trustStrip(lang)}
 
-<section><div class="container">
-  <div class="section-head"><h2>${t.h_value_title}</h2></div>
+<section id="why-us"><div class="container">
+  <div class="section-head"><h2>${t.h_value_title}</h2><p>${t.h_value_sub || ""}</p></div>
   <div class="grid-3">
-    <div class="card"><div class="ic">🌡️</div><h3>${t.h_val1_t}</h3><p>${t.h_val1_d}</p></div>
-    <div class="card"><div class="ic">⚡</div><h3>${t.h_val2_t}</h3><p>${t.h_val2_d}</p></div>
+    <div class="card"><div class="ic">💰</div><h3>${t.h_val1_t}</h3><p>${t.h_val1_d}</p></div>
+    <div class="card"><div class="ic">🗺️</div><h3>${t.h_val2_t}</h3><p>${t.h_val2_d}</p></div>
     <div class="card"><div class="ic">🛠️</div><h3>${t.h_val3_t}</h3><p>${t.h_val3_d}</p></div>
+    <div class="card"><div class="ic">🏭</div><h3>${t.h_val4_t || t.f_a2_t}</h3><p>${t.h_val4_d || t.f_a2_d}</p></div>
+    <div class="card"><div class="ic">✅</div><h3>${t.h_val5_t || t.f_a3_t}</h3><p>${t.h_val5_d || t.f_a3_d}</p></div>
+    <div class="card"><div class="ic">🔧</div><h3>${t.h_val6_t || t.f_a4_t}</h3><p>${t.h_val6_d || t.f_a4_d}</p></div>
   </div>
 </div></section>
 
