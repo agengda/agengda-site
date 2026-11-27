@@ -727,17 +727,15 @@ fm.addEventListener('submit',function(e){
   var text=(o.msg||'')+'\\n'+(o.name||'')+(o.company?', '+o.company:'')+(o.country?', '+o.country:'')+(o.btype?' | '+o.btype:'')+(o.model?' | '+o.model:'')+(o.qty?' x'+o.qty:'')+(o.temp?' | '+o.temp:'');
   note.textContent=${JSON.stringify(f.f_sent)};
   var done=false;
-  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,placement:'${placement}',model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_reply)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(\"wa_click\",{placement:\"success\"})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
-  function errLead(){ note.textContent=${JSON.stringify(f.f_err)}; }
+  function okLead(){ if(done) return; done=true; track('lead_submit',{source:a.source||'',medium:a.medium||'',campaign:a.campaign||'',content:a.content||'',page:o.page,placement:'${placement}',model:o.model||'',qty:o.qty||''}); try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_reply)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(&quot;wa_click&quot;,{placement:&quot;success&quot;})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
+  function errLead(){ if(done) return; done=true; try{ if(window.__notifyLead) window.__notifyLead(o); }catch(e){} var waUrl=WA+'?text='+encodeURIComponent(text); note.innerHTML=${JSON.stringify(f.f_err)}+" <a class='wa-link' href='"+waUrl+"' target='_blank' rel='noopener' onclick='track(&quot;wa_click&quot;,{placement:&quot;failed&quot;})'>💬 "+${JSON.stringify(t.cta_whatsapp)}+"</a>"; }
   (function(){
     var payload=o;
-    // 必达通道：方糖微信推送（国内服务器，已验证可用），先发，保证询盘不丢。
-    // 云端存储改为「尽力而为」：成功则可在云端看列表，失败也不影响用户看到“发送成功”。
-    if(window.CloudApp&&window.CloudApp.submitLead){
-      window.CloudApp.submitLead(payload).catch(function(e){ console.warn('[lead] cloud save skipped (non-blocking):',e); });
-    }
-    // 成功：只要方糖已推送（国内必达）即视为成功，立即反馈给用户。
-    okLead();
+    // 直接提交到同源 /api/lead（不依赖外部脚本，避免 CDN 缓存旧版 cloud-client.js 导致丢单）。
+    // 只有后端确认收到（写本地 + 云库 + 服务端推微信）才显示成功；失败则前端补推方糖兜底并提示改用 WhatsApp。
+    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'})
+      .then(function(r){ if(r && r.ok) okLead(); else errLead(); })
+      .catch(function(e){ errLead(); });
   })();
   window.open(WA+'?text='+encodeURIComponent(text),'_blank');
   return false;
