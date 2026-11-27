@@ -161,29 +161,28 @@
     } catch (e) { console.error("[cloud] factory save error", e); return false; }
   }
 
-  // ---------- Site images (base64 in cloud DB; public read, signed-in write) ----------
-  // Images are stored as a single row (id=1) whose `images` object maps a stable
-  // key (e.g. "prod-water-screw", "ev-workshop", "logo") to a data URL. Pages
-  // hydrate these live so replacing a photo in /admin takes effect with no deploy.
+  // ---------- Site images (base64 in cloud DB, via same-origin server proxy) ----------
+  // Browser -> /api/images -> server -> WorkBuddy REST. Direct browser calls fail
+  // on the custom domain because the cloud REST endpoint has no CORS headers.
   async function loadImages() {
-    var c = ensureCloud();
-    if (!c) return null;
     try {
-      var res = await c.database.from("site_images").select("images").eq("id", 1).maybeSingle();
-      if (res.error) { console.error("[cloud] images read failed", res.error); return null; }
-      return (res.data && res.data.images) ? res.data.images : {};
+      var r = await fetch("/api/images", { cache: "no-store" });
+      if (!r.ok) return null;
+      var j = await r.json();
+      return (j && j.images) ? j.images : {};
     } catch (e) { return null; }
   }
 
   async function saveImages(images) {
-    var c = ensureCloud();
-    if (!c) return false;
     try {
-      var res = await c.database.from("site_images")
-        .upsert({ id: 1, images: images, saved_at: new Date().toISOString() })
-        .select();
-      if (res.error) { console.error("[cloud] images save failed", res.error); return false; }
-      return true;
+      var r = await fetch("/api/images", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ images: images })
+      });
+      if (!r.ok) return false;
+      var j = await r.json();
+      return !!(j && j.ok);
     } catch (e) { console.error("[cloud] images save error", e); return false; }
   }
 
