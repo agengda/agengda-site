@@ -572,6 +572,33 @@ const server = http.createServer(async (req, res) => {
       return send(res, 502, JSON.stringify({ ok: false, error: String(e.message || e) }));
     }
   }
+  // Partial update: browser sends only ONE gallery / one fixed slot instead of
+  // the whole 1MB image set. Cloudflare adds ~1s per 30KB on browser POSTs, so
+  // uploading everything made every edit time out. Server merges here.
+  if (pathname === "/api/images/patch" && req.method === "POST") {
+    try {
+      const o = JSON.parse((await readBody(req, 16 * 1024 * 1024)) || "{}");
+      if (!o.key || typeof o.key !== "string") {
+        return send(res, 400, JSON.stringify({ ok: false, error: "missing key" }));
+      }
+      const rows = await cloudImagesApi("GET", "?select=images&id=eq.1");
+      const images = (rows && rows[0] && rows[0].images) || {};
+      if (o.gallery !== undefined) {
+        if (!images.__galleries || typeof images.__galleries !== "object" || Array.isArray(images.__galleries)) images.__galleries = {};
+        if (o.gallery === null) delete images.__galleries[o.key];
+        else images.__galleries[o.key] = o.gallery;
+      } else if (o.slot !== undefined) {
+        if (o.slot === null) delete images[o.key];
+        else images[o.key] = o.slot;
+      } else {
+        return send(res, 400, JSON.stringify({ ok: false, error: "missing gallery/slot" }));
+      }
+      await cloudImagesApi("PATCH", "?id=eq.1", { images: images, saved_at: new Date().toISOString() });
+      return send(res, 200, JSON.stringify({ ok: true }));
+    } catch (e) {
+      return send(res, 502, JSON.stringify({ ok: false, error: String(e.message || e) }));
+    }
+  }
 
   // Editors change live site content, so every one of them sits behind LEAD_TOKEN.
   // /api/catalog and /api/factory are also read by the public JS bundle, so only
