@@ -1,0 +1,27 @@
+{
+  "_note": "固化图集：从云端 /api/images 导出的、用户在后台/产品页编辑后的最终照片。构建时产品详情页图集直接采用此处静态图片，普通访客无需云端动态加载即可看到全部照片。key 为系列 key，value 为图片文件名数组（位于 assets/img）。修改后需重新构建部署。",
+  "_exported_at": "2026-11-27",
+  "galleries": {
+    "air": [
+      { "file": "prod-air-box.jpg", "cap": "箱式风冷机组 · 生产线实拍" },
+      { "file": "gallery-air-2.jpg", "cap": "" },
+      { "file": "gallery-air-3.jpg", "cap": "" },
+      { "file": "gallery-air-4.jpg", "cap": "" },
+      { "file": "gallery-air-5.jpg", "cap": "" },
+      { "file": "gallery-air-6.jpg", "cap": "" }
+    ],
+    "low": [
+      { "file": "prod-screw-front.jpg", "cap": "螺杆式冷水机 · 正面" },
+      { "file": "prod-detail-coils.jpg", "cap": "铜管换热器" },
+      { "file": "gallery-low-3.jpg", "cap": "" },
+      { "file": "gallery-low-4.jpg", "cap": "" }
+    ],
+    "water": [
+      { "file": "gallery-water-1.jpg", "cap": "" },
+      { "file": "gallery-water-2.jpg", "cap": "" },
+      { "file": "gallery-water-3.jpg", "cap": "" },
+      { "file": "gallery-water-4.jpg", "cap": "" },
+      { "file": "gallery-water-5.jpg", "cap": "" }
+    ]
+  }
+}
