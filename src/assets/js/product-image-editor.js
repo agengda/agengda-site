@@ -54,15 +54,18 @@
       var im = new Image();
       im.onerror = function () { cb(null, "图片解码失败"); };
       im.onload = function () {
-        var w = im.width, h = im.height, r = Math.min(1, 1600 / w, 1600 / h);
+        // 1200px / 0.72 keeps product photos sharp while keeping the base64
+        // payload small. Cloudflare adds ~1s per 30KB on browser POSTs, so a
+        // smaller image means saving finishes in a few seconds instead of 15+.
+        var w = im.width, h = im.height, r = Math.min(1, 1200 / w, 1200 / h);
         w = Math.round(w * r); h = Math.round(h * r);
         var cv = document.createElement("canvas");
         cv.width = w; cv.height = h;
         var cx = cv.getContext("2d");
         cx.fillStyle = "#fff"; cx.fillRect(0, 0, w, h);
         cx.drawImage(im, 0, 0, w, h);
-        var d = cv.toDataURL("image/jpeg", 0.82);
-        if (d.length > 1.6 * 1024 * 1024) d = cv.toDataURL("image/jpeg", 0.65);
+        var d = cv.toDataURL("image/jpeg", 0.72);
+        if (d.length > 160 * 1024) d = cv.toDataURL("image/jpeg", 0.55);
         cb(d, null);
       };
       im.src = rd.result;
@@ -96,7 +99,7 @@
       toast("云端图片总量超过 12MB，请先删除一些旧图", true);
       return;
     }
-    toast("正在保存…");
+    toast("正在保存，请稍候约 10 秒，不要关闭页面…");
     var ok = await app.saveImages(payload);
     if (!ok) { toast("保存失败，请稍后重试", true); return; }
     toast(msg || "已保存，正在刷新…");
