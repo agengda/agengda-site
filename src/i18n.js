@@ -84,6 +84,7 @@ const T = {
     h_case2_t: "México · Soplado", h_case2_d: "En verano variaban la temperatura del aceite hidráulico y del parisón, con espesor de botella fuera de tolerancia; enfriadoras por agua con control por circuitos.",
     h_case3_t: "Indonesia · Extrusión", h_case3_d: "Agua de calibración inestable y desviación dimensional en perfiles de PVC; enfriadora por agua para estabilizar el templado.",
     h_sol_more: "Ver todos los casos",
+    inq_title: "Envíe su consulta", inq_sub: "Déjenos su número de WhatsApp y su necesidad; le responderemos lo antes posible. También puede escribirnos directamente por WhatsApp, correo o redes sociales.",
   },
   pt: {
     nav_home: "Início", nav_products: "Produtos", nav_factory: "Sobre nós", nav_contact: "Contato",
@@ -150,6 +151,7 @@ const T = {
     h_case2_t: "México · Sopro", h_case2_d: "No verão variavam a temperatura do óleo hidráulico e do parison, com espessura da garrafa fora de tolerância; chillers a água com controle por circuitos.",
     h_case3_t: "Indonésia · Extrusão", h_case3_d: "Água de calibração instável e desvio dimensional em perfis de PVC; chiller a água para estabilizar a têmpera.",
     h_sol_more: "Ver todos os casos",
+    inq_title: "Envie sua consulta", inq_sub: "Deixe seu número de WhatsApp e sua necessidade; responderemos o mais breve possível. Você também pode falar direto pelo WhatsApp, e-mail ou redes sociais.",
   },
   en: {
     nav_home: "Home", nav_products: "Products", nav_factory: "About us", nav_contact: "Contact",
@@ -216,6 +218,7 @@ const T = {
     h_case2_t: "Mexico · Blow molding", h_case2_d: "Summer hydraulic oil and parison temperature drift put bottle wall thickness out of tolerance; water-cooled chillers with separate control loops.",
     h_case3_t: "Indonesia · Extrusion", h_case3_d: "Unstable calibration water temperature and dimensional deviation in PVC profiles; a water-cooled chiller to stabilize the process.",
     h_sol_more: "View all cases",
+    inq_title: "Send an inquiry", inq_sub: "Leave your WhatsApp number and requirement — we will reply as soon as possible. You can also reach us directly on WhatsApp, email or social channels.",
   },
   zh: {
     nav_home: "首页", nav_products: "产品中心", nav_factory: "关于我们", nav_contact: "联系我们",
@@ -282,6 +285,7 @@ const T = {
     h_case2_t: "墨西哥 · 吹塑车间", h_case2_d: "夏季液压油温与型坯温度波动、瓶身壁厚不稳，用水冷式冷水机分路控温。",
     h_case3_t: "印尼 · 挤出产线", h_case3_d: "PVC 型材定型水温波动、尺寸超差，配水冷式冷水机稳定定型水温。",
     h_sol_more: "查看完整案例",
+    inq_title: "提交询盘", inq_sub: "留下 WhatsApp 号码与需求，我们会尽快回复；也可以直接通过 WhatsApp、邮箱或社交平台联系我们。",
   },
   de: {
     nav_home: "Start", nav_products: "Produkte", nav_factory: "Über uns", nav_contact: "Kontakt",
@@ -348,6 +352,7 @@ const T = {
     h_case2_t: "Mexiko · Blasformen", h_case2_d: "Im Sommer schwankten Hydrauliköl- und Vorformlingstemperatur, die Flaschenwanddicke lief aus der Toleranz; wassergekühlte Kühler mit getrennten Regelkreisen.",
     h_case3_t: "Indonesien · Extrusion", h_case3_d: "Schwankende Kalibrierwassertemperatur und Maßabweichungen bei PVC-Profilen; wassergekühlter Kühler zur Stabilisierung.",
     h_sol_more: "Alle Referenzen ansehen",
+    inq_title: "Anfrage senden", inq_sub: "Hinterlassen Sie Ihre WhatsApp-Nummer und Ihre Anforderung – wir melden uns schnellstmöglich. Alternativ erreichen Sie uns direkt per WhatsApp, E-Mail oder Social Media.",
   },
   fr: {
     nav_home: "Accueil", nav_products: "Produits", nav_factory: "À propos", nav_contact: "Contact",
@@ -414,6 +419,7 @@ const T = {
     h_case2_t: "Mexique · Extrusion-soufflage", h_case2_d: "En été, température d'huile hydraulique et du parison instables, épaisseur des bouteilles hors tolérance ; refroidisseurs à eau à boucles de régulation séparées.",
     h_case3_t: "Indonésie · Extrusion", h_case3_d: "Eau de calibrage instable et écarts dimensionnels sur profilés PVC ; refroidisseur à eau pour stabiliser le procédé.",
     h_sol_more: "Voir toutes les réalisations",
+    inq_title: "Envoyer une demande", inq_sub: "Laissez votre numéro WhatsApp et votre besoin ; nous répondrons au plus vite. Vous pouvez aussi nous joindre directement par WhatsApp, e-mail ou réseaux sociaux.",
   },
   tr: {
     nav_home: "Ana Sayfa", nav_products: "Ürünler", nav_factory: "Hakkımızda", nav_contact: "İletişim",
@@ -480,6 +486,7 @@ const T = {
     h_case2_t: "Meksika · Şişirme", h_case2_d: "Yazın hidrolik yağ ve parison sıcaklığı dalgalanıyor, şişe et kalınlığı tolerans dışına çıkıyordu; ayrı kontrol devreli su soğutmalı chiller.",
     h_case3_t: "Endonezya · Ekstrüzyon", h_case3_d: "PVC profillerde kalibrasyon suyu sıcaklığı dengesiz ve ölçü sapmalı; prosesi stabilize etmek için su soğutmalı chiller.",
     h_sol_more: "Tüm referansları gör",
+    inq_title: "Talep gönderin", inq_sub: "WhatsApp numaranızı ve ihtiyacınızı bırakın, en kısa sürede dönüş yapalım. WhatsApp, e-posta veya sosyal medya üzerinden de doğrudan yazabilirsiniz.",
   },
   ru: {
     nav_home: "Главная", nav_products: "Продукция", nav_factory: "О нас", nav_contact: "Контакты",
@@ -546,6 +553,7 @@ const T = {
     h_case2_t: "Мексика · Выдув", h_case2_d: "Летом колебались температура гидравлического масла и паризона, толщина стенки бутылки уходила из допуска; чиллеры с водяным охлаждением и раздельными контурами.",
     h_case3_t: "Индонезия · Экструзия", h_case3_d: "Нестабильная температура калибровочной воды и отклонения размеров ПВХ-профиля; чиллер с водяным охлаждением для стабилизации.",
     h_sol_more: "Все кейсы",
+    inq_title: "Отправить запрос", inq_sub: "Оставьте номер WhatsApp и описание задачи — ответим в ближайшее время. Также можно написать напрямую в WhatsApp, по почте или в соцсетях.",
   },
   ar: {
     nav_home: "الرئيسية", nav_products: "المنتجات", nav_factory: "من نحن", nav_contact: "اتصل بنا",
@@ -612,6 +620,7 @@ const T = {
     h_case2_t: "المكسيك · النفخ", h_case2_d: "صيفًا تذبذبت حرارة الزيت الهيدروليكي والباريزون وخرج سُمك جدار الزجاجة عن التفاوت؛ مبردات مائية بدوائر تحكم منفصلة.",
     h_case3_t: "إندونيسيا · البثق", h_case3_d: "تذبذب حرارة ماء المعايرة وانحراف أبعاد مقاطع PVC؛ مبرد مائي لتثبيت العملية.",
     h_sol_more: "عرض كل الحالات",
+    inq_title: "أرسل استفسارك", inq_sub: "اترك رقم واتساب ووصف احتياجك وسنرد في أقرب وقت. يمكنك أيضًا مراسلتنا مباشرة عبر واتساب أو البريد الإلكتروني أو وسائل التواصل.",
   },
   id: {
     nav_home: "Beranda", nav_products: "Produk", nav_factory: "Tentang kami", nav_contact: "Kontak",
@@ -678,6 +687,7 @@ const T = {
     h_case2_t: "Meksiko · Blow molding", h_case2_d: "Saat musim panas suhu oli hidrolik dan parison berfluktuasi, ketebalan dinding botol keluar toleransi; chiller berpendingin air dengan loop kontrol terpisah.",
     h_case3_t: "Indonesia · Ekstrusi", h_case3_d: "Suhu air kalibrasi tidak stabil dan dimensi profil PVC menyimpang; chiller berpendingin air untuk menstabilkan proses.",
     h_sol_more: "Lihat semua kasus",
+    inq_title: "Kirim pertanyaan", inq_sub: "Tinggalkan nomor WhatsApp dan kebutuhan Anda; kami akan segera membalas. Anda juga bisa menghubungi langsung via WhatsApp, email, atau media sosial.",
   },
   vi: {
     nav_home: "Trang chủ", nav_products: "Sản phẩm", nav_factory: "Về chúng tôi", nav_contact: "Liên hệ",
@@ -744,6 +754,7 @@ const T = {
     h_case2_t: "Mexico · Thổi chai", h_case2_d: "Mùa hè nhiệt dầu thủy lực và nhiệt parison dao động, độ dày thành chai ra ngoài dung sai; chiller giải nhiệt nước với các vòng điều khiển riêng.",
     h_case3_t: "Indonesia · Đùn nhựa", h_case3_d: "Nhiệt nước định hình dao động và sai số kích thước profile PVC; chiller giải nhiệt nước để ổn định quy trình.",
     h_sol_more: "Xem tất cả dự án",
+    inq_title: "Gửi yêu cầu báo giá", inq_sub: "Để lại số WhatsApp và nhu cầu, chúng tôi sẽ phản hồi sớm nhất. Bạn cũng có thể liên hệ trực tiếp qua WhatsApp, email hoặc mạng xã hội.",
   },
   th: {
     nav_home: "หน้าแรก", nav_products: "สินค้า", nav_factory: "เกี่ยวกับเรา", nav_contact: "ติดต่อ",
@@ -810,6 +821,7 @@ const T = {
     h_case2_t: "เม็กซิโก · เป่าขวด", h_case2_d: "หน้าร้อนอุณหภูมิน้ำมันไฮดรอลิกและพาริซอนแกว่ง ความหนาผนังขวดเกินพิกัด ใช้ชิลเลอร์ระบายน้ำแบบแยกวงจรควบคุม",
     h_case3_t: "อินโดนีเซีย · อัดรีด", h_case3_d: "อุณหภูมิน้ำหล่อเย็นขึ้นรูปไม่คงที่และขนาดโปรไฟล์ PVC คลาดเคลื่อน ใช้ชิลเลอร์ระบายน้ำเพื่อให้กระบวนการคงที่",
     h_sol_more: "ดูกรณีศึกษาทั้งหมด",
+    inq_title: "ส่งคำขอใบเสนอราคา", inq_sub: "ฝากเบอร์ WhatsApp และความต้องการไว้ เราจะตอบกลับโดยเร็ว หรือติดต่อโดยตรงผ่าน WhatsApp อีเมล หรือโซเชียลมีเดีย",
   },
 };
 
