@@ -188,22 +188,119 @@
   }
 
   // Apply cloud image overrides to every tagged element on the page.
-  // Elements carry data-img-key="KEY"; their src (or poster) gets replaced.
+  // Galleries are stored under the reserved "__galleries" key and rebuilt here,
+  // so photos can be added / removed / replaced in /admin without a redeploy.
+  function safeImgUrl(v) {
+    if (typeof v !== "string") return "";
+    if (/^data:image\//.test(v) || /^\/assets\/img\//.test(v) || /^https?:\/\//.test(v)) return v;
+    return "";
+  }
+
+  function tileBase(fig) {
+    var im = fig.querySelector("img");
+    var cp = fig.querySelector("figcaption");
+    return {
+      src: im ? (im.getAttribute("src") || "") : "",
+      cap: cp ? cp.textContent : "",
+      key: im ? (im.getAttribute("data-img-key") || "") : ""
+    };
+  }
+
+  function findBase(list, item) {
+    if (!item || !item.def) return null;
+    var def = String(item.def);
+    var bare = def.replace(/\.[^.]+$/, "");
+    for (var i = 0; i < list.length; i++) {
+      var b = list[i];
+      if (b.key === def || b.key === bare || b.src.indexOf(def) !== -1) return b;
+    }
+    return null;
+  }
+
+  function applyProductGallery(series, cfg) {
+    var box = document.querySelector('.prod-gallery[data-gallery="' + series + '"]');
+    if (!box || !Array.isArray(cfg)) return;
+    var bases = Array.prototype.map.call(box.querySelectorAll(".prod-tile"), tileBase);
+    var frag = document.createDocumentFragment();
+    cfg.forEach(function (item) {
+      if (!item || typeof item !== "object") return;
+      var base = findBase(bases, item);
+      var src = safeImgUrl(item.src) || (base && base.src) || "";
+      if (!src) return;
+      var cap = (typeof item.cap === "string" && item.cap) ? item.cap : (base ? base.cap : "");
+      var fig = document.createElement("figure");
+      fig.className = "prod-tile";
+      var shot = document.createElement("div");
+      shot.className = "prod-shot";
+      var im = document.createElement("img");
+      im.src = src; im.alt = cap || ""; im.loading = "lazy";
+      if (base && base.key) im.setAttribute("data-img-key", base.key);
+      shot.appendChild(im);
+      var fc = document.createElement("figcaption");
+      fc.textContent = cap;
+      fig.appendChild(shot); fig.appendChild(fc);
+      frag.appendChild(fig);
+    });
+    box.innerHTML = "";
+    box.appendChild(frag);
+  }
+
+  function applyFactoryGallery(cfg) {
+    var box = document.querySelector('.ev-grid[data-gallery="factory"]');
+    if (!box || !Array.isArray(cfg)) return;
+    var bases = Array.prototype.map.call(box.querySelectorAll("figure.ev-tile"), tileBase);
+    var frag = document.createDocumentFragment();
+    cfg.forEach(function (item) {
+      if (!item || typeof item !== "object") return;
+      var base = findBase(bases, item);
+      var src = safeImgUrl(item.src) || (base && base.src) || "";
+      if (!src) return;
+      var cap = (typeof item.cap === "string" && item.cap) ? item.cap : (base ? base.cap : "");
+      var fig = document.createElement("figure");
+      fig.className = "ev-tile";
+      var im = document.createElement("img");
+      im.src = src; im.alt = cap || ""; im.loading = "lazy";
+      if (base && base.key) im.setAttribute("data-img-key", base.key);
+      var fc = document.createElement("figcaption");
+      fc.textContent = cap;
+      fig.appendChild(im); fig.appendChild(fc);
+      frag.appendChild(fig);
+    });
+    box.innerHTML = "";
+    box.appendChild(frag);
+  }
+
   async function hydrateImages() {
     var map = await loadImages();
     if (!map) return;
-    var keys = Object.keys(map);
-    if (!keys.length) return;
-    keys.forEach(function (key) {
+
+    // Rebuild galleries first, then apply fixed-slot overrides so a replaced
+    // cover photo also shows up inside its gallery tile.
+    var galleries = (map.__galleries && typeof map.__galleries === "object" && !Array.isArray(map.__galleries))
+      ? map.__galleries : null;
+    if (galleries) {
+      Object.keys(galleries).forEach(function (k) {
+        if (k.indexOf("product:") === 0) applyProductGallery(k.slice(8), galleries[k]);
+        else if (k === "factory") applyFactoryGallery(galleries[k]);
+      });
+    }
+
+    var tagged = document.querySelectorAll("[data-img-key]");
+    Object.keys(map).forEach(function (key) {
+      if (key === "__galleries") return;
       var val = map[key];
-      if (!val || typeof val !== "string") return;
-      var nodes = document.querySelectorAll('[data-img-key="' + key + '"]');
-      for (var i = 0; i < nodes.length; i++) {
-        var n = nodes[i];
+      if (typeof val !== "string") return;
+      for (var i = 0; i < tagged.length; i++) {
+        var n = tagged[i];
+        if (n.getAttribute("data-img-key") !== key) continue;
+        if (val === "__hidden__") { n.style.display = "none"; continue; }
+        n.style.display = "";
+        var url = safeImgUrl(val);
+        if (!url) continue;
         if (n.hasAttribute("data-img-poster")) {
-          if (n.getAttribute("poster") !== val) n.setAttribute("poster", val);
+          if (n.getAttribute("poster") !== url) n.setAttribute("poster", url);
         } else {
-          if (n.getAttribute("src") !== val) n.setAttribute("src", val);
+          if (n.getAttribute("src") !== url) n.setAttribute("src", url);
         }
         n.classList.add("img-cloud-applied");
       }
