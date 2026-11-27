@@ -89,35 +89,25 @@
     return "i" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
 
-  async function persist(nextState, nextGalleries, msg) {
-    if (!app || !app.saveImages) { toast("云服务未就绪", true); return; }
-    // site_images 表已开放匿名读写，无需 WorkBuddy 登录（自定义域名也不支持该 OAuth）。
-    var payload = {};
-    Object.keys(nextState).forEach(function (k) { payload[k] = nextState[k]; });
-    payload.__galleries = nextGalleries;
-    if (JSON.stringify(payload).length > 12 * 1024 * 1024) {
-      toast("云端图片总量超过 12MB，请先删除一些旧图", true);
-      return;
-    }
-    toast("正在保存，请稍候约 10 秒，不要关闭页面…");
-    var ok = await app.saveImages(payload);
+  async function finish(ok, msg) {
     if (!ok) { toast("保存失败，请稍后重试", true); return; }
     toast(msg || "已保存，正在刷新…");
     setTimeout(function () { location.reload(); }, 600);
   }
 
   function writeSlot(key, val, msg) {
-    var n = {};
-    Object.keys(state).forEach(function (k) { if (k !== key) n[k] = state[k]; });
-    if (val !== null) n[key] = val;
-    persist(n, galleries, msg);
+    if (!app || !app.saveSlot) { toast("云服务未就绪", true); return; }
+    if (val && String(val).length > 1.6 * 1024 * 1024) { toast("单张图片太大，请换一张", true); return; }
+    toast("正在保存…");
+    app.saveSlot(key, val).then(function (ok) { finish(ok, msg); });
   }
 
   function writeGallery(key, items, msg) {
-    var g = {};
-    Object.keys(galleries).forEach(function (k) { if (k !== key) g[k] = galleries[k]; });
-    if (items !== null) g[key] = items;
-    persist(state, g, msg);
+    if (!app || !app.saveGallery) { toast("云服务未就绪", true); return; }
+    var size = items ? JSON.stringify(items).length : 0;
+    if (size > 6 * 1024 * 1024) { toast("本组图片太大，请先删除一些", true); return; }
+    toast("正在保存…");
+    app.saveGallery(key, items).then(function (ok) { finish(ok, msg); });
   }
 
   function itemsFor(series, box) {
