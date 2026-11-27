@@ -67,6 +67,22 @@ const OVERRIDE_FILE = path.join(__dirname, "data", "catalog.json");
   }
 })();
 
+// ---------- Frozen product galleries ----------
+// data/gallery-fixed.json holds the final photo set frozen from the cloud
+// editor (what the owner arranged in /admin and on product pages). Product
+// detail pages render these static images directly, so every visitor sees the
+// full gallery without depending on cloud hydration. Default-photo captions
+// stay localized from deep.js; owner-added photos keep the (possibly empty)
+// caption recorded at export time.
+const GALLERY_FIXED_FILE = path.join(__dirname, "data", "gallery-fixed.json");
+let GALLERY_FIXED = {};
+if (fs.existsSync(GALLERY_FIXED_FILE)) {
+  try {
+    const gf = JSON.parse(fs.readFileSync(GALLERY_FIXED_FILE, "utf8"));
+    GALLERY_FIXED = (gf && gf.galleries && typeof gf.galleries === "object") ? gf.galleries : {};
+  } catch (e) { console.warn("data/gallery-fixed.json ignored:", e.message); }
+}
+
 // ---------- Editable case overrides ----------
 // Customer cases saved from the browser editor (/admin) live in
 // data/cases.json. Text is authored in zh + en in the editor; any other
@@ -544,11 +560,31 @@ function seriesCard(s, d, t) {
 
 // Gallery of real factory photos placed above the spec table on series pages.
 function productGallery(s, x, t) {
-  const imgs = x.imgs || [];
+  // Prefer the frozen gallery from data/gallery-fixed.json. Fall back to the
+  // deep.js defaults for any series not frozen. Caption resolution: for a
+  // frozen entry whose file also exists in the original imgs list, reuse the
+  // localized caption from deep.js; otherwise use the caption stored in the
+  // frozen config (owner-added photos were exported with an empty caption).
+  const frozen = GALLERY_FIXED[s.key];
+  let imgs, capFor;
+  if (Array.isArray(frozen) && frozen.length) {
+    const origImgs = x.imgs || [];
+    const origCaps = x.imgCaps || [];
+    imgs = frozen.map((it) => (typeof it === "string" ? it : it && it.file)).filter(Boolean);
+    capFor = (file, i) => {
+      const ent = frozen[i];
+      const fixedCap = (ent && typeof ent === "object" && ent.cap) ? ent.cap : "";
+      const oi = origImgs.indexOf(file);
+      return (oi >= 0 && origCaps[oi]) ? origCaps[oi] : fixedCap;
+    };
+  } else {
+    imgs = x.imgs || [];
+    const caps = x.imgCaps || [];
+    capFor = (file, i) => caps[i] || "";
+  }
   if (!imgs.length) return "";
-  const caps = x.imgCaps || [];
   const cells = imgs.map((im, i) => {
-    const cap = caps[i] || "";
+    const cap = capFor(im, i);
     return `<figure class="prod-tile">${prodImg(im, cap)}<figcaption>${cap}</figcaption></figure>`;
   }).join("\n    ");
   return `<section><div class="container">
