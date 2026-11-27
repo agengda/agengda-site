@@ -88,10 +88,7 @@
 
   async function persist(nextState, nextGalleries, msg) {
     if (!app || !app.saveImages) { toast("云服务未就绪", true); return; }
-    if (!LOCAL) {
-      var s = await app.getSession();
-      if (!s) { toast("请先用 WorkBuddy 账号登录", true); app.signIn("workbuddy"); return; }
-    }
+    // site_images 表已开放匿名读写，无需 WorkBuddy 登录（自定义域名也不支持该 OAuth）。
     var payload = {};
     Object.keys(nextState).forEach(function (k) { payload[k] = nextState[k]; });
     payload.__galleries = nextGalleries;
@@ -101,7 +98,7 @@
     }
     toast("正在保存…");
     var ok = await app.saveImages(payload);
-    if (!ok) { toast("保存失败，请确认已登录", true); return; }
+    if (!ok) { toast("保存失败，请稍后重试", true); return; }
     toast(msg || "已保存，正在刷新…");
     setTimeout(function () { location.reload(); }, 600);
   }
