@@ -118,15 +118,23 @@
   }
 
   function itemsFor(series, box) {
+    // 始终以页面上"当前真正显示的图块"为准，避免用旧快照删除/替换时
+    // 把刚新增或刚替换的图片弄丢。
     var cfg = galleries["product:" + series];
-    if (Array.isArray(cfg)) return cfg.map(function (x) {
-      return { id: x.id || uid(), def: x.def || "", src: x.src || "", cap: x.cap || "" };
-    });
     return Array.prototype.map.call(box.querySelectorAll(".prod-tile"), function (fig, i) {
       var im = fig.querySelector("img"), cp = fig.querySelector("figcaption");
       var src = im ? (im.getAttribute("src") || "") : "";
       var key = im ? (im.getAttribute("data-img-key") || "") : "";
-      return { id: "def-" + i, def: key, src: "", cap: cp ? cp.textContent : "" };
+      var stored = Array.isArray(cfg) ? cfg[i] : null;
+      // 默认站点图的 src 是相对路径，保存时用空 src + def 让前台回退到默认图。
+      // 只有 base64/外链才是用户上传的真实内容。
+      var userSrc = /^(data:image\/|https?:\/\/)/.test(src) ? src : "";
+      return {
+        id: (stored && stored.id) || (key ? "def-" + key : "def-" + i),
+        def: key || (stored && stored.def) || "",
+        src: userSrc || (stored && stored.src) || "",
+        cap: cp ? cp.textContent : ((stored && stored.cap) || "")
+      };
     });
   }
 
@@ -287,6 +295,11 @@
       }
     }
     if (!allowed) return; // 普通访客完全看不到任何编辑入口
+    // 先等前台把云端最新图集渲染进 DOM，再挂编辑按钮；否则按钮会挂在
+    // 旧的默认图块上，且随后被 hydrateImages 重建的 DOM 冲掉。
+    if (app.hydrateImages) {
+      try { await app.hydrateImages(); } catch (e) {}
+    }
     var m = await app.loadImages();
     m = m || {};
     Object.keys(m).forEach(function (k) {
