@@ -1,7 +1,7 @@
 // ============================================================
 // SEO titles/descriptions + Distributor program page (per language)
 // Facts (boss-confirmed 2026-10-26):
-//   25 export countries · 30-45 units/month · 1-year warranty (excl. wear parts)
+//   25 export countries · 50 units/month · 1-year warranty (excl. wear parts)
 //   OEM/ODM available · MOQ 1 unit · distributor policy: territory protection + price system
 // ============================================================
 module.exports = {
@@ -14,10 +14,10 @@ module.exports = {
     app: ["{name} — Enfriadora industrial | Agengda", "Chiller para {name}: evite paradas de producción por sobrecalentamiento. Selección correcta, especificaciones y precio de fábrica con envío a 25 países."],
     cases: ["Casos de enfriadoras industriales en 25 países | Agengda", "Instalaciones reales de enfriadoras Agengda en plantas de inyección, soplado y extrusión de 25 países."],
     calc: ["Calculadora de chiller para inyección — Selección gratis | Agengda", "Calcule la capacidad de enfriamiento que necesita su máquina de inyección y reciba la recomendación por WhatsApp."],
-    factory: ["Fábrica de enfriadoras — 30-45 unidades al mes, OEM/ODM | Agengda", "Conozca nuestra planta: 30-45 unidades mensuales, control de calidad y exportación a 25 países. Visitas y auditorías bienvenidas."],
+    factory: ["Fábrica de enfriadoras — 50 unidades al mes, OEM/ODM | Agengda", "Conozca nuestra planta: 50 unidades mensuales, control de calidad y exportación a 25 países. Visitas y auditorías bienvenidas."],
     contact: ["Contacto — Cotización de enfriadora industrial por WhatsApp | Agengda", "Escríbanos por WhatsApp: cotización de fábrica en horas, no días. Atención en su idioma."],
     dist: ["Distribuidores y agentes de enfriadoras — Protección de territorio | Agengda", "Programa de distribuidores: precios de fábrica, protección de territorio, OEM/ODM y MOQ 1 unidad. Para importadores, distribuidores y agentes del sector plástico."],
-    stats: [["25+", "países de exportación"], ["30-45", "unidades al mes"], ["1 año", "de garantía*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "países de exportación"], ["50", "unidades al mes"], ["1 año", "de garantía*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Conviértase en distribuidor Agengda",
       s: "Enfriadores industriales de fábrica para agentes de máquinas de inyección, soplado, extrusión, equipos industriales y maquinaria plástica.",
@@ -47,10 +47,10 @@ module.exports = {
     app: ["{name} — Chiller industrial | Agengda", "Chiller para {name}: evite paradas por superaquecimento. Dimensionamento correto, especificações e preço de fábrica com envio para 25 países."],
     cases: ["Casos de chillers industriais em 25 países | Agengda", "Instalações reais de chillers Agengda em plantas de injeção, sopro e extrusão em 25 países."],
     calc: ["Calculadora de chiller para injeção — Dimensionamento grátis | Agengda", "Calcule a capacidade de refrigeração da sua máquina e receba a recomendação pelo WhatsApp."],
-    factory: ["Fábrica de chillers — 30-45 unidades/mês, OEM/ODM | Agengda", "Conheça nossa planta: 30-45 unidades por mês, controle de qualidade e exportação para 25 países. Visitas e auditorias bem-vindas."],
+    factory: ["Fábrica de chillers — 50 unidades/mês, OEM/ODM | Agengda", "Conheça nossa planta: 50 unidades por mês, controle de qualidade e exportação para 25 países. Visitas e auditorias bem-vindas."],
     contact: ["Contato — Orçamento de chiller industrial pelo WhatsApp | Agengda", "Fale conosco no WhatsApp: orçamento de fábrica em horas, não dias. Atendimento no seu idioma."],
     dist: ["Distribuidores e agentes de chillers — Proteção de território | Agengda", "Programa de distribuidores: preço de fábrica, proteção de território, OEM/ODM e MOQ 1 unidade. Para importadores, distribuidores e agentes do setor plástico."],
-    stats: [["25+", "países de exportação"], ["30-45", "unidades/mês"], ["1 ano", "de garantia*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "países de exportação"], ["50", "unidades/mês"], ["1 ano", "de garantia*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Torne-se distribuidor Agengda",
       s: "Chillers industriais direto da fábrica para agentes de máquinas de injeção, sopro, extrusão, equipamentos industriais e máquinas plásticas.",
@@ -80,10 +80,10 @@ module.exports = {
     app: ["{name} — Industrial Chiller | Agengda", "Chiller for {name}: stop production losses from overheating. Right sizing, specifications and factory price, shipped to 25 countries."],
     cases: ["Industrial Chiller Case Studies in 25 Countries | Agengda", "Real Agengda chiller installations in injection molding, blow molding and extrusion plants across 25 countries."],
     calc: ["Chiller Calculator for Injection Molding — Free Sizing | Agengda", "Calculate the cooling capacity your molding machine needs and get the recommendation on WhatsApp."],
-    factory: ["Chiller Factory — 30-45 Units/Month, OEM/ODM | Agengda", "Inside our plant: 30-45 units per month, quality control and exports to 25 countries. Factory visits and audits welcome."],
+    factory: ["Chiller Factory — 50 Units/Month, OEM/ODM | Agengda", "Inside our plant: 50 units per month, quality control and exports to 25 countries. Factory visits and audits welcome."],
     contact: ["Contact — Industrial Chiller Quote on WhatsApp | Agengda", "Message us on WhatsApp: factory quotes in hours, not days. Support in your language."],
     dist: ["Chiller Distributors & Agents — Territory Protection | Agengda", "Distributor program: factory prices, territory protection, OEM/ODM and MOQ 1 unit. For importers, distributors and agents in plastics."],
-    stats: [["25+", "export countries"], ["30-45", "units per month"], ["1 year", "warranty*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "export countries"], ["50", "units per month"], ["1 year", "warranty*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Become an Agengda distributor",
       s: "Factory-direct industrial chillers for injection, blow molding, extrusion, industrial equipment and plastics machinery dealers.",
@@ -113,10 +113,10 @@ module.exports = {
     app: ["{name}专用冷水机 - 厂家直供 | Agengda", "{name}冷水机解决方案：避免高温停机损失，正确选型+工厂价，出口25国。"],
     cases: ["工业冷水机出口案例 - 覆盖25个国家 | Agengda", "Agengda冷水机在25个国家注塑、吹塑、挤出工厂的实际装机案例。"],
     calc: ["注塑机冷水机选型计算器 - 免费选型 | Agengda", "在线计算您的注塑机所需制冷量，WhatsApp获取选型推荐与报价。"],
-    factory: ["冷水机工厂实力 - 月产30-45台，OEM/ODM | Agengda", "参观我们的工厂：月产30-45台，严格质检，出口25个国家，欢迎验厂。"],
+    factory: ["冷水机工厂实力 - 月产50台，OEM/ODM | Agengda", "参观我们的工厂：月产50台，严格质检，出口25个国家，欢迎验厂。"],
     contact: ["联系我们 - WhatsApp获取工业冷水机报价 | Agengda", "WhatsApp直接询价：几小时内出工厂报价，多语种服务。"],
     dist: ["冷水机代理商招募 - 区域保护 | Agengda", "代理政策：工厂价、区域保护、OEM/ODM、1台起订。面向塑胶设备进出口商、分销商与代理商。"],
-    stats: [["25+", "出口国家"], ["30-45", "月产能（台）"], ["1年", "整机质保*"], ["1台起订", "OEM/ODM"]],
+    stats: [["25+", "出口国家"], ["50", "月产能（台）"], ["1年", "整机质保*"], ["1台起订", "OEM/ODM"]],
     distPage: {
       h: "成为 Agengda 代理商",
       s: "面向注塑机、吹塑机、挤出机、工业设备、塑料机械代理商的工厂直供工业冷水机。",
@@ -146,10 +146,10 @@ module.exports = {
     app: ["{name} — Industriekühler | Agengda", "Kühler für {name}: Keine Produktionsausfälle durch Überhitzung. Richtige Auslegung, Daten und Werkspreis, Lieferung in 25 Länder."],
     cases: ["Industriekühler-Referenzen in 25 Ländern | Agengda", "Echte Agengda-Kühlerinstallationen in Spritzguss-, Blasform- und Extrusionsbetrieben in 25 Ländern."],
     calc: ["Kühler-Rechner für Spritzguss — Kostenlose Auslegung | Agengda", "Berechnen Sie die benötigte Kühlleistung und erhalten Sie die Empfehlung per WhatsApp."],
-    factory: ["Kühlerwerk — 30-45 Geräte/Monat, OEM/ODM | Agengda", "Unser Werk: 30-45 Geräte pro Monat, Qualitätskontrolle und Export in 25 Länder. Werksbesichtigungen willkommen."],
+    factory: ["Kühlerwerk — 50 Geräte/Monat, OEM/ODM | Agengda", "Unser Werk: 50 Geräte pro Monat, Qualitätskontrolle und Export in 25 Länder. Werksbesichtigungen willkommen."],
     contact: ["Kontakt — Industriekühler-Angebot per WhatsApp | Agengda", "Schreiben Sie uns per WhatsApp: Angebote vom Werk in Stunden, nicht Tagen. Support in Ihrer Sprache."],
     dist: ["Kühler-Händler & Agenten — Gebietsschutz | Agengda", "Händlerprogramm: Werkspreise, Gebietsschutz, OEM/ODM und MOQ 1 Gerät. Für Importeure, Händler und Agenten der Kunststoffbranche."],
-    stats: [["25+", "Exportländer"], ["30-45", "Geräte/Monat"], ["1 Jahr", "Garantie*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "Exportländer"], ["50", "Geräte/Monat"], ["1 Jahr", "Garantie*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Werden Sie Agengda-Händler",
       s: "Industriekühler direkt ab Werk für Händler von Spritzguss-, Blasform-, Extrusions-, Industrieanlagen und Kunststoffmaschinen.",
@@ -179,10 +179,10 @@ module.exports = {
     app: ["{name} — Refroidisseur industriel | Agengda", "Refroidisseur pour {name} : évitez les arrêts dus à la surchauffe. Dimensionnement correct, spécifications et prix usine, livraison dans 25 pays."],
     cases: ["Réalisations de refroidisseurs industriels dans 25 pays | Agengda", "Installations réelles de refroidisseurs Agengda dans des usines d'injection, de soufflage et d'extrusion dans 25 pays."],
     calc: ["Calculateur de chiller pour injection — Dimensionnement gratuit | Agengda", "Calculez la puissance frigorifique nécessaire et recevez la recommandation par WhatsApp."],
-    factory: ["Usine de refroidisseurs — 30-45 unités/mois, OEM/ODM | Agengda", "Notre usine : 30-45 unités par mois, contrôle qualité et export vers 25 pays. Visites et audits bienvenus."],
+    factory: ["Usine de refroidisseurs — 50 unités/mois, OEM/ODM | Agengda", "Notre usine : 50 unités par mois, contrôle qualité et export vers 25 pays. Visites et audits bienvenus."],
     contact: ["Contact — Devis de refroidisseur industriel par WhatsApp | Agengda", "Écrivez-nous sur WhatsApp : devis usine en quelques heures. Assistance dans votre langue."],
     dist: ["Distributeurs et agents de refroidisseurs — Protection de territoire | Agengda", "Programme de distribution : prix usine, protection de territoire, OEM/ODM et MOQ 1 unité. Pour importateurs, distributeurs et agents du plastique."],
-    stats: [["25+", "pays d'exportation"], ["30-45", "unités/mois"], ["1 an", "de garantie*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "pays d'exportation"], ["50", "unités/mois"], ["1 an", "de garantie*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Devenez distributeur Agengda",
       s: "Refroidisseurs industriels direct usine pour distributeurs de machines d’injection, de soufflage, d’extrusion, d’équipements industriels et de machines plastiques.",
@@ -212,10 +212,10 @@ module.exports = {
     app: ["{name} — Endüstriyel Soğutucu | Agengda", "{name} için soğutucu: aşırı ısınmadan kaynaklı duruşları önleyin. Doğru seçim, özellikler ve fabrika fiyatı, 25 ülkeye sevkiyat."],
     cases: ["25 Ülkede Endüstriyel Soğutucu Referansları | Agengda", "25 ülkedeki enjeksiyon, üfleme ve ekstrüzyon tesislerinde gerçek Agengda soğutucu kurulumları."],
     calc: ["Enjeksiyon için Soğutucu Hesaplayıcı — Ücretsiz Seçim | Agengda", "Makinenizin ihtiyacı olan soğutma kapasitesini hesaplayın, öneriyi WhatsApp'tan alın."],
-    factory: ["Soğutucu Fabrikası — Ayda 30-45 Adet, OEM/ODM | Agengda", "Tesisimiz: ayda 30-45 adet üretim, kalite kontrol ve 25 ülkeye ihracat. Fabrika ziyaretlerine açığız."],
+    factory: ["Soğutucu Fabrikası — Ayda 50 Adet, OEM/ODM | Agengda", "Tesisimiz: ayda 50 adet üretim, kalite kontrol ve 25 ülkeye ihracat. Fabrika ziyaretlerine açığız."],
     contact: ["İletişim — WhatsApp'tan Endüstriyel Soğutucu Teklifi | Agengda", "Bize WhatsApp'tan yazın: saatler içinde fabrika teklifi. Kendi dilinizde destek."],
     dist: ["Soğutucu Distribütörleri ve Acenteler — Bölge Koruması | Agengda", "Distribütör programı: fabrika fiyatları, bölge koruması, OEM/ODM ve MOQ 1 adet. Plastik sektöründeki ithalatçı ve acenteler için."],
-    stats: [["25+", "ihracat ülkesi"], ["30-45", "adet/ay"], ["1 yıl", "garanti*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "ihracat ülkesi"], ["50", "adet/ay"], ["1 yıl", "garanti*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Agengda distribütörü olun",
       s: "Enjeksiyon, şişirme, ekstrüzyon, endüstriyel ekipman ve plastik makinesi bayileri için fabrikadan soğutucular.",
@@ -245,10 +245,10 @@ module.exports = {
     app: ["{name} — промышленный чиллер | Agengda", "Чиллер для {name}: избегайте простоев из-за перегрева. Правильный подбор, характеристики и заводская цена, доставка в 25 стран."],
     cases: ["Кейсы промышленных чиллеров в 25 странах | Agengda", "Реальные установки чиллеров Agengda на производствах литья, выдувания и экструзии в 25 странах."],
     calc: ["Калькулятор чиллера для литья — бесплатный подбор | Agengda", "Рассчитайте необходимую холодопроизводительность и получите рекомендацию в WhatsApp."],
-    factory: ["Завод чиллеров — 30-45 единиц в месяц, OEM/ODM | Agengda", "Наше производство: 30-45 единиц в месяц, контроль качества и экспорт в 25 стран. Приглашаем на аудиты."],
+    factory: ["Завод чиллеров — 50 единиц в месяц, OEM/ODM | Agengda", "Наше производство: 50 единиц в месяц, контроль качества и экспорт в 25 стран. Приглашаем на аудиты."],
     contact: ["Контакты — расчёт промышленного чиллера по WhatsApp | Agengda", "Напишите нам в WhatsApp: расчёт от завода за часы, а не дни. Поддержка на вашем языке."],
     dist: ["Дилеры и агенты чиллеров — защита территории | Agengda", "Дилерская программа: заводские цены, защита территории, OEM/ODM, мин. заказ 1 единица. Для импортёров, дистрибьюторов и агентов."],
-    stats: [["25+", "стран экспорта"], ["30-45", "единиц/месяц"], ["1 год", "гарантия*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "стран экспорта"], ["50", "единиц/месяц"], ["1 год", "гарантия*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Станьте дистрибьютором Agengda",
       s: "Промышленные чиллеры напрямую с завода для дилеров станков литья под давлением, выдува, экструзии, промышленного оборудования и пластиковых машин.",
@@ -278,10 +278,10 @@ module.exports = {
     app: ["{name} — مبرد صناعي | Agengda", "مبرد لـ{name}: تجنب توقفات الإنتاج بسبب ارتفاع الحرارة. اختيار صحيح ومواصفات وسعر المصنع مع الشحن إلى 25 دولة."],
     cases: ["حالات تركيب مبردات صناعية في 25 دولة | Agengda", "تركيبات حقيقية لمبردات Agengda في مصالح الحقن والنفخ والبثق في 25 دولة."],
     calc: ["حاسبة المبرد للحقن — اختيار مجاني | Agengda", "احسب قدرة التبريد التي تحتاجها ماكنتك واحصل على التوصية عبر واتساب."],
-    factory: ["مصنع المبردات — 30-45 وحدة شهرياً، OEM/ODM | Agengda", "تعرّف على مصنعنا: 30-45 وحدة شهرياً، ورقابة جودة وتصدير إلى 25 دولة. الزيارات موضع ترحيب."],
+    factory: ["مصنع المبردات — 50 وحدة شهرياً، OEM/ODM | Agengda", "تعرّف على مصنعنا: 50 وحدة شهرياً، ورقابة جودة وتصدير إلى 25 دولة. الزيارات موضع ترحيب."],
     contact: ["اتصل بنا — عرض سعر مبرد صناعي عبر واتساب | Agengda", "راسلنا على واتساب: عروض أسعار المصنع خلال ساعات. دعم بلغتك."],
     dist: ["موزعون ووكلاء المبردات — حماية المنطقة | Agengda", "برنامج التوزيع: أسعار المصنع، حماية المنطقة، OEM/ODM والحد الأدنى 1 وحدة. للمستوردين والموزعين والوكلاء في قطاع البلاستيك."],
-    stats: [["25+", "دولة تصدير"], ["30-45", "وحدة/شهر"], ["سنة", "ضمان*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "دولة تصدير"], ["50", "وحدة/شهر"], ["سنة", "ضمان*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "كن موزع Agengda",
       s: "مبردات صناعية مباشرة من المصنع لوكلاء ماكينات الحقن والنفخ والبثق والمعدات الصناعية وآلات البلاستيك.",
@@ -311,10 +311,10 @@ module.exports = {
     app: ["{name} — Chiller Industri | Agengda", "Chiller untuk {name}: cegah produksi berhenti karena panas. Pemilihan tepat, spesifikasi dan harga pabrik, kirim ke 25 negara."],
     cases: ["Studi Kasus Chiller Industri di 25 Negara | Agengda", "Instalasi nyata chiller Agengda di pabrik injeksi, blow molding dan ekstrusi di 25 negara."],
     calc: ["Kalkulator Chiller Injeksi — Perhitungan Gratis | Agengda", "Hitung kapasitas pendinginan yang dibutuhkan mesin Anda dan dapatkan rekomendasi via WhatsApp."],
-    factory: ["Pabrik Chiller — 30-45 Unit/Bulan, OEM/ODM | Agengda", "Pabrik kami: 30-45 unit per bulan, kontrol kualitas dan ekspor ke 25 negara. Kunjungan dipersilakan."],
+    factory: ["Pabrik Chiller — 50 Unit/Bulan, OEM/ODM | Agengda", "Pabrik kami: 50 unit per bulan, kontrol kualitas dan ekspor ke 25 negara. Kunjungan dipersilakan."],
     contact: ["Kontak — Penawaran Chiller Industri via WhatsApp | Agengda", "Hubungi kami via WhatsApp: penawaran pabrik dalam hitungan jam. Dukungan dalam bahasa Anda."],
     dist: ["Distributor & Agen Chiller — Perlindungan Wilayah | Agengda", "Program distributor: harga pabrik, perlindungan wilayah, OEM/ODM dan MOQ 1 unit. Untuk importir, distributor dan agen industri plastik."],
-    stats: [["25+", "negara ekspor"], ["30-45", "unit/bulan"], ["1 tahun", "garansi*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "negara ekspor"], ["50", "unit/bulan"], ["1 tahun", "garansi*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Jadi distributor Agengda",
       s: "Chiller industri langsung pabrik untuk agen mesin injeksi, blow molding, ekstrusi, peralatan industri, dan mesin plastik.",
@@ -344,10 +344,10 @@ module.exports = {
     app: ["{name} — Máy làm lạnh công nghiệp | Agengda", "Máy làm lạnh cho {name}: tránh dừng máy do quá nhiệt. Chọn đúng công suất, thông số và giá nhà máy, giao đến 25 quốc gia."],
     cases: ["Dự án máy làm lạnh công nghiệp tại 25 quốc gia | Agengda", "Các công trình lắp đặt thực tế của Agengda tại xưởng ép phun, thổi và đùn ở 25 quốc gia."],
     calc: ["Máy tính chọn máy làm lạnh ép phun — Miễn phí | Agengda", "Tính công suất làm lạnh cần thiết và nhận đề xuất qua WhatsApp."],
-    factory: ["Nhà máy làm lạnh — 30-45 máy/tháng, OEM/ODM | Agengda", "Nhà máy chúng tôi: 30-45 máy mỗi tháng, kiểm soát chất lượng và xuất khẩu sang 25 quốc gia. Hoan nghênh kiểm định."],
+    factory: ["Nhà máy làm lạnh — 50 máy/tháng, OEM/ODM | Agengda", "Nhà máy chúng tôi: 50 máy mỗi tháng, kiểm soát chất lượng và xuất khẩu sang 25 quốc gia. Hoan nghênh kiểm định."],
     contact: ["Liên hệ — Báo giá máy làm lạnh qua WhatsApp | Agengda", "Nhắn tin WhatsApp cho chúng tôi: báo giá nhà máy trong vài giờ. Hỗ trợ bằng ngôn ngữ của bạn."],
     dist: ["Nhà phân phối & đại lý máy làm lạnh — Bảo vệ khu vực | Agengda", "Chương trình phân phối: giá nhà máy, bảo vệ khu vực, OEM/ODM và MOQ 1 máy. Dành cho nhà nhập khẩu, nhà phân phối và đại lý ngành nhựa."],
-    stats: [["25+", "quốc gia xuất khẩu"], ["30-45", "máy/tháng"], ["1 năm", "bảo hành*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "quốc gia xuất khẩu"], ["50", "máy/tháng"], ["1 năm", "bảo hành*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "Trở thành đại lý Agengda",
       s: "Máy làm lạnh công nghiệp xuất xưởng trực tiếp cho đại lý máy ép phun, thổi, đùn, thiết bị công nghiệp và máy nhựa.",
@@ -377,10 +377,10 @@ module.exports = {
     app: ["{name} — เครื่องทำความเย็นอุตสาหกรรม | Agengda", "เครื่องทำความเย็นสำหรับ{name}: ป้องกันการหยุดผลิตจากความร้อนสูง เลือกขนาดถูกต้อง ราคาโรงงาน ส่งถึง 25 ประเทศ"],
     cases: ["กรณีศึกษาเครื่องทำความเย็นใน 25 ประเทศ | Agengda", "การติดตั้งจริงของ Agengda ในโรงงานฉีด เป่า และอัดขึ้นรูปทั่ว 25 ประเทศ"],
     calc: ["เครื่องคำนวณเครื่องทำความเย็นสำหรับฉีดขึ้นรูป — ฟรี | Agengda", "คำนวณความสามารถทำความเย็นที่ต้องการ และรับคำแนะนำทาง WhatsApp"],
-    factory: ["โรงงานเครื่องทำความเย็น — 30-45 เครื่อง/เดือน OEM/ODM | Agengda", "โรงงานของเรา: ผลิต 30-45 เครื่อง/เดือน ควบคุมคุณภาพ ส่งออก 25 ประเทศ ยินดีต้อนรับเยี่ยมชม"],
+    factory: ["โรงงานเครื่องทำความเย็น — 50 เครื่อง/เดือน OEM/ODM | Agengda", "โรงงานของเรา: ผลิต 50 เครื่อง/เดือน ควบคุมคุณภาพ ส่งออก 25 ประเทศ ยินดีต้อนรับเยี่ยมชม"],
     contact: ["ติดต่อเรา — ขอใบเสนอราคาทาง WhatsApp | Agengda", "ทักหาเราทาง WhatsApp: ใบเสนอราคาจากโรงงานภายในไม่กี่ชั่วโมง บริการเป็นภาษาของคุณ"],
     dist: ["ตัวแทนจำหน่ายเครื่องทำความเย็น — คุ้มครองเขตพื้นที่ | Agengda", "โปรแกรมตัวแทน: ราคาโรงงาน คุ้มครองเขตพื้นที่ OEM/ODM สั่งขั้นต่ำ 1 เครื่อง สำหรับผู้นำเข้า ผู้จัดจำหน่าย และตัวแทน"],
-    stats: [["25+", "ประเทศที่ส่งออก"], ["30-45", "เครื่อง/เดือน"], ["1 ปี", "รับประกัน*"], ["MOQ 1", "OEM/ODM"]],
+    stats: [["25+", "ประเทศที่ส่งออก"], ["50", "เครื่อง/เดือน"], ["1 ปี", "รับประกัน*"], ["MOQ 1", "OEM/ODM"]],
     distPage: {
       h: "เป็นตัวแทน Agengda",
       s: "เครื่องทำน้ำเย็นอุตสาหกรรมจากโรงงานสำหรับตัวแทนเครื่องฉีดพลาสติก เป่าขวด อัดรีด อุตสาหกรรม และเครื่องจักรพลาสติก",
