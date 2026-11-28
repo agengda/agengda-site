@@ -539,10 +539,20 @@ function serveStatic(req, res, urlPath) {
 const server = http.createServer(async (req, res) => {
   const url = req.url || "/";
 
-  if (url === "/api/health") return send(res, 200, JSON.stringify({ ok: true, leads: readLeads().length }));
+  if (url.startsWith("/api/health")) return send(res, 200, JSON.stringify({ ok: true, leads: readLeads().length, notify: notifySummary() }));
 
   const pathname = url.split("?")[0];
   const Q = new URLSearchParams(url.split("?")[1] || "");
+
+  if (url.startsWith("/api/notify-status")) {
+    if (!authed(req, Q)) return send(res, 401, "Unauthorized", "text/plain; charset=utf-8");
+    if (Q.get("selfcheck") === "1") {
+      const results = await notifySend("[自检] 询盘通知通道测试", "这是一条通道自检消息，非真实询盘。", null, true);
+      return send(res, 200, JSON.stringify({ ok: true, results: results, summary: notifySummary() }));
+    }
+    return send(res, 200, JSON.stringify(notifySummary(true)));
+  }
+
 
   // Lets public pages decide whether to show inline image tools. Uses the same
   // token cookie set by /admin?token=... (7 days), so no token is exposed in JS.
@@ -751,26 +761,24 @@ const server = http.createServer(async (req, res) => {
       fs.appendFileSync(LEADS, JSON.stringify(row) + "\n", "utf8");
       fs.writeFileSync(CSV, toCsv(readLeads()), "utf8");
       console.log(`lead  ${row.ts}  ${row.name || "-"}  ${row.country || "-"}  ${row.model || "-"}`);
-      // 服务端推送（不依赖访客浏览器）：表单到后端即由服务器推微信，必到
+      // 通知：方糖(免费版 5 条/天) + 可选备用通道；每次结果落盘可查，失败绝不静默
       try {
-        const sKey = process.env.SERVERJIANG || "SCT449072TH4I7bOrX48bA7WeEDWGIe5uK";
-        if (sKey) {
-          const title = "新询盘 · agengda工业冷水机";
-          const desp = [
-            row.name && ("姓名: " + row.name),
-            row.company && ("公司: " + row.company),
-            row.country && ("国家: " + row.country),
-            row.phone && ("电话: " + row.phone),
-            row.model && ("机型: " + row.model),
-            row.qty && ("数量: " + row.qty),
-            row.temp && ("温度: " + row.temp),
-            row.delivery && ("交期: " + row.delivery),
-            (row.source || row.medium || row.campaign) && ("来源: " + [row.source, row.medium, row.campaign].filter(Boolean).join(" / ")),
-            row.msg && ("留言: " + row.msg)
-          ].filter(Boolean).join("\n");
-          const purl = "https://sctapi.ftqq.com/" + encodeURIComponent(sKey) + ".send?title=" + encodeURIComponent(title) + "&desp=" + encodeURIComponent(desp);
-          https.get(purl, (r) => { r.resume(); }).on("error", (e) => console.warn("[lead notify] failed:", e.message));
-        }
+        const title = "新询盘 · agengda工业冷水机";
+        const desp = [
+          row.ts && ("提交时间: " + row.ts),
+          row.page && ("来源页: " + row.page + " (" + (row.lang || "") + ")"),
+          row.name && ("姓名: " + row.name),
+          row.company && ("公司: " + row.company),
+          row.country && ("国家: " + row.country),
+          row.phone && ("电话: " + row.phone),
+          row.model && ("机型: " + row.model),
+          row.qty && ("数量: " + row.qty),
+          row.temp && ("温度: " + row.temp),
+          row.delivery && ("交期: " + row.delivery),
+          (row.source || row.medium || row.campaign) && ("来源: " + [row.source, row.medium, row.campaign].filter(Boolean).join(" / ")),
+          row.msg && ("留言: " + row.msg)
+        ].filter(Boolean).join("\n");
+        notifySend(title, desp, row).catch(function (e) { console.warn("[lead notify] error:", e.message); });
       } catch (e) { console.warn("[lead notify] error:", e.message); }
       // 云端持久化：把本条询盘写入 WorkBuddy 云库（重部署/磁盘重置都不丢）。
       // 切勿加 .select() / Prefer:return=representation —— 匿名角色无 SELECT 权限，回读会让整条插入失败。
@@ -986,3 +994,109 @@ server.listen(PORT, "0.0.0.0", () => {
   // Listen first, then (re)build the static pages if the sandbox shipped without dist/.
   ensureDist();
 });
+
+
+// ===== Inquiry notification helpers (2026-11-28) =====
+// 方糖免费版每天仅 5 条：所有发送结果落盘，失败不再静默；可配置不限量备用通道。
+const NOTIFY_LOG = require("path").join(__dirname, "data", "notify-log.jsonl");
+function notifyWrite(rec) {
+  try {
+    fs.appendFileSync(NOTIFY_LOG, JSON.stringify(Object.assign({ ts: new Date().toISOString() }, rec)) + "\n", "utf8");
+  } catch (e) { console.warn("[notify log] failed:", e.message); }
+}
+function notifyRows() {
+  try {
+    const txt = fs.existsSync(NOTIFY_LOG) ? fs.readFileSync(NOTIFY_LOG, "utf8") : "";
+    return txt.trim().split("\n").filter(Boolean).map(function (l) {
+      try { return JSON.parse(l); } catch (e) { return null; }
+    }).filter(Boolean);
+  } catch (e) { return []; }
+}
+function notifySummary(withLog) {
+  const rows = notifyRows();
+  const today = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+  const t = rows.filter(function (r) {
+    return new Date(new Date(r.ts || 0).getTime() + 8 * 3600 * 1000).toISOString().slice(0, 10) === today;
+  });
+  const out = {
+    channel: "serverjiang",
+    today: {
+      attempts: t.length,
+      ok: t.filter(function (r) { return r.status === "ok"; }).length,
+      failed: t.filter(function (r) { return r.status === "failed"; }).length,
+      merged: t.filter(function (r) { return r.status === "merged"; }).length
+    },
+    last: rows[rows.length - 1] || null,
+    backup: { pushplus: !!process.env.PUSHPLUS_TOKEN, wecom: !!process.env.WECOM_WEBHOOK }
+  };
+  if (withLog) out.recent = rows.slice(-20);
+  return out;
+}
+function notifyHttp(fullUrl, method, headers, body) {
+  return new Promise(function (resolve) {
+    try {
+      const u = new URL(fullUrl);
+      const lib = u.protocol === "http:" ? require("http") : https;
+      const opts = {
+        hostname: u.hostname,
+        port: u.port || (u.protocol === "http:" ? 80 : 443),
+        path: u.pathname + u.search,
+        method: method || "GET",
+        headers: headers || {},
+        timeout: 10000
+      };
+      const r = lib.request(opts, function (res) {
+        let buf = ""; res.setEncoding("utf8");
+        res.on("data", function (c) { if (buf.length < 2000) buf += c; });
+        res.on("end", function () { resolve({ http: res.statusCode, body: buf }); });
+      });
+      r.setTimeout(10000, function () { r.destroy(); resolve({ http: 0, body: "timeout(10s)" }); });
+      r.on("error", function (e) { resolve({ http: 0, body: e.message }); });
+      if (body) r.write(body);
+      r.end();
+    } catch (e) { resolve({ http: 0, body: e.message }); }
+  });
+}
+async function notifySend(title, desp, row, selfcheck) {
+  const results = [];
+  const phone = row && row.phone ? row.phone : "";
+  const sKey = process.env.SERVERJIANG || "SCT449072TH4I7bOrX48bA7WeEDWGIe5uK";
+  // 同一号码 5 分钟内重复提交：主通道合并，避免测试/误触吃掉每日额度（询盘数据仍完整落库）
+  let merged = false;
+  if (!selfcheck && phone) {
+    const cutoff = Date.now() - 300000;
+    merged = notifyRows().some(function (r) {
+      return r.status === "ok" && r.channel === "serverjiang" && r.phone === phone && Date.parse(r.ts) > cutoff;
+    });
+  }
+  if (sKey && !merged) {
+    const q = "https://sctapi.ftqq.com/" + encodeURIComponent(sKey) + ".send?title=" + encodeURIComponent(title) + "&desp=" + encodeURIComponent(desp);
+    const r = await notifyHttp(q, "GET", {}, null);
+    let code = -1, msg = r.body.slice(0, 160);
+    try { const j = JSON.parse(r.body); code = j.code; msg = j.message || j.info || msg; } catch (e) {}
+    const ok = r.http === 200 && code === 0;
+    notifyWrite({ channel: "serverjiang", status: ok ? "ok" : "failed", http: r.http, code: code, message: String(msg).slice(0, 160), phone: phone, title: title });
+    results.push({ channel: "serverjiang", ok: ok, http: r.http, code: code, message: String(msg).slice(0, 160) });
+  } else if (merged) {
+    notifyWrite({ channel: "serverjiang", status: "merged", phone: phone, message: "duplicate within 5min, primary channel skipped" });
+    results.push({ channel: "serverjiang", ok: false, merged: true });
+  }
+  // 备用通道：配置环境变量后生效，不受 5 条/天限制
+  if (process.env.PUSHPLUS_TOKEN) {
+    const b = JSON.stringify({ token: process.env.PUSHPLUS_TOKEN, title: title, content: desp, template: "txt" });
+    const r = await notifyHttp("https://www.pushplus.plus/send", "POST",
+      { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(b) }, b);
+    const ok = r.http === 200 && /"code":200/.test(r.body);
+    notifyWrite({ channel: "pushplus", status: ok ? "ok" : "failed", http: r.http, message: r.body.slice(0, 160), phone: phone });
+    results.push({ channel: "pushplus", ok: ok, http: r.http, message: r.body.slice(0, 160) });
+  }
+  if (process.env.WECOM_WEBHOOK) {
+    const b = JSON.stringify({ msgtype: "text", text: { content: title + "\n" + desp } });
+    const r = await notifyHttp(process.env.WECOM_WEBHOOK, "POST",
+      { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(b) }, b);
+    const ok = r.http === 200 && /"errcode":0/.test(r.body);
+    notifyWrite({ channel: "wecom", status: ok ? "ok" : "failed", http: r.http, message: r.body.slice(0, 160), phone: phone });
+    results.push({ channel: "wecom", ok: ok, http: r.http, message: r.body.slice(0, 160) });
+  }
+  return results;
+}
