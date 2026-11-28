@@ -547,7 +547,7 @@ const server = http.createServer(async (req, res) => {
   if (url.startsWith("/api/notify-status")) {
     if (!authed(req, Q)) return send(res, 401, "Unauthorized", "text/plain; charset=utf-8");
     if (Q.get("selfcheck") === "1") {
-      const results = await notifySend("[自检] 询盘通知通道测试", "这是一条通道自检消息，非真实询盘。", null, true);
+      const results = await notifySend("[自检] 阿庚达询盘 · 通知通道测试", "这是一条通道自检消息，非真实询盘。", null, true);
       return send(res, 200, JSON.stringify({ ok: true, results: results, summary: notifySummary() }));
     }
     return send(res, 200, JSON.stringify(notifySummary(true)));
@@ -763,7 +763,7 @@ const server = http.createServer(async (req, res) => {
       console.log(`lead  ${row.ts}  ${row.name || "-"}  ${row.country || "-"}  ${row.model || "-"}`);
       // 通知：方糖(免费版 5 条/天) + 可选备用通道；每次结果落盘可查，失败绝不静默
       try {
-        const title = "新询盘 · agengda工业冷水机";
+        const title = "【阿庚达询盘】新询盘 · agengda工业冷水机";
         const desp = [
           row.ts && ("提交时间: " + row.ts),
           row.page && ("来源页: " + row.page + " (" + (row.lang || "") + ")"),
