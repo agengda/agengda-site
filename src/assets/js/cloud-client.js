@@ -317,6 +317,9 @@
         n.style.display = "";
         var url = safeImgUrl(val);
         if (!url) continue;
+        // Editor override must win over the responsive srcset shipped to visitors.
+        n.removeAttribute("srcset");
+        n.removeAttribute("sizes");
         if (n.hasAttribute("data-img-poster")) {
           if (n.getAttribute("poster") !== url) n.setAttribute("poster", url);
         } else {

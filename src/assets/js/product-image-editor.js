@@ -288,6 +288,10 @@
       }
     }
     if (!allowed) return; // 普通访客完全看不到任何编辑入口
+    // Visitor pages ship responsive srcset; editor writes img.src directly.
+    document.querySelectorAll("img[data-img-key]").forEach(function (im) {
+      im.removeAttribute("srcset"); im.removeAttribute("sizes");
+    });
     // 先等前台把云端最新图集渲染进 DOM，再挂编辑按钮；否则按钮会挂在
     // 旧的默认图块上，且随后被 hydrateImages 重建的 DOM 冲掉。
     if (app.hydrateImages) {

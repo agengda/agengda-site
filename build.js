@@ -33,6 +33,14 @@ const ASSET_V = (() => {
     return crypto.createHash("md5").update(SITE_CSS).digest("hex").slice(0, 8);
   } catch (e) { return "1"; }
 })();
+// Performance: inline the small stylesheet so no render-blocking CSS request
+// remains (Lighthouse FCP/LCP). WebP variants + intrinsic sizes come from
+// build-images.js -> data/img-dims.json.
+const INLINE_CSS = String(SITE_CSS).replace(/<\/style/gi, "<\\/style");
+const IMG_DIMS = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(__dirname, "data", "img-dims.json"), "utf8")); }
+  catch (e) { console.warn("data/img-dims.json ignored:", e.message); return {}; }
+})();
 
 // ---------- Editable spec overrides ----------
 // Values saved from the browser editor (/admin) are stored in data/catalog.json
@@ -307,6 +315,7 @@ function footer(t, code, showForm) {
   <div class="container">
     <div class="copy">${t.footer_copy}</div>
     <div class="tag">${t.footer_made}</div>
+    <div style="margin-top:8px;font-size:13px;color:#9db8d6">${t.footer_original || ""}</div>
   </div>
   <div class="container" style="padding-top:14px;color:var(--c-muted);font-size:13px;line-height:1.7;text-align:center">
     <div><strong>${COMPANY_NAME}</strong></div>
@@ -518,7 +527,7 @@ ${hreflang(file)}
 <meta name="twitter:title" content="${title}" />
 <meta name="twitter:description" content="${desc}" />
 <meta name="twitter:image" content="${OG_IMAGE}" />
-<link rel="stylesheet" href="../assets/css/style.css?v=${ASSET_V}" />
+<style>${INLINE_CSS}</style>
 ${(ld || []).map(ldScript).join("\n")}
 ${analytics()}
 </head>
@@ -563,10 +572,32 @@ function appCard(a, aT) {
     </a>`;
 }
 
+// Responsive image helper: intrinsic width/height prevents layout shift, and a
+// WebP srcset lets phones download a much smaller file. The JPEG src stays as
+// the fallback and as the editor's write target (editor strips srcset first).
+function imgTag(name, alt, opts) {
+  opts = opts || {};
+  const d = IMG_DIMS[name];
+  const key = opts.key || name.replace(/\.[^.]+$/, "");
+  const dims = d ? ' width="' + d.w + '" height="' + d.h + '"' : "";
+  const vars = (d && d.variants) ? d.variants : [];
+  const srcset = vars.length
+    ? ' srcset="' + vars.map(v => '../assets/img/' + v.file + ' ' + v.w + 'w').join(', ') + '"' +
+      ' sizes="' + (opts.sizes || '(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 760px') + '"'
+    : "";
+  return '<img src="../assets/img/' + name + '" alt="' + alt + '"' + dims + srcset +
+    (opts.eager ? ' fetchpriority="high" loading="eager"' : ' loading="lazy"') +
+    ' decoding="async" data-img-key="' + key + '" />';
+}
+function posterOf(name) {
+  const d = IMG_DIMS[name];
+  if (d && d.variants && d.variants.length) return '../assets/img/' + d.variants[0].file;
+  return '../assets/img/' + name;
+}
 // Real factory product photos. Images are full-unit shots; keep the whole
 // machine visible (object-fit: contain, no cropping) per the site image rule.
 const prodImg = (name, alt) => hasImg(name)
-  ? `<div class="prod-shot"><img src="../assets/img/${name}" alt="${alt}" loading="lazy" data-img-key="${name.replace(/\.[^.]+$/, "")}" /></div>`
+  ? `<div class="prod-shot">${imgTag(name, alt)}</div>`
   : "";
 
 function seriesCard(s, d, t) {
@@ -574,7 +605,7 @@ function seriesCard(s, d, t) {
   const cover = (x.imgs && x.imgs[0]) || "";
   const cap = (x.imgCaps && x.imgCaps[0]) || x.name;
   return `<a class="card series-card" href="./${s.slug}.html">
-      ${cover && hasImg(cover) ? `<div class="series-cover"><img src="../assets/img/${cover}" alt="${cap}" loading="lazy" data-img-key="${cover.replace(/\.[^\.]+$/, "")}" /></div>` : ""}
+      ${cover && hasImg(cover) ? `<div class="series-cover">${imgTag(cover, cap, { sizes: "(max-width: 600px) 92vw, (max-width: 1000px) 46vw, 420px" })}</div>` : ""}
       <h3>${x.name}</h3>
       <p>${x.intro}</p>
       <ul class="feat-list">${x.f.map((f) => `<li>${f}</li>`).join("")}</ul>
@@ -666,10 +697,10 @@ function evidence(d, lang) {
     if (vmp4 || vwebm) {
       const srcs = (vmp4 ? `<source src="../assets/img/${vmp4}" type="video/mp4" />` : "")
         + (vwebm ? `<source src="../assets/img/${vwebm}" type="video/webm" />` : "");
-      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video controls playsinline loop${poster ? ` poster="../assets/img/${poster}" data-img-key="ev-${x.key}" data-img-poster` : ""} preload="none">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
+      return `<figure class="ev-tile ev-video" data-ev-key="${x.key}"><video controls playsinline loop${poster ? ` poster="${posterOf(poster)}" data-img-key="ev-${x.key}" data-img-poster` : ""} preload="none">${srcs}</video><figcaption>${x.label}</figcaption></figure>`;
     }
     return hasImg(x.img)
-      ? `<figure class="ev-tile" data-ev-key="${x.key}"><img src="../assets/img/${x.img}" alt="${x.label}" loading="lazy" data-img-key="ev-${x.key}" /><figcaption>${x.label}</figcaption></figure>`
+      ? `<figure class="ev-tile" data-ev-key="${x.key}">${imgTag(x.img, x.label, { key: "ev-" + x.key, sizes: "(max-width: 600px) 92vw, 420px" })}<figcaption>${x.label}</figcaption></figure>`
       : `<figure class="ev-tile ev-icon" data-ev-key="${x.key}"><div class="ev-ic">${x.icon}</div><figcaption>${x.label}</figcaption></figure>`;
   }).join("\n    ");
   // Factory video. By default served from local assets (uploaded via /admin as
@@ -690,7 +721,7 @@ function evidence(d, lang) {
   const videoBlock = `
   <div class="factory-video-wrap" data-factory-video style="margin-top:26px">
     <div class="section-head"><h2>${d.ui.ev_title || "Factory"} · Video</h2></div>
-    <video controls preload="none" playsinline poster="../assets/img/factory-video-poster.jpg" data-img-key="factory-video-poster" data-img-poster style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
+    <video controls preload="none" playsinline poster="${posterOf("factory-video-poster.jpg")}" data-img-key="factory-video-poster" data-img-poster style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#000;aspect-ratio:16/9"
       onerror="var w=this.closest('[data-factory-video]');if(w)w.style.display='none'">
 ${fvSources}
     </video>
@@ -1411,7 +1442,7 @@ function build() {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${BRAND} — Choose your language</title>
-<link rel="stylesheet" href="./assets/css/style.css?v=${ASSET_V}" />
+<style>${INLINE_CSS}</style>
 ${analytics()}
 </head>
 <body>

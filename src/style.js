@@ -103,8 +103,8 @@ section { padding: 64px 0; }
 .wa-card .wa-btn:hover { background: #1ebe5b; text-decoration: none; }
 form .field { margin-bottom: 16px; }
 form label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-form input, form textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--c-border); border-radius: 8px; font-size: 15px; font-family: inherit; color: var(--c-text); }
-form input:focus, form textarea:focus { outline: none; border-color: var(--c-primary); box-shadow: 0 0 0 3px var(--c-bg-3); }
+form input, form textarea, form select { width: 100%; padding: 12px 14px; border: 1px solid var(--c-border); border-radius: 8px; font-size: 15px; font-family: inherit; color: var(--c-text); background: #fff; min-height: 46px; box-sizing: border-box; }
+form input:focus, form textarea:focus, form select:focus { outline: none; border-color: var(--c-primary); box-shadow: 0 0 0 3px var(--c-bg-3); }
 .note { color: var(--c-muted); font-size: 14px; margin-top: 14px; }
 .wa-link { display:inline-flex; align-items:center; gap:6px; background:#25d366; color:#fff !important; padding:7px 15px; border-radius:8px; font-weight:700; margin-inline-start:8px; text-decoration:none; white-space:nowrap; }
 .wa-link:hover { background:#1ebe5b; text-decoration:none; }
@@ -114,6 +114,12 @@ form input:focus, form textarea:focus { outline: none; border-color: var(--c-pri
 .site-footer a { color: #cfe0f2; }
 .site-footer .copy { font-size: 14px; }
 .site-footer .tag { font-size: 13px; color: #9db8d6; }
+/* Inquiry form in the footer (dark background): white card, light headings. */
+.site-footer .footer-inquiry { display: block; max-width: 760px; margin: 0 auto 28px; text-align: center; }
+.site-footer .footer-inquiry h2 { color: #fff; font-size: 24px; margin: 0 0 8px; }
+.site-footer .footer-inquiry > p { color: #cfe0f2; font-size: 15px; margin: 0 0 22px; }
+.site-footer .footer-inquiry .lead-form { text-align: start; }
+.site-footer .footer-inquiry .btn-outline { color: var(--c-primary) !important; border-color: var(--c-primary); }
 
 .wa-float { position: fixed; right: 22px; bottom: 22px; z-index: 60; background: #25d366; color: #fff; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45); font-size: 30px; }
 .wa-float:hover { background: #1ebe5b; text-decoration: none; }
@@ -171,6 +177,12 @@ form input:focus, form textarea:focus { outline: none; border-color: var(--c-pri
   .nav-links a { padding: 14px 2px; border-bottom: 1px solid var(--c-border); font-size: 16px; }
   .nav-links a:last-child { border-bottom: 0; }
   body.nav-open { overflow: hidden; }
+
+  /* Mobile-friendly tap targets: at least 44px tall on touch screens */
+  .lang-select > button { min-height: 44px; padding: 10px 12px; }
+  .lang-menu a { min-height: 44px; }
+  .brand { min-height: 44px; }
+  .wa-link { padding: 11px 16px; min-height: 44px; }
 }
 
 [dir="rtl"] body { direction: rtl; text-align: right; }
