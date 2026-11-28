@@ -999,6 +999,7 @@ server.listen(PORT, "0.0.0.0", () => {
 // ===== Inquiry notification helpers (2026-11-28) =====
 // 方糖免费版每天仅 5 条：所有发送结果落盘，失败不再静默；可配置不限量备用通道。
 const NOTIFY_LOG = require("path").join(__dirname, "data", "notify-log.jsonl");
+const WECOM_HOOK = process.env.WECOM_WEBHOOK || "";
 function notifyWrite(rec) {
   try {
     fs.appendFileSync(NOTIFY_LOG, JSON.stringify(Object.assign({ ts: new Date().toISOString() }, rec)) + "\n", "utf8");
@@ -1027,7 +1028,7 @@ function notifySummary(withLog) {
       merged: t.filter(function (r) { return r.status === "merged"; }).length
     },
     last: rows[rows.length - 1] || null,
-    backup: { pushplus: !!process.env.PUSHPLUS_TOKEN, wecom: !!process.env.WECOM_WEBHOOK }
+    backup: { pushplus: !!process.env.PUSHPLUS_TOKEN, wecom: !!WECOM_HOOK }
   };
   if (withLog) out.recent = rows.slice(-20);
   return out;
@@ -1090,9 +1091,12 @@ async function notifySend(title, desp, row, selfcheck) {
     notifyWrite({ channel: "pushplus", status: ok ? "ok" : "failed", http: r.http, message: r.body.slice(0, 160), phone: phone });
     results.push({ channel: "pushplus", ok: ok, http: r.http, message: r.body.slice(0, 160) });
   }
-  if (process.env.WECOM_WEBHOOK) {
-    const b = JSON.stringify({ msgtype: "text", text: { content: title + "\n" + desp } });
-    const r = await notifyHttp(process.env.WECOM_WEBHOOK, "POST",
+  if (WECOM_HOOK) {
+    // 企业微信 text.content 上限 2048 字节(UTF-8)，中文约 3 字节/字；超长会整条失败，先按字节截断
+    let content = title + "\n" + desp;
+    while (Buffer.byteLength(content, "utf8") > 1900) content = content.slice(0, -20);
+    const b = JSON.stringify({ msgtype: "text", text: { content: content } });
+    const r = await notifyHttp(WECOM_HOOK, "POST",
       { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(b) }, b);
     const ok = r.http === 200 && /"errcode":0/.test(r.body);
     notifyWrite({ channel: "wecom", status: ok ? "ok" : "failed", http: r.http, message: r.body.slice(0, 160), phone: phone });
