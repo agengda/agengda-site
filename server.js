@@ -1000,6 +1000,7 @@ server.listen(PORT, "0.0.0.0", () => {
 // 方糖免费版每天仅 5 条：所有发送结果落盘，失败不再静默；可配置不限量备用通道。
 const NOTIFY_LOG = require("path").join(__dirname, "data", "notify-log.jsonl");
 const WECOM_HOOK = process.env.WECOM_WEBHOOK || "";
+const PUSHPLUS_DEFAULT = "fdb8dbdbcc2f4a5ca5eac097567f5cda";
 function notifyWrite(rec) {
   try {
     fs.appendFileSync(NOTIFY_LOG, JSON.stringify(Object.assign({ ts: new Date().toISOString() }, rec)) + "\n", "utf8");
@@ -1028,7 +1029,7 @@ function notifySummary(withLog) {
       merged: t.filter(function (r) { return r.status === "merged"; }).length
     },
     last: rows[rows.length - 1] || null,
-    backup: { pushplus: !!process.env.PUSHPLUS_TOKEN, wecom: !!WECOM_HOOK }
+    backup: { pushplus: !!PUSHPLUS_DEFAULT, wecom: !!WECOM_HOOK }
   };
   if (withLog) out.recent = rows.slice(-20);
   return out;
@@ -1083,8 +1084,8 @@ async function notifySend(title, desp, row, selfcheck) {
     results.push({ channel: "serverjiang", ok: false, merged: true });
   }
   // 备用通道：配置环境变量后生效，不受 5 条/天限制
-  if (process.env.PUSHPLUS_TOKEN) {
-    const b = JSON.stringify({ token: process.env.PUSHPLUS_TOKEN, title: title, content: desp, template: "txt" });
+  if (PUSHPLUS_DEFAULT) {
+    const b = JSON.stringify({ token: PUSHPLUS_DEFAULT, title: title, content: desp, template: "txt" });
     const r = await notifyHttp("https://www.pushplus.plus/send", "POST",
       { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(b) }, b);
     const ok = r.http === 200 && /"code":200/.test(r.body);
